@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oferta Exclusiva | LordVigor 10 Frascos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fff; color: #333; }
+
+    .countdown-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #cc0000; color: #fff; text-align: center; padding: 10px 15px; font-size: 14px; font-weight: 700; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+    .countdown-bar .timer { font-size: 22px; font-weight: 900; margin: 0 8px; letter-spacing: 2px; }
+    .countdown-bar .scarcity { display: block; font-size: 12px; font-weight: 500; margin-top: 3px; color: #ffcccc; }
+
+    .header { background: #cc0000; padding: 14px 20px; text-align: center; margin-top: 65px; }
+    .header h1 { color: #fff; font-size: 18px; font-weight: 800; letter-spacing: 2px; }
+
+    .hero { background: #1a3a5c; padding: 50px 20px; text-align: center; }
+    .hero .offer-badge { display: inline-block; background: #cc0000; color: #fff; font-size: 14px; font-weight: 800; padding: 8px 20px; border-radius: 30px; margin-bottom: 20px; }
+    .hero h2 { color: #fff; font-size: 26px; font-weight: 800; line-height: 1.3; max-width: 700px; margin: 0 auto 20px; }
+    .hero p { color: #ccc; font-size: 16px; line-height: 1.7; max-width: 600px; margin: 0 auto 10px; }
+    .hero .btn-cta { display: inline-block; background: #f4d03f; color: #1a3a5c; font-size: 18px; font-weight: 800; padding: 18px 40px; border-radius: 8px; text-decoration: none; text-transform: uppercase; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(244,208,63,0.4); }
+    .hero .btn-cta:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(244,208,63,0.6); }
+
+    .benefits { background: #f5f5f5; padding: 50px 20px; }
+    .benefits h2 { text-align: center; font-size: 24px; font-weight: 800; color: #1a3a5c; margin-bottom: 30px; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 700px; margin: 0 auto; }
+    .benefit-card { background: #fff; border-radius: 12px; padding: 25px 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .benefit-card .icon { font-size: 36px; margin-bottom: 12px; }
+    .benefit-card h3 { font-size: 16px; font-weight: 700; color: #1a3a5c; margin-bottom: 8px; }
+    .benefit-card p { font-size: 13px; color: #666; line-height: 1.5; }
+
+    .video-section { background: #1a3a5c; padding: 50px 20px; text-align: center; }
+    .video-section h2 { color: #fff; font-size: 24px; font-weight: 800; margin-bottom: 30px; }
+    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 700px; margin: 0 auto; }
+    .video-grid video { width: 100%; border-radius: 12px; background: #000; }
+
+    .whatsapp-testimonial { background: #fff; padding: 40px 20px; text-align: center; }
+    .whatsapp-testimonial img { max-width: 400px; width: 100%; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+
+    .pricing { background: #1a3a5c; padding: 50px 20px; }
+    .pricing h2 { text-align: center; color: #fff; font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+    .pricing .scarcity-banner { text-align: center; color: #ffcccc; font-size: 14px; font-weight: 600; margin-bottom: 25px; }
+    .pricing .scarcity-banner span { color: #f4d03f; font-weight: 800; }
+    .pricing-grid { display: flex; justify-content: center; max-width: 400px; margin: 0 auto; }
+    .price-card { background: #fff; border-radius: 16px; padding: 30px 25px; text-align: center; width: 100%; max-width: 350px; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 3px solid #f4d03f; }
+    .price-card .badge-vendido { background: #cc0000; color: #fff; font-size: 12px; font-weight: 700; padding: 5px 15px; border-radius: 20px; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+    .price-card .badge-off { background: #f4d03f; color: #1a3a5c; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 15px; position: absolute; top: -12px; right: 15px; }
+    .price-card h3 { font-size: 22px; font-weight: 800; color: #1a3a5c; margin-bottom: 5px; }
+    .price-card .subtitle { font-size: 13px; color: #888; margin-bottom: 15px; }
+    .price-card .product-img img { max-width: 180px; height: auto; margin-bottom: 15px; }
+    .price-card .old-price { font-size: 16px; color: #999; text-decoration: line-through; margin-bottom: 3px; }
+    .price-card .installments { font-size: 14px; color: #666; margin-bottom: 5px; }
+    .price-card .price-value { font-size: 32px; font-weight: 900; color: #cc0000; }
+    .price-card .price-value .currency { font-size: 18px; vertical-align: top; }
+    .price-card .total { font-size: 13px; color: #888; margin: 8px 0; }
+    .price-card .btn-group { display: flex; flex-direction: column; gap: 8px; margin: 15px 0; }
+    .price-card .btn-buy { display: block; padding: 16px 10px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 700; text-align: center; transition: transform 0.2s; }
+    .price-card .btn-cartao { background: #f4d03f; color: #1a3a5c; }
+    .price-card .btn-pix { background: #2ecc71; color: #fff; }
+    .price-card .btn-buy:hover { transform: scale(1.03); }
+    .price-card .shipping { font-size: 13px; color: #2ecc71; font-weight: 600; margin: 5px 0; }
+    .price-card .guarantee-days { font-size: 12px; color: #888; }
+    .price-card .flags img { max-width: 200px; margin-top: 10px; }
+
+    .guarantee { background: #fdf8e8; padding: 50px 20px; }
+    .guarantee-box { max-width: 700px; margin: 0 auto; display: flex; align-items: center; gap: 30px; }
+    .guarantee-box img { max-width: 180px; flex-shrink: 0; }
+    .guarantee-box h2 { font-size: 20px; font-weight: 800; color: #1a3a5c; margin-bottom: 12px; }
+    .guarantee-box p { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 10px; }
+
+    .faq { background: #2B6A9B; padding: 50px 20px; }
+    .faq h2 { text-align: center; color: #fff; font-size: 24px; font-weight: 800; margin-bottom: 30px; }
+    .faq-container { max-width: 700px; margin: 0 auto; }
+    .faq-item { background: #fff; border-radius: 10px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .faq-question { width: 100%; background: none; border: none; font-family: inherit; font-size: 15px; font-weight: 700; color: #222; padding: 18px 50px 18px 20px; text-align: left; cursor: pointer; position: relative; }
+    .faq-question::after { content: '\25BC'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #2B6A9B; transition: transform 0.3s; }
+    .faq-item.active .faq-question::after { content: '\25B2'; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-answer p { padding: 0 20px 18px; font-size: 14px; color: #555; line-height: 1.7; }
+    .faq-item.active .faq-answer { max-height: 500px; }
+
+    .whatsapp-cta { background: #fff; padding: 40px 20px; text-align: center; }
+    .whatsapp-cta p { font-size: 16px; color: #333; margin-bottom: 15px; font-weight: 600; }
+    .whatsapp-cta .btn-whatsapp { display: inline-block; background: #25D366; color: #fff; font-size: 16px; font-weight: 700; padding: 16px 35px; border-radius: 50px; text-decoration: none; transition: transform 0.2s; box-shadow: 0 4px 15px rgba(37,211,102,0.4); }
+    .whatsapp-cta .btn-whatsapp:hover { transform: scale(1.05); }
+
+    .disclaimer-footer { background: #1a1a1a; color: #999; padding: 40px 20px; font-size: 12px; line-height: 1.8; text-align: center; }
+    .disclaimer-footer p { max-width: 900px; margin: 0 auto 15px; }
+    .disclaimer-footer .footer-links { margin-top: 20px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .disclaimer-footer .footer-links a { color: #ccc; text-decoration: underline; font-size: 12px; }
+
+    .content-block { padding: 45px 20px; max-width: 700px; margin: 0 auto; }
+    .content-block:nth-child(odd) { background: #f5f5f5; }
+    .content-block:nth-child(even) { background: #fff; }
+    .content-block-wrapper { background: #f5f5f5; }
+    .content-block-wrapper:nth-child(even) { background: #fff; }
+    .content-block-wrapper .content-block { max-width: 700px; margin: 0 auto; }
+    .block-section { padding: 45px 20px; }
+    .block-section h2 { font-size: 20px; font-weight: 800; color: #1a3a5c; margin-bottom: 20px; text-align: center; line-height: 1.4; }
+    .block-section p { font-size: 15px; color: #444; line-height: 1.8; margin-bottom: 15px; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .block-section img { display: block; max-width: 100%; margin: 20px auto; border-radius: 8px; }
+    .block-section strong { color: #1a3a5c; }
+    .block-alt { background: #f5f5f5; }
+
+    @media (max-width: 600px) {
+      .hero h2 { font-size: 22px; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: 1fr; }
+      .guarantee-box { flex-direction: column; text-align: center; }
+      .guarantee-box img { max-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="countdown-bar">
+    OFERTA EXCLUSIVA! Expira em: <span class="timer" id="countdown">10:00</span>
+    <span class="scarcity">Apenas para os <span id="scarcity-top">10</span> primeiros compradores</span>
+  </div>
+
+  
+
+  <section class="hero">
+    <h2>Espere! Voc&ecirc; Ganhou Um Desconto Exclusivo no Kit 10 Frascos</h2>
+    <p>O LordVigor &eacute; um produto exclusivo com uma f&oacute;rmula personalizada que ser&aacute; adaptada ao seu organismo!</p>
+  </section>
+
+  <section class="pricing" id="kits">
+    <h2>Oferta Exclusiva - 10 Frascos</h2>
+    <div class="scarcity-banner">Apenas <span id="scarcity-count">10</span> unidades com desconto dispon&iacute;veis</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="badge-vendido">Oferta Especial</div>
+        <div class="badge-off">DESCONTO</div>
+        <h3>10 Frascos</h3>
+        <p class="subtitle">Suficiente para 10 meses</p>
+        <div class="product-img"><img src="t6 frasco.png" alt="10 Frascos LordVigor"></div>
+        <div class="old-price">De R$ 697,00</div>
+        <div class="installments">12x de</div>
+        <div class="price-value"><span class="currency">R$</span> 41,06</div>
+        <p class="total">Total: R$ 397,00</p>
+        <div class="btn-group">
+          <a href="https://checkout.payt.com.br/58c8258cab08419304b48c395a6a65ef?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O</a>
+          <a href="https://checkout.payt.com.br/58c8258cab08419304b48c395a6a65ef?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+        </div>
+        <p class="shipping">&#128666; Frete Gr&aacute;tis</p>
+        <p class="guarantee-days">Garantia de 360 dias</p>
+        <div class="flags"><img src="bandeiras-cartao.webp" alt="Bandeiras"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <h2>Por Que Escolher o LordVigor?</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card"><div class="icon">&#128167;</div><h3>Dose Personalizada</h3><p>Cada gota foi pensada para atender &agrave;s necessidades espec&iacute;ficas do seu organismo.</p></div>
+      <div class="benefit-card"><div class="icon">&#127807;</div><h3>100% Natural</h3><p>Ingredientes naturais aprovados pela ANVISA, sem efeitos colaterais.</p></div>
+      <div class="benefit-card"><div class="icon">&#9889;</div><h3>Resultados R&aacute;pidos</h3><p>Usu&aacute;rios relatam melhorias significativas j&aacute; nos primeiros dias de uso.</p></div>
+      <div class="benefit-card"><div class="icon">&#128737;</div><h3>Garantia Blindada</h3><p>60 dias de garantia incondicional. Seu dinheiro de volta se n&atilde;o gostar.</p></div>
+    </div>
+  </section>
+
+  <section class="video-section">
+    <h2>Veja o Que Nossos Clientes Est&atilde;o Dizendo</h2>
+    <div class="video-grid">
+      <video controls preload="metadata"><source src="jorge.mp4" type="video/mp4"></video>
+      <video controls preload="metadata"><source src="depgustavo.mp4" type="video/mp4"></video>
+    </div>
+  </section>
+
+  <section class="whatsapp-testimonial">
+    <img src="10frascosdepoimentoatizap.jpeg" alt="Depoimento WhatsApp - Entrega 10 Frascos">
+    <img src="depoimentozapelogio.jpeg" alt="Depoimento WhatsApp - Elogio do Produto">
+  </section>
+
+  <!-- Bloco 1 -->
+  <section class="block-section block-alt">
+    <h2>POR QUE O LORDVIGOR VAI FUNCIONAR PRA VOC&Ecirc; ENQUANTO AS OUTRAS SOLU&Ccedil;&Otilde;ES COMO VIAGRA E AS C&Aacute;PSULAS N&Atilde;O FUNCIONARAM</h2>
+    <p>Voc&ecirc; j&aacute; tomou Viagra e funcionou no come&ccedil;o mas depois parou? Ou j&aacute; tomou c&aacute;psula da internet e n&atilde;o sentiu nada? Tem dois motivos pra isso.</p>
+    <p>Todos esses produtos foram feitos pra ser o mesmo pra todo mundo. Voc&ecirc; concorda comigo que o organismo de um homem de 45 anos com 1,80 de altura e 70 quilos &eacute; totalmente diferente de um homem de 58 anos com 1,75 de altura e 90 quilos? Pois &eacute;. Esses produtos gen&eacute;ricos tratam como se o organismo desses dois homens fosse igual, quando n&atilde;o &eacute;.</p>
+    <p>O LordVigor &eacute; diferente porque ele &eacute; <strong>PERSONALIZADO ao seu organismo</strong>. Ap&oacute;s a compra, voc&ecirc; vai responder esse question&aacute;rio:</p>
+    <img src="Questionario.jfif" alt="Question&aacute;rio LordVigor">
+    <p>Voc&ecirc; pode responder o question&aacute;rio tanto no nosso site quanto no WhatsApp, e com essas informa&ccedil;&otilde;es faremos um produto exclusivo ao seu organismo.</p>
+    <p><strong>O segundo motivo:</strong></p>
+    <p>Os produtos que voc&ecirc; tentou n&atilde;o atacavam a causa raiz do problema. O Viagra n&atilde;o cura nada. Ele s&oacute; <strong>FOR&Ccedil;A</strong> o sangue a passar em maior quantidade ao seu p&ecirc;nis. Por&eacute;m, depois que o efeito acaba, volta tudo igual antes. E sabe por que voc&ecirc; precisa aumentar a dose do Viagra cada vez mais? Porque voc&ecirc; n&atilde;o t&aacute; tratando a causa raiz, que s&atilde;o as veias do p&ecirc;nis entupidas com placas de gordura:</p>
+    <video autoplay loop muted playsinline style="display:block;max-width:100%;margin:20px auto;border-radius:8px"><source src="soluc.mp4" type="video/mp4"></video>
+    <p>Essas placas v&atilde;o se acumulando cada vez mais e por isso voc&ecirc; sempre precisa aumentar a dose.</p>
+    <p>O LordVigor &eacute; diferente porque nosso foco &eacute; resolver o problema na <strong>RAIZ</strong>. Seu produto exclusivo ser&aacute; focado em desentupir as veias do p&ecirc;nis pra fazer o sangue voltar a chegar <strong>SOZINHO</strong>. Sem precisar for&ccedil;ar, igual era na sua juventude.</p>
+  </section>
+
+  <!-- Bloco 2 -->
+  <section class="block-section">
+    <h2>VOC&Ecirc; N&Atilde;O COMPRA SOZINHO. VOC&Ecirc; GANHA ACOMPANHAMENTO GRATUITO NO WHATSAPP</h2>
+    <p>Quando voc&ecirc; compra o LordVigor, voc&ecirc; n&atilde;o t&aacute; comprando s&oacute; um produto. Voc&ecirc; est&aacute; entrando num programa de acompanhamento.</p>
+    <p>Nossa equipe vai te chamar no WhatsApp pra te acompanhar de perto. Vai tirar suas d&uacute;vidas sobre como tomar, vai te lembrar de n&atilde;o esquecer da dose, vai perguntar como t&aacute; indo o tratamento e vai estar do seu lado em qualquer coisa que voc&ecirc; precisar.</p>
+    <p>E voc&ecirc; tamb&eacute;m recebe um <strong>reajuste na dosagem sem nenhum custo</strong>, caso sinta que quer resultados ainda mais r&aacute;pidos. Nossos especialistas podem fazer uma nova f&oacute;rmula ajustada aos seus objetivos.</p>
+    <p>E voc&ecirc; ainda recebe um <strong>CERTIFICADO DE GARANTIA</strong> junto com o seu produto. Esse certificado &eacute; um documento oficial assinado pelos nossos especialistas, com valor jur&iacute;dico, que d&aacute; seguran&ccedil;a total pra voc&ecirc;.</p>
+    <p>Cada frasco do LordVigor tem 60 dias de garantia, isso significa que ao adquirir <strong>10 frascos</strong> do LordVigor, voc&ecirc; ter&aacute; <strong>600 dias (20 meses)</strong> de garantia pra testar &agrave; vontade. Se nesse per&iacute;odo voc&ecirc; n&atilde;o ficar satisfeito, &eacute; s&oacute; apresentar o certificado e a gente devolve cada centavo que voc&ecirc; pagou. Sem perguntar nada, sem complica&ccedil;&atilde;o. Por ter valor jur&iacute;dico, somos obrigados por lei a te reembolsar cada centavo, sem fazer pergunta.</p>
+  </section>
+
+  <!-- Bloco 3 -->
+  <section class="block-section block-alt">
+    <h2>SUA DOSE &Eacute; FEITA S&Oacute; PRO SEU CORPO</h2>
+    <p>Quando voc&ecirc; comprar, vai receber um question&aacute;rio rapidinho de 9 perguntas pelo nosso site. Voc&ecirc; pode responder dentro do nosso site ou no WhatsApp, porque ap&oacute;s a sua compra, nossa equipe de suporte vai entrar em contato com voc&ecirc; pra fazer o acompanhamento, e a&iacute; voc&ecirc; pode responder por l&aacute; se preferir.</p>
+    <p>Depois que voc&ecirc; responder, nossa equipe prepara uma dose feita <strong>S&Oacute; pra voc&ecirc;</strong>. N&atilde;o &eacute; a mesma dose do vizinho nem do seu amigo. &Eacute; algo &uacute;nico, feito exclusivamente pro seu corpo.</p>
+    <p>Por isso a taxa de sucesso do LordVigor &eacute; t&atilde;o alta. Porque cada frasco &eacute; diferente. Cada um &eacute; feito pro corpo de um homem s&oacute;.</p>
+  </section>
+
+  <!-- Bloco 4 -->
+  <section class="block-section">
+    <h2>AP&Oacute;S PRODUZIRMOS SEU PRODUTO, ELE SER&Aacute; ENVIADO PRA ENTREGA</h2>
+    <p>Como a gente sabe que esse assunto &eacute; &iacute;ntimo pra muitos homens, a nossa entrega &eacute; <strong>discreta</strong>. Chega numa caixa marrom, sem o nome LordVigor, sem nada escrito sobre o produto. Ningu&eacute;m vai saber o que tem dentro.</p>
+    <p>Pode ficar tranquilo. Sua esposa, seus filhos, seu vizinho, ningu&eacute;m vai ver. S&oacute; voc&ecirc;.</p>
+  </section>
+
+  <!-- Bloco 5 -->
+  <section class="block-section block-alt">
+    <h2>INGREDIENTES APROVADOS PELA ANVISA. SEM EFEITO COLATERAL.</h2>
+    <p>Todos os ingredientes que utilizamos pra fazer o LordVigor s&atilde;o naturais, portanto n&atilde;o h&aacute; efeitos colaterais, e todos os ingredientes que utilizamos j&aacute; possuem aprova&ccedil;&atilde;o na Anvisa.</p>
+  </section>
+
+  <section class="guarantee">
+    <div class="guarantee-box">
+      <img src="garantia blindada.png" alt="Garantia Blindada LordVigor">
+      <div>
+        <h2>GARANTIA BLINDADA LORDVIGOR</h2>
+        <p>Quando voc&ecirc; pedir o LordVigor, tamb&eacute;m receber&aacute; uma <strong>garantia blindada de 60 dias em cada frasco</strong> para solicitar todo o seu dinheiro de volta.</p>
+        <p>Estamos t&atilde;o confiantes que o LordVigor vai te trazer resultados, que se voc&ecirc; n&atilde;o estiver 100% satisfeito, <strong>n&oacute;s vamos te devolver at&eacute; o &uacute;ltimo centavo pago.</strong></p>
+        <p>Basta enviar um e-mail para sac@lordvigor.com.br em at&eacute; 60 dias a partir da sua compra que faremos a devolu&ccedil;&atilde;o integral, <strong>sem qualquer questionamento!</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>D&uacute;vidas Frequentes</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question">O que &eacute; o LordVigor?</button>
+        <div class="faq-answer"><p>O LordVigor &eacute; um composto 100% natural, com f&oacute;rmula premium e ingredientes aprovados pela ANVISA, sem efeitos colaterais ou contraindica&ccedil;&otilde;es.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Como devo tomar o LordVigor?</button>
+        <div class="faq-answer"><p>Basta pingar uma gota embaixo da l&iacute;ngua todos os dias, ap&oacute;s o caf&eacute; da manh&atilde; ou almo&ccedil;o.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Em quanto tempo posso ver resultados?</button>
+        <div class="faq-answer"><p>Os resultados variam de pessoa para pessoa, mas nossos clientes relatam melhorias j&aacute; nos primeiros dias de uso.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">O LordVigor &eacute; vendido em farm&aacute;cia?</button>
+        <div class="faq-answer"><p>N&atilde;o. A venda &eacute; feita exclusivamente neste site oficial. Se encontrar em outro lugar, &eacute; falsifica&ccedil;&atilde;o.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">E se n&atilde;o funcionar para mim?</button>
+        <div class="faq-answer"><p>Cada frasco vem com garantia blindada de 60 dias. Basta devolver (mesmo vazio) e reembolsamos 100% do valor, sem perguntas.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="whatsapp-cta">
+    <p>Ainda tem d&uacute;vidas? Fale com nosso time!</p>
+    <a href="https://wa.me/5519981909667?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20o%20LordVigor" class="btn-whatsapp">&#128172; FALAR NO WHATSAPP</a>
+  </section>
+
+  <footer class="disclaimer-footer">
+    <p>2026 Copyright &copy;. Todos os direitos reservados. Todo o conte&uacute;do deste site &eacute; de propriedade exclusiva do LordVigor e protegido por leis de direitos autorais.</p>
+    <p>As informa&ccedil;&otilde;es apresentadas n&atilde;o constituem aconselhamento m&eacute;dico. Este produto &eacute; um suplemento alimentar e n&atilde;o substitui tratamentos m&eacute;dicos. Consulte um profissional de sa&uacute;de antes de iniciar o uso.</p>
+    <p>Resultados podem variar de pessoa para pessoa. Depoimentos s&atilde;o de usu&aacute;rios reais e podem n&atilde;o refletir a experi&ecirc;ncia t&iacute;pica.</p>
+    <div class="footer-links">
+      <a href="politica-privacidade.html">Pol&iacute;tica de Privacidade</a>
+      <a href="termos-uso.html">Termos de Uso</a>
+      <a href="politica-reembolso.html">Pol&iacute;tica de Envio e Estorno</a>
+      <a href="aviso-legal.html">Aviso Legal</a>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var duration = 600;
+      var key = 'bk_timer_start';
+      var saved = localStorage.getItem(key);
+      if (!saved) { saved = Date.now(); localStorage.setItem(key, saved); }
+      var el = document.getElementById('countdown');
+      var interval = setInterval(function() {
+        var elapsed = Math.floor((Date.now() - Number(saved)) / 1000);
+        var remaining = duration - elapsed;
+        if (remaining <= 0) { clearInterval(interval); el.textContent = 'EXPIRADA!'; el.parentElement.innerHTML = 'OFERTA EXPIRADA!'; return; }
+        var m = Math.floor(remaining / 60); var s = remaining % 60;
+        el.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+      }, 1000);
+    })();
+  </script>
+  <script>
+    (function() {
+      var count = 10;
+      var elTop = document.getElementById('scarcity-top');
+      var elCount = document.getElementById('scarcity-count');
+      function update() {
+        if (count <= 0) { elTop.textContent = '0'; elCount.textContent = 'ESGOTADO'; return; }
+        count--; elTop.textContent = count; elCount.textContent = count;
+        if (count > 0) setTimeout(update, (Math.random() * 30 + 30) * 1000);
+      }
+      setTimeout(update, (Math.random() * 30 + 30) * 1000);
+    })();
+  </script>
+  <script>
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.parentElement;
+        var wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('active'); });
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+  </script>
+  <script>
+    (function() {
+      var params = window.location.search;
+      if (!params) return;
+      var links = document.querySelectorAll('a[href*="checkout.payt.com.br"]');
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href');
+        var sep = href.indexOf('?') !== -1 ? '&' : '?';
+        links[i].setAttribute('href', href + sep + params.substring(1));
+      }
+    })();
+  </script>
+
+</body>
+</html>
