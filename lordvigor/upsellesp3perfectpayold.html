@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acomp&aacute;&ntilde;ame Personalmente - Dr. Juan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter',system-ui,-apple-system,sans-serif;
+      background:#FAFAFA;
+      color:#1A1A1A;
+      line-height:1.65;
+      font-size:20px;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* Faixa topo suave */
+    .top-strip{
+      background:#EAF3F8;
+      border-bottom:1px solid #d4e4ec;
+      text-align:center;padding:14px 20px;
+      color:#2C5F7C;font-size:14px;font-weight:600;
+      letter-spacing:.3px;
+    }
+    .top-strip span{margin-right:6px}
+
+    .wrap{max-width:600px;margin:0 auto;padding:30px 22px 60px}
+
+    h1{
+      font-size:28px;font-weight:800;line-height:1.3;color:#1A1A1A;
+      text-align:center;margin-bottom:24px;
+    }
+    h2{
+      font-size:22px;font-weight:800;line-height:1.35;color:#1A1A1A;
+      margin:30px 0 16px;text-align:center;
+    }
+
+    p{font-size:20px;line-height:1.65;margin-bottom:26px;color:#1A1A1A}
+    p strong{font-weight:800;color:#1A1A1A}
+    p strong.accent{color:#2C5F7C}
+    p strong.warm{color:#3B7EA1}
+
+    /* Foto do Dr. Juan */
+    .doctor-photo{
+      margin:14px 0 36px;text-align:center;
+    }
+    .doctor-photo img{
+      display:block;max-width:280px;width:100%;height:auto;
+      border-radius:12px;margin:0 auto;
+      box-shadow:0 8px 28px rgba(44,95,124,.15);
+    }
+    .doctor-caption{
+      font-size:14px;color:#3B7EA1;font-weight:600;
+      margin-top:14px;font-style:italic;
+    }
+
+    /* Scroll reveal sutil */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* Divisor suave */
+    .divider{display:flex;align-items:center;justify-content:center;margin:38px 0;gap:14px}
+    .divider::before,.divider::after{content:'';height:1px;background:#dbe7ed;flex:1;max-width:80px}
+    .divider-dot{width:6px;height:6px;border-radius:50%;background:#3B7EA1;opacity:.45}
+
+    /* Bloco das 3 perguntas */
+    .questions{
+      background:#fff;border:1px solid #d8e6ed;border-radius:14px;
+      padding:8px 22px;margin:28px 0;
+      box-shadow:0 2px 12px rgba(44,95,124,.06);
+    }
+    .questions .q{
+      padding:18px 0;border-bottom:1px solid #ecf2f5;
+      font-size:19px;font-weight:600;color:#2C5F7C;
+      line-height:1.5;
+    }
+    .questions .q:last-child{border-bottom:none}
+    .questions .q::before{
+      content:'?';display:inline-flex;align-items:center;justify-content:center;
+      width:26px;height:26px;border-radius:50%;
+      background:#EAF3F8;color:#3B7EA1;
+      font-size:14px;font-weight:800;
+      margin-right:10px;vertical-align:middle;
+    }
+
+    /* Bloco Telegram (canal direto) */
+    .telegram-card{
+      background:#EAF3F8;border:1px solid #c8dde8;border-radius:14px;
+      padding:22px;text-align:center;margin:30px 0;
+      display:flex;flex-direction:column;align-items:center;gap:12px;
+    }
+    .telegram-icon{
+      width:56px;height:56px;border-radius:50%;
+      background:linear-gradient(135deg,#2AABEE,#229ED9);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 14px rgba(42,171,238,.3);
+    }
+    .telegram-icon svg{width:30px;height:30px;fill:#fff}
+    .telegram-card .t-title{font-size:17px;font-weight:800;color:#1A1A1A;line-height:1.3}
+    .telegram-card .t-sub{font-size:14px;color:#3B7EA1;font-weight:600}
+
+    /* Bloco preço */
+    .price-box{
+      background:#fff;border:2px solid #d8e6ed;border-radius:16px;
+      padding:30px 24px;text-align:center;margin:38px 0;
+      box-shadow:0 6px 24px rgba(44,95,124,.08);
+    }
+    .price-box .label-top{
+      font-size:14px;color:#3B7EA1;font-weight:700;
+      margin-bottom:14px;letter-spacing:.5px;text-transform:uppercase;
+    }
+    .price-row{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+    .price-old{font-size:28px;color:#888;text-decoration:line-through;font-weight:700;line-height:1}
+    .price-arrow{font-size:22px;color:#aaa;font-weight:700}
+    .price-new{font-size:62px;font-weight:800;color:#27AF60;line-height:1}
+    .price-new .cur{font-size:34px;vertical-align:top;margin-right:2px;font-weight:700}
+    .price-tagline{font-size:16px;color:#666;margin-top:14px;font-style:italic}
+    .price-info{font-size:14px;color:#666;margin-top:16px;line-height:1.5}
+    .price-info strong{color:#2C5F7C;font-weight:700}
+
+    /* CTA Kiwify */
+    @keyframes pulse{
+      0%,100%{transform:scale(1);box-shadow:0 6px 22px rgba(39,175,96,.35)}
+      50%{transform:scale(1.025);box-shadow:0 10px 28px rgba(39,175,96,.45)}
+    }
+    .cta-accept{
+      animation:pulse 2.4s ease-in-out infinite;
+    }
+    .cta-sub{
+      font-size:14px;color:#666;margin-top:14px;
+      font-weight:500;text-align:center;line-height:1.5;
+    }
+
+    @media(max-width:380px){
+      body,p{font-size:18px}
+      h1{font-size:24px}
+      h2{font-size:20px}
+      .questions .q{font-size:17px}
+      .price-new{font-size:52px}
+    }
+  </style>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MKF9HT6T');</script>
+  <!-- End Google Tag Manager -->
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKF9HT6T"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="top-strip">
+    <span>&#10004;</span> Pago aprobado &mdash; Un mensaje personal del Dr. Juan
+  </div>
+
+  <main class="wrap">
+
+    <div class="reveal">
+      <h1>&iexcl;Espera! Una &uacute;ltima cosa, y esta es la m&aacute;s importante de todas.</h1>
+    </div>
+
+    <div class="reveal">
+      <p style="text-align:center;font-style:italic;color:#3B7EA1;font-weight:600;margin-bottom:32px">Aqu&iacute; habla el Dr. Juan, de coraz&oacute;n.</p>
+    </div>
+
+    <div class="reveal">
+      <p>Mira, ya tienes todo lo que necesitas. Tu receta personalizada, tu protocolo. Est&aacute; todo en tus manos.</p>
+      <p>Pero d&eacute;jame preguntarte una cosa, de hombre a hombre.</p>
+    </div>
+
+    <!-- BLOCO 3 PERGUNTAS -->
+    <div class="questions reveal">
+      <div class="q">&iquest;Y si te surge una duda en el camino?</div>
+      <div class="q">&iquest;Y si un d&iacute;a preparas el t&oacute;nico y no sabes si lo hiciste bien?</div>
+      <div class="q">&iquest;Y si pasan unos d&iacute;as y no ves el resultado que esperabas, y te entra el miedo de que no va a funcionar?</div>
+    </div>
+
+    <div class="reveal">
+      <p style="text-align:center;font-size:22px;font-weight:700;color:#2C5F7C">&iquest;Con qui&eacute;n vas a hablar?</p>
+    </div>
+
+    <div class="reveal">
+      <p>Yo s&eacute; c&oacute;mo es. La mayor&iacute;a de los hombres pasa por esto solo. Con verg&uuml;enza de hablar del tema con alguien. Sin nadie a qui&eacute;n preguntarle. Y por miedo de equivocarse, terminan desistiendo justo cuando estaban a punto de lograrlo.</p>
+      <p><strong class="warm">Yo no quiero eso para ti.</strong></p>
+    </div>
+
+    <div class="divider reveal"><span class="divider-dot"></span></div>
+
+    <div class="reveal">
+      <h2>Por eso quiero hacerte una oferta que no le hago a cualquiera.</h2>
+      <p>Quiero <strong class="warm">acompa&ntilde;arte personalmente</strong>. Durante todo un a&ntilde;o entero.</p>
+      <p>Vas a tener acceso directo a m&iacute; y a mi equipo de especialistas, por Telegram. &iquest;Tienes una duda? Me escribes. &iquest;No sabes si la dosis est&aacute; bien? Me mandas un mensaje. &iquest;Quieres contarme tu progreso o desahogarte porque tuviste un mal d&iacute;a? Estoy ah&iacute;.</p>
+    </div>
+
+    <!-- BLOCO TELEGRAM -->
+    <div class="telegram-card reveal">
+      <div class="telegram-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+        </svg>
+      </div>
+      <div class="t-title">Acceso directo por Telegram</div>
+      <div class="t-sub">A m&iacute; y a mi equipo de especialistas</div>
+    </div>
+
+    <div class="reveal">
+      <p>Atendemos <strong>de domingo a domingo</strong>. Todos los d&iacute;as. Porque tu problema no espera, y yo tampoco quiero que esperes.</p>
+      <p>No vas a estar solo en esto nunca m&aacute;s. Vas a tener un m&eacute;dico de tu lado, en el bolsillo, listo para responderte siempre que lo necesites.</p>
+      <p>Y mira, esto no es un curso ni un video grabado. Es contacto real, conmigo y con mi equipo, de verdad.</p>
+    </div>
+
+    <div class="divider reveal"><span class="divider-dot"></span></div>
+
+    <div class="reveal">
+      <p>Yo cobro <strong>$200</strong> por una sola consulta privada. Pero hoy, para que puedas tenerme a tu lado, no te voy a cobrar nada de eso.</p>
+      <p>Por solo <strong class="accent">$9 d&oacute;lares</strong>, pagados una sola vez, vas a tener acceso directo a m&iacute; y a mi equipo durante un a&ntilde;o entero. Un a&ntilde;o completo de acompa&ntilde;amiento, <strong>de domingo a domingo</strong>, por menos de lo que cuesta una pizza.</p>
+    </div>
+
+    <!-- PRICE BOX -->
+    <div class="price-box reveal">
+      <div class="label-top">Acompa&ntilde;amiento por 1 a&ntilde;o</div>
+      <div class="price-row">
+        <span class="price-old">$200</span>
+        <span class="price-arrow">&rarr;</span>
+        <span class="price-new"><span class="cur">$</span>9</span>
+      </div>
+      <div class="price-tagline">Menos que una pizza.</div>
+      <div class="price-info">
+        Pago <strong>&uacute;nico</strong> &mdash; sin mensualidades, sin sorpresas.<br>
+        Acompa&ntilde;amiento por los pr&oacute;ximos <strong>365 d&iacute;as</strong>.
+      </div>
+    </div>
+
+    <!-- IMAGEM PREÇO EM MOEDAS LOCAIS -->
+    <div class="reveal" style="margin:28px 0;text-align:center">
+      <img src="preco9.png" alt="Precio en monedas locales" style="display:block;max-width:100%;width:100%;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);margin:0 auto">
+    </div>
+
+    <div class="reveal">
+      <p>Pagas una vez y listo. Sin mensualidades, sin sorpresas. Un solo pago de <strong class="accent">$9 d&oacute;lares</strong> y me tienes a tu lado por los pr&oacute;ximos 365 d&iacute;as.</p>
+      <p>Pero te lo pido de coraz&oacute;n: no enfrentes esto solo. Por solo <strong class="accent">$9 d&oacute;lares</strong>, deja que yo te acompa&ntilde;e durante todo un a&ntilde;o.</p>
+    </div>
+
+    <!-- BOTÕES CTA -->
+    <div style="text-align:center">
+      <a href="https://go.centerpag.com/PPU38CQE2FN?upsell=true" class="cta-accept" style="display:inline-block;background:#27AF60;padding:14px 22px;color:#fff;font-weight:700;border-radius:6px;border:1px solid #27AF60;font-size:20px;text-decoration:none;font-family:inherit;line-height:1.3">&iexcl;S&iacute;, acepto esta oferta especial!</a>
+      <div style="margin-top:1rem">
+        <a href="graciasesp.html" style="cursor:pointer;font-size:16px;text-decoration:underline;font-family:sans-serif;color:#333">No, me gustar&iacute;a rechazar esta oferta.</a>
+      </div>
+    </div>
+    <p class="cta-sub">No necesitas ingresar tu tarjeta de nuevo. Un solo clic.</p>
+
+    <div class="reveal" style="margin-top:36px">
+      <p style="text-align:center">Haz clic en el bot&oacute;n verde aqu&iacute; arriba y d&eacute;jame cuidar de ti.</p>
+      <p style="text-align:center;font-size:22px;font-weight:700;color:#2C5F7C">A partir de hoy, <strong class="warm">ya no est&aacute;s solo</strong>.</p>
+    </div>
+
+  </main>
+
+  <script>
+    (function(){
+      var els = document.querySelectorAll('.reveal');
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      },{threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+      els.forEach(function(el){ obs.observe(el); });
+    })();
+  </script>
+</body>
+</html>
