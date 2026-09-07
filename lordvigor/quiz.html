@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz - Lord Vigor</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17867840712"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-17867840712');
+  </script>
+  <!-- Event snippet for Compra conversion page -->
+  <script>
+    gtag('event', 'conversion', {
+        'send_to': 'AW-17867840712/EBo6CPTT5oYcEMi5hshC',
+        'value': ,
+        'currency': 'BRL',
+        'transaction_id': ''
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: hsl(0 0% 0%);
+      --foreground: hsl(45 40% 90%);
+      --card: hsl(0 0% 5%);
+      --primary: hsl(45 65% 55%);
+      --primary-foreground: hsl(0 0% 0%);
+      --secondary: hsl(0 0% 12%);
+      --muted-foreground: hsl(45 20% 60%);
+      --accent: hsl(45 80% 65%);
+      --destructive: hsl(0 70% 50%);
+      --border: hsl(0 0% 20%);
+      --gradient-primary: linear-gradient(135deg, hsl(45 65% 55%), hsl(45 80% 65%));
+      --gradient-dark: linear-gradient(180deg, hsl(0 0% 0%), hsl(0 0% 5%));
+      --shadow-gold: 0 10px 40px -10px hsl(45 65% 55% / 0.4);
+      --glow-gold: 0 0 30px hsl(45 80% 65% / 0.3);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--gradient-dark);
+      color: var(--foreground);
+      min-height: 100vh;
+    }
+
+    /* Progress Header */
+    .progress-header { width: 100%; background: var(--background); border-bottom: 1px solid var(--border); }
+    .warning-bar { background-color: hsla(0, 70%, 50%, 0.1); border-bottom: 1px solid hsla(0, 70%, 50%, 0.2); padding: 0.75rem 1rem; }
+    .warning-bar p { font-size: 0.75rem; text-align: center; color: var(--foreground); line-height: 1.3; }
+    .warning-bar span { font-weight: 700; }
+    .progress-section { padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .progress-top { display: flex; align-items: center; justify-content: space-between; }
+    .progress-top .step { font-size: 0.875rem; font-weight: 600; color: var(--foreground); }
+    .progress-top .percent { font-size: 0.875rem; font-weight: 700; color: var(--primary); }
+    .progress-bar-bg { width: 100%; height: 0.5rem; background: var(--secondary); border-radius: 9999px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--gradient-primary); transition: all 0.5s ease-out; box-shadow: var(--glow-gold); }
+    .progress-title { display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding-top: 0.5rem; }
+    .progress-title p { font-size: 0.875rem; color: var(--foreground); font-weight: 500; }
+    .progress-title .brand { color: var(--primary); font-weight: 700; }
+
+    /* Container */
+    .container { max-width: 672px; margin: 0 auto; padding: 2rem 1rem; }
+    @media (min-width: 640px) { .container { padding-top: 3rem; padding-bottom: 3rem; } }
+
+    /* Card */
+    .card { background: var(--card); border-radius: 1rem; padding: 1.5rem; border: 1px solid var(--border); box-shadow: var(--shadow-gold); }
+    @media (min-width: 640px) { .card { padding: 2rem; } }
+
+    /* Form */
+    .card h2 { font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 2rem; color: var(--primary); }
+    @media (min-width: 640px) { .card h2 { font-size: 1.875rem; } }
+
+    .fields { display: flex; flex-direction: column; gap: 1.5rem; }
+    .field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .field label { font-size: 1rem; font-weight: 600; color: var(--foreground); }
+    @media (min-width: 640px) { .field label { font-size: 1.125rem; } }
+    .field input {
+      width: 100%; height: 3rem; font-size: 1rem; padding: 0 1rem;
+      background: var(--secondary); border: 1px solid var(--border); border-radius: 0.75rem;
+      color: var(--foreground); outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    @media (min-width: 640px) { .field input { height: 3.5rem; font-size: 1.125rem; } }
+    .field input::placeholder { color: var(--muted-foreground); }
+    .field input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px hsl(45 65% 55% / 0.3); }
+
+    /* Button */
+    .btn-submit {
+      width: 100%; margin-top: 2rem; height: 3rem; font-size: 1rem; font-weight: 700;
+      background: var(--gradient-primary); color: var(--primary-foreground);
+      border: none; border-radius: 0.75rem; cursor: pointer;
+      box-shadow: var(--shadow-gold); transition: all 0.2s;
+    }
+    @media (min-width: 640px) { .btn-submit { height: 3.5rem; font-size: 1.125rem; } }
+    .btn-submit:hover { opacity: 0.9; box-shadow: var(--glow-gold); }
+
+    /* Footer text */
+    .footer-text { text-align: center; color: var(--muted-foreground); font-size: 0.75rem; margin-top: 1.5rem; }
+    @media (min-width: 640px) { .footer-text { font-size: 0.875rem; } }
+    .footer-text p + p { margin-top: 0.5rem; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; background: hsla(0, 70%, 50%, 0.95);
+      color: #fff; padding: 1rem 1.5rem; border-radius: 0.75rem; font-size: 0.875rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999;
+      transform: translateY(100px); opacity: 0; transition: all 0.3s ease;
+      max-width: 360px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-title { font-weight: 700; margin-bottom: 0.25rem; }
+    .toast-desc { font-weight: 400; opacity: 0.9; }
+
+    /* Animation */
+    @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.3s ease-out; }
+
+    @media (min-width: 640px) {
+      .warning-bar p { font-size: 0.875rem; }
+      .progress-title p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress Header -->
+  <div class="progress-header">
+    <div class="warning-bar">
+      <p><span>Não feche essa página</span> isso poderá gerar um erro no processamento da sua fórmula!</p>
+    </div>
+    <div class="progress-section">
+      <div class="progress-top">
+        <span class="step">Passo 1 de 3</span>
+        <span class="percent">35%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width: 35%"></div>
+      </div>
+      <div class="progress-title">
+        <p>Bem Vindo ao App <span class="brand">Lord Vigor</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Form -->
+  <div class="container">
+    <form id="quizForm" class="animate-fade-in">
+      <div class="card">
+        <h2>Informações Pessoais</h2>
+        <div class="fields">
+          <div class="field">
+            <label for="weight">Qual seu peso? (kg)</label>
+            <input id="weight" type="number" placeholder="Ex: 75" min="30" max="300" />
+          </div>
+          <div class="field">
+            <label for="age">Qual sua idade?</label>
+            <input id="age" type="number" placeholder="Ex: 35" min="18" max="120" />
+          </div>
+          <div class="field">
+            <label for="height">Qual a sua altura? (cm)</label>
+            <input id="height" type="number" placeholder="Ex: 175" min="100" max="250" />
+          </div>
+          <div class="field">
+            <label for="penisSize">Você deseja aumentar o tamanho e engrossar o seu pênis? Se sim, em quantos centímetros?</label>
+            <input id="penisSize" type="text" placeholder="" />
+          </div>
+          <div class="field">
+            <label for="duration">Quanto tempo você gostaria de durar no sexo sem ejacular?</label>
+            <input id="duration" type="text" placeholder="" />
+          </div>
+          <div class="field">
+            <label for="multipleTimes">Gostaria de fazer sexo mais de uma vez seguida?</label>
+            <input id="multipleTimes" type="text" placeholder="Ex: Sim, 2 vezes" />
+          </div>
+          <div class="field">
+            <label for="healthProblems">Você tem algum problema de saúde que gostaria de nos informar?</label>
+            <input id="healthProblems" type="text" placeholder="Ex: Não tenho / Diabetes" />
+          </div>
+          <div class="field">
+            <label for="medications">Faz uso de algum medicamento contínuo?</label>
+            <input id="medications" type="text" placeholder="Ex: Não / Nome do medicamento" />
+          </div>
+          <div class="field">
+            <label for="prostateSurgery">Realizou alguma cirurgia na próstata?</label>
+            <input id="prostateSurgery" type="text" placeholder="Ex: Não / Sim" />
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Continuar</button>
+      </div>
+      <div class="footer-text">
+        <p>🔒 Suas informações estão seguras</p>
+        <p>✓ Dados criptografados e protegidos</p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-title">Campos obrigatórios</div>
+    <div class="toast-desc">Por favor, preencha todos os campos.</div>
+  </div>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var weight = document.getElementById('weight').value.trim();
+      var age = document.getElementById('age').value.trim();
+      var height = document.getElementById('height').value.trim();
+
+      if (!weight || !age || !height) {
+        var toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(function() { toast.classList.remove('show'); }, 3000);
+        return;
+      }
+
+      window.location.href = 'loading.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fórmula Aprovada - Lord Vigor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: hsl(0 0% 0%);
+      --foreground: hsl(45 40% 90%);
+      --card: hsl(0 0% 5%);
+      --primary: hsl(45 65% 55%);
+      --primary-foreground: hsl(0 0% 0%);
+      --secondary: hsl(0 0% 12%);
+      --muted-foreground: hsl(45 20% 60%);
+      --accent: hsl(45 80% 65%);
+      --destructive: hsl(0 70% 50%);
+      --border: hsl(0 0% 20%);
+      --gradient-primary: linear-gradient(135deg, hsl(45 65% 55%), hsl(45 80% 65%));
+      --gradient-dark: linear-gradient(180deg, hsl(0 0% 0%), hsl(0 0% 5%));
+      --shadow-gold: 0 10px 40px -10px hsl(45 65% 55% / 0.4);
+      --glow-gold: 0 0 30px hsl(45 80% 65% / 0.3);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--gradient-dark);
+      color: var(--foreground);
+      min-height: 100vh;
+    }
+
+    /* Progress Header */
+    .progress-header { width: 100%; background: var(--background); border-bottom: 1px solid var(--border); }
+    .warning-bar { background-color: hsla(0, 70%, 50%, 0.1); border-bottom: 1px solid hsla(0, 70%, 50%, 0.2); padding: 0.75rem 1rem; }
+    .warning-bar p { font-size: 0.75rem; text-align: center; color: var(--foreground); line-height: 1.3; }
+    .warning-bar span { font-weight: 700; }
+    .progress-section { padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .progress-top { display: flex; align-items: center; justify-content: space-between; }
+    .progress-top .step { font-size: 0.875rem; font-weight: 600; color: var(--foreground); }
+    .progress-top .percent { font-size: 0.875rem; font-weight: 700; color: var(--primary); }
+    .progress-bar-bg { width: 100%; height: 0.5rem; background: var(--secondary); border-radius: 9999px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--gradient-primary); transition: all 0.5s ease-out; box-shadow: var(--glow-gold); }
+    .progress-title { display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding-top: 0.5rem; }
+    .progress-title p { font-size: 0.875rem; color: var(--foreground); font-weight: 500; }
+    .progress-title .brand { color: var(--primary); font-weight: 700; }
+
+    /* Container */
+    .container { max-width: 672px; margin: 0 auto; padding: 3rem 1rem; }
+    @media (min-width: 640px) { .container { padding-top: 5rem; padding-bottom: 5rem; } }
+
+    /* Cards */
+    .card { background: var(--card); border-radius: 1rem; padding: 2rem; border: 1px solid var(--border); box-shadow: var(--shadow-gold); text-align: center; }
+    @media (min-width: 640px) { .card { padding: 3rem; } }
+    .card + .card { margin-top: 2rem; }
+
+    .card-inner { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* Check icon */
+    .check-icon { display: flex; justify-content: center; }
+    .check-icon svg { width: 5rem; height: 5rem; color: #22c55e; }
+
+    .card h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    @media (min-width: 640px) { .card h1 { font-size: 1.875rem; } }
+
+    .card .text { font-size: 1rem; color: var(--foreground); line-height: 1.6; }
+    @media (min-width: 640px) { .card .text { font-size: 1.125rem; } }
+    .card .text .highlight { color: var(--primary); font-weight: 700; }
+
+    /* Tracking box */
+    .tracking-box { background: var(--secondary); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.75rem; }
+    .tracking-box .title { font-size: 1rem; font-weight: 600; color: var(--foreground); }
+    @media (min-width: 640px) { .tracking-box .title { font-size: 1.125rem; } }
+    .tracking-box .desc { font-size: 0.875rem; color: var(--muted-foreground); line-height: 1.6; }
+    @media (min-width: 640px) { .tracking-box .desc { font-size: 1rem; } }
+
+    /* Contact card */
+    .contact-card { text-align: center; }
+    .contact-card h2 { font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+    @media (min-width: 640px) { .contact-card h2 { font-size: 1.5rem; } }
+    .contact-card .subtitle { font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 1.5rem; }
+    @media (min-width: 640px) { .contact-card .subtitle { font-size: 1rem; } }
+
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--secondary); border-radius: 0.75rem; padding: 1rem;
+      border: 1px solid var(--border); text-decoration: none; color: inherit;
+      transition: border-color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--primary); }
+    .contact-link svg { width: 1.5rem; height: 1.5rem; color: var(--primary); flex-shrink: 0; }
+    .contact-link .info { text-align: left; }
+    .contact-link .info .label { font-size: 0.875rem; color: var(--muted-foreground); }
+    .contact-link .info .value { font-size: 1rem; font-weight: 600; color: var(--foreground); }
+
+    /* Footer text */
+    .footer-text { text-align: center; color: var(--muted-foreground); font-size: 0.75rem; margin-top: 2rem; }
+    @media (min-width: 640px) { .footer-text { font-size: 0.875rem; } }
+
+    /* Animation */
+    @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.3s ease-out; }
+
+    @media (min-width: 640px) {
+      .warning-bar p { font-size: 0.875rem; }
+      .progress-title p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress Header -->
+  <div class="progress-header">
+    <div class="warning-bar">
+      <p><span>Não feche essa página</span> isso poderá gerar um erro no processamento da sua fórmula!</p>
+    </div>
+    <div class="progress-section">
+      <div class="progress-top">
+        <span class="step">Passo 3 de 3</span>
+        <span class="percent">100%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width: 100%"></div>
+      </div>
+      <div class="progress-title">
+        <p>Bem Vindo ao App <span class="brand">Lord Vigor</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Content -->
+  <div class="container animate-fade-in">
+    <!-- Success Card -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="check-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h1>Fórmula Aprovada!</h1>
+        <p class="text">Sua fórmula foi <span class="highlight">personalizada com sucesso</span> com base nas informações que você forneceu. Ela foi desenvolvida especialmente para o seu perfil.</p>
+        <div class="tracking-box">
+          <p class="title">📦 Código de Rastreio</p>
+          <p class="desc">O código de rastreio do seu produto será enviado para o <span class="highlight">e-mail cadastrado</span> na sua compra. Fique atento à sua caixa de entrada e spam.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Card -->
+    <div class="card contact-card">
+      <h2>Precisa de ajuda?</h2>
+      <p class="subtitle">Entre em contato conosco por qualquer um dos canais abaixo:</p>
+      <div class="contact-links">
+        <!-- Email 1 -->
+        <a href="mailto:sac@lordvigor.com.br" class="contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          <div class="info">
+            <p class="label">E-mail</p>
+            <p class="value">sac@lordvigor.com.br</p>
+          </div>
+        </a>
+        <!-- Email 2 -->
+        <a href="mailto:guiasuporteoficial@gmail.com" class="contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          <div class="info">
+            <p class="label">E-mail</p>
+            <p class="value">guiasuporteoficial@gmail.com</p>
+          </div>
+        </a>
+        <!-- WhatsApp -->
+        <a href="https://wa.me/5519981909667" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <div class="info">
+            <p class="label">WhatsApp</p>
+            <p class="value">(19) 98190-9667</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-text">
+      <p>✓ Obrigado por escolher o Lord Vigor</p>
+    </div>
+  </div>
+</body>
+</html>
