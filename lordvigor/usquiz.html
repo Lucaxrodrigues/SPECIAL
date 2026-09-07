@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz - HorseWood</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: hsl(0 0% 0%);
+      --foreground: hsl(45 40% 90%);
+      --card: hsl(0 0% 5%);
+      --primary: hsl(45 65% 55%);
+      --primary-foreground: hsl(0 0% 0%);
+      --secondary: hsl(0 0% 12%);
+      --muted-foreground: hsl(45 20% 60%);
+      --accent: hsl(45 80% 65%);
+      --destructive: hsl(0 70% 50%);
+      --border: hsl(0 0% 20%);
+      --gradient-primary: linear-gradient(135deg, hsl(45 65% 55%), hsl(45 80% 65%));
+      --gradient-dark: linear-gradient(180deg, hsl(0 0% 0%), hsl(0 0% 5%));
+      --shadow-gold: 0 10px 40px -10px hsl(45 65% 55% / 0.4);
+      --glow-gold: 0 0 30px hsl(45 80% 65% / 0.3);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--gradient-dark);
+      color: var(--foreground);
+      min-height: 100vh;
+    }
+    .progress-header { width: 100%; background: var(--background); border-bottom: 1px solid var(--border); }
+    .warning-bar { background-color: hsla(0, 70%, 50%, 0.1); border-bottom: 1px solid hsla(0, 70%, 50%, 0.2); padding: 0.75rem 1rem; }
+    .warning-bar p { font-size: 0.75rem; text-align: center; color: var(--foreground); line-height: 1.3; }
+    .warning-bar span { font-weight: 700; }
+    .progress-section { padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .progress-top { display: flex; align-items: center; justify-content: space-between; }
+    .progress-top .step { font-size: 0.875rem; font-weight: 600; color: var(--foreground); }
+    .progress-top .percent { font-size: 0.875rem; font-weight: 700; color: var(--primary); }
+    .progress-bar-bg { width: 100%; height: 0.5rem; background: var(--secondary); border-radius: 9999px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--gradient-primary); transition: all 0.5s ease-out; box-shadow: var(--glow-gold); }
+    .progress-title { display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding-top: 0.5rem; }
+    .progress-title p { font-size: 0.875rem; color: var(--foreground); font-weight: 500; }
+    .progress-title .brand { color: var(--primary); font-weight: 700; }
+
+    .container { max-width: 672px; margin: 0 auto; padding: 2rem 1rem; }
+    @media (min-width: 640px) { .container { padding-top: 3rem; padding-bottom: 3rem; } }
+
+    .card { background: var(--card); border-radius: 1rem; padding: 1.5rem; border: 1px solid var(--border); box-shadow: var(--shadow-gold); }
+    @media (min-width: 640px) { .card { padding: 2rem; } }
+
+    .card h2 { font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 2rem; color: var(--primary); }
+    @media (min-width: 640px) { .card h2 { font-size: 1.875rem; } }
+
+    .fields { display: flex; flex-direction: column; gap: 1.5rem; }
+    .field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .field label { font-size: 1rem; font-weight: 600; color: var(--foreground); }
+    @media (min-width: 640px) { .field label { font-size: 1.125rem; } }
+    .field input {
+      width: 100%; height: 3rem; font-size: 1rem; padding: 0 1rem;
+      background: var(--secondary); border: 1px solid var(--border); border-radius: 0.75rem;
+      color: var(--foreground); outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    @media (min-width: 640px) { .field input { height: 3.5rem; font-size: 1.125rem; } }
+    .field input::placeholder { color: var(--muted-foreground); }
+    .field input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px hsl(45 65% 55% / 0.3); }
+
+    .btn-submit {
+      width: 100%; margin-top: 2rem; height: 3rem; font-size: 1rem; font-weight: 700;
+      background: var(--gradient-primary); color: var(--primary-foreground);
+      border: none; border-radius: 0.75rem; cursor: pointer;
+      box-shadow: var(--shadow-gold); transition: all 0.2s;
+    }
+    @media (min-width: 640px) { .btn-submit { height: 3.5rem; font-size: 1.125rem; } }
+    .btn-submit:hover { opacity: 0.9; box-shadow: var(--glow-gold); }
+
+    .footer-text { text-align: center; color: var(--muted-foreground); font-size: 0.75rem; margin-top: 1.5rem; }
+    @media (min-width: 640px) { .footer-text { font-size: 0.875rem; } }
+    .footer-text p + p { margin-top: 0.5rem; }
+
+    .toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; background: hsla(0, 70%, 50%, 0.95);
+      color: #fff; padding: 1rem 1.5rem; border-radius: 0.75rem; font-size: 0.875rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999;
+      transform: translateY(100px); opacity: 0; transition: all 0.3s ease;
+      max-width: 360px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-title { font-weight: 700; margin-bottom: 0.25rem; }
+    .toast-desc { font-weight: 400; opacity: 0.9; }
+
+    @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.3s ease-out; }
+
+    @media (min-width: 640px) {
+      .warning-bar p { font-size: 0.875rem; }
+      .progress-title p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-header">
+    <div class="warning-bar">
+      <p><span>Do not close this page</span> &mdash; it may cause an error while processing your formula!</p>
+    </div>
+    <div class="progress-section">
+      <div class="progress-top">
+        <span class="step">Step 1 of 3</span>
+        <span class="percent">35%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width: 35%"></div>
+      </div>
+      <div class="progress-title">
+        <p>Welcome to the <span class="brand">HorseWood</span> App</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form id="quizForm" class="animate-fade-in">
+      <div class="card">
+        <h2>Personal Information</h2>
+        <div class="fields">
+          <div class="field">
+            <label for="weight">What is your weight? (lbs)</label>
+            <input id="weight" type="number" placeholder="Example: 180" min="66" max="660" />
+          </div>
+          <div class="field">
+            <label for="age">How old are you?</label>
+            <input id="age" type="number" placeholder="Example: 55" min="18" max="120" />
+          </div>
+          <div class="field">
+            <label for="height">What is your height? (in inches)</label>
+            <input id="height" type="text" placeholder="" />
+          </div>
+          <div class="field">
+            <label for="penisSize">Would you like to increase the size and girth of your penis? If so, by how many inches?</label>
+            <input id="penisSize" type="text" placeholder="Example: Yes, 2 inches" />
+          </div>
+          <div class="field">
+            <label for="duration">How long would you like to last during sex without ejaculating?</label>
+            <input id="duration" type="text" placeholder="Example: 30 minutes" />
+          </div>
+          <div class="field">
+            <label for="multipleTimes">Would you like to have sex more than once in a row?</label>
+            <input id="multipleTimes" type="text" placeholder="Example: Yes, 2 times" />
+          </div>
+          <div class="field">
+            <label for="healthProblems">Do you have any health conditions we should know about?</label>
+            <input id="healthProblems" type="text" placeholder="Example: None / Diabetes / High blood pressure" />
+          </div>
+          <div class="field">
+            <label for="medications">Do you take any medication regularly?</label>
+            <input id="medications" type="text" placeholder="Example: No / Name of medication" />
+          </div>
+          <div class="field">
+            <label for="prostateSurgery">Have you ever had prostate surgery?</label>
+            <input id="prostateSurgery" type="text" placeholder="Example: No / Yes" />
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Continue</button>
+      </div>
+      <div class="footer-text">
+        <p>&#128274; Your information is secure</p>
+        <p>&#10003; Data encrypted and protected</p>
+      </div>
+    </form>
+  </div>
+
+  <div id="toast" class="toast">
+    <div class="toast-title">Required fields</div>
+    <div class="toast-desc">Please fill in all fields.</div>
+  </div>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var weight = document.getElementById('weight').value.trim();
+      var age = document.getElementById('age').value.trim();
+      var height = document.getElementById('height').value.trim();
+
+      if (!weight || !age || !height) {
+        var toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(function() { toast.classList.remove('show'); }, 3000);
+        return;
+      }
+
+      window.location.href = 'usloading.html';
+    });
+  </script>
+</body>
+</html>
