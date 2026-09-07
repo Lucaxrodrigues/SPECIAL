@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Neutro - alfa max</title>
+
+  <!-- Preloads y DNS para Vturb -->
+  <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+  <link rel="preload" href="https://scripts.converteai.net/5eacad5b-3bd7-422a-ba9d-81810e988eda/players/6a2f25d0c24e5836ecea4d13/v4/player.js" as="script">
+  <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+  <link rel="preload" href="https://cdn.converteai.net/5eacad5b-3bd7-422a-ba9d-81810e988eda/6a2f2583c32d4973102a7e11/main.m3u8" as="fetch">
+  <link rel="dns-prefetch" href="https://cdn.converteai.net">
+  <link rel="dns-prefetch" href="https://scripts.converteai.net">
+  <link rel="dns-prefetch" href="https://images.converteai.net">
+  <link rel="dns-prefetch" href="https://license.vturb.com">
+
+  <style>
+    :root {
+      --background: hsl(0 0% 0%);
+      --foreground: hsl(45 40% 90%);
+      --card: hsl(0 0% 5%);
+      --card-foreground: hsl(45 40% 90%);
+      --primary: hsl(45 65% 55%);
+      --primary-foreground: hsl(0 0% 0%);
+      --secondary: hsl(0 0% 12%);
+      --secondary-foreground: hsl(45 40% 90%);
+      --muted: hsl(0 0% 15%);
+      --muted-foreground: hsl(45 20% 60%);
+      --accent: hsl(45 80% 65%);
+      --destructive: hsl(0 70% 50%);
+      --border: hsl(0 0% 20%);
+      --ring: hsl(45 65% 55%);
+      --gradient-primary: linear-gradient(135deg, hsl(45 65% 55%), hsl(45 80% 65%));
+      --gradient-dark: linear-gradient(180deg, hsl(0 0% 0%), hsl(0 0% 5%));
+      --shadow-gold: 0 10px 40px -10px hsl(45 65% 55% / 0.4);
+      --glow-gold: 0 0 30px hsl(45 80% 65% / 0.3);
+      --radius: 1rem;
+
+      /* ✅ MUDE AQUI O TEMPO:
+         teste: 20s
+         produção: 533s (8:53) */
+      --upsell-delay: 533s;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      min-height: 100vh;
+    }
+    img { max-width: 100%; height: auto; }
+
+    .min-h-screen { min-height: 100vh; }
+    .bg-gradient-dark { background: var(--gradient-dark); }
+    .container { max-width: 672px; margin: 0 auto; padding: 2rem 1rem; }
+    @media (min-width: 640px) {
+      .container { padding-top: 3rem; padding-bottom: 3rem; }
+    }
+
+    .bg-background { background: var(--background); }
+    .bg-card { background: var(--card); }
+    .bg-secondary { background: var(--secondary); }
+    .bg-destructive\/10 { background-color: hsla(0, 70%, 50%, 0.1); }
+
+    .border { border: 1px solid var(--border); }
+    .border-border { border-color: var(--border); }
+    .border-destructive\/20 { border-color: hsla(0, 70%, 50%, 0.2); }
+
+    .rounded-2xl { border-radius: 1rem; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .rounded-full { border-radius: 9999px; }
+
+    .p-4 { padding: 1rem; }
+    .p-6 { padding: 1.5rem; }
+    .p-8 { padding: 2rem; }
+    .p-12 { padding: 3rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+
+    .space-y-2 > * + * { margin-top: 0.5rem; }
+    .space-y-3 > * + * { margin-top: 0.75rem; }
+    .space-y-4 > * + * { margin-top: 1rem; }
+    .space-y-6 > * + * { margin-top: 1.5rem; }
+    .space-y-8 > * + * { margin-top: 2rem; }
+    .space-y-3, .space-y-6, .space-y-8 { display: flex; flex-direction: column; }
+
+    .text-center { text-align: center; }
+    .text-sm { font-size: 0.875rem; }
+    .text-xs { font-size: 0.75rem; }
+    .text-base { font-size: 1rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-xl { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-3xl { font-size: 1.875rem; }
+
+    .text-foreground { color: var(--foreground); }
+    .text-primary { color: var(--primary); }
+    .text-muted-foreground { color: var(--muted-foreground); }
+
+    .font-bold { font-weight: 700; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .leading-tight { line-height: 1.3; }
+
+    .bg-gradient-primary { background: var(--gradient-primary); }
+    .shadow-gold { box-shadow: var(--shadow-gold); }
+    .shadow-glow { box-shadow: var(--glow-gold); }
+
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .flex-1 { flex: 1; }
+    .pt-2 { padding-top: 0.5rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mt-8 { margin-top: 2rem; }
+
+    .w-full { width: 100%; }
+    .h-2 { height: 0.5rem; }
+    .h-3 { height: 0.75rem; }
+    .h-8 { height: 2rem; }
+    .h-10 { height: 2.5rem; }
+    .h-12 { height: 3rem; }
+    .h-14 { height: 3.5rem; }
+    .w-24 { width: 6rem; }
+    .h-24 { height: 6rem; }
+
+    .transition-all { transition: all 150ms ease; }
+    .duration-100 { transition-duration: 100ms; }
+    .duration-500 { transition-duration: 500ms; }
+    .ease-out { transition-timing-function: ease-out; }
+
+    .animate-fade-in { animation: fade-in 0.3s ease-out; }
+    .animate-spin { animation: spin 1s linear infinite; }
+
+    @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .h-full { height: 100%; }
+    .overflow-hidden { overflow: hidden; }
+
+    form input[type="number"],
+    form input[type="text"],
+    form select {
+      width: 100%;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      border-radius: 0.75rem;
+      padding: 0 1rem;
+      outline: none;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+    form input[type="number"]:focus,
+    form input[type="text"]:focus,
+    form select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--ring);
+    }
+    form select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23c4a24c%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+      background-size: 1.2rem;
+      padding-right: 2.5rem;
+    }
+
+    .choice-button {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      border: 2px solid var(--border);
+      background: var(--secondary);
+      color: var(--foreground);
+      text-align: left;
+      transition: all 150ms ease;
+      cursor: pointer;
+    }
+    .choice-button:hover { border-color: hsla(45, 65%, 55%, 0.5); }
+    .choice-button.selected { border-color: var(--primary); background: hsla(45, 65%, 55%, 0.1); }
+    .choice-button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+    button[type="submit"] { border: none; color: var(--primary-foreground); border-radius: var(--radius); cursor: pointer; }
+    .btn-submit { background: var(--gradient-primary); height: 3rem; font-size: 1rem; font-weight: 700; }
+    @media (min-width: 640px) {
+      .btn-submit { height: 3.5rem; font-size: 1.125rem; }
+      .p-6 { padding: 2rem; }
+      .p-8 { padding: 2.5rem; }
+      .p-12 { padding: 3rem; }
+      .text-3xl { font-size: 2rem; }
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      background: hsla(0, 70%, 50%, 0.95);
+      color: #fff;
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 200ms ease, transform 200ms ease;
+      z-index: 50;
+    }
+    .toast-title { font-weight: 700; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ✅ UPSELL CON DELAY POR CSS */
+    #payt-upsell {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      margin-top: 0;
+      animation: paytShow 0s linear var(--upsell-delay) forwards;
+    }
+    @keyframes paytShow {
+      to {
+        opacity: 1;
+        max-height: 500px;
+        pointer-events: auto;
+        visibility: visible;
+        margin-top: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="min-h-screen bg-gradient-dark">
+    <header id="progressHeader" class="w-full bg-background border-b border-border">
+      <div class="bg-destructive/10 border-b border-destructive/20 px-4 py-3">
+        <p class="text-xs sm:text-sm text-center text-foreground leading-tight">
+          <span class="font-bold">¡No cierre esta página!</span>
+          Podría generar un error, cancelar su compra o duplicar su cobro.
+        </p>
+      </div>
+
+      <div class="px-4 py-4" style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-semibold text-foreground" id="headerStep">Paso 2 de 3</span>
+          <span class="text-sm font-bold text-primary" id="headerProgress">65%</span>
+        </div>
+
+        <div class="w-full h-2 bg-secondary rounded-full overflow-hidden">
+          <div id="headerProgressBar" class="h-full bg-gradient-primary transition-all duration-500 ease-out shadow-glow" style="width: 65%;"></div>
+        </div>
+
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <img src="lorde-erect-logo.png" alt="alfa max" class="h-8 sm:h-10 w-auto" />
+          <p class="text-sm sm:text-base text-foreground font-medium">
+            Bienvenido a la App <span class="text-primary font-bold">alfa max</span>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="phase-quiz" class="animate-fade-in">
+        <form id="quizForm" class="space-y-6">
+          <div class="bg-card rounded-2xl p-6 sm:p-8 border border-border shadow-gold">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 text-primary">Información Personal</h2>
+
+            <div class="space-y-6">
+              <!-- Peso con selector de unidad -->
+              <div class="space-y-2">
+                <label class="text-base sm:text-lg font-semibold text-foreground">¿Cuál es tu peso?</label>
+                <div class="flex gap-2">
+                  <input id="weight" type="number" placeholder="Ej: 75" class="h-12 sm:h-14 text-base sm:text-lg flex-1" min="0" max="500" />
+                  <select id="weight-unit" class="h-12 sm:h-14 text-base sm:text-lg w-24 bg-secondary border-border rounded-xl px-2 text-foreground">
+                    <option value="kg" selected>kg</option>
+                    <option value="lb">lb</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Edad -->
+              <div class="space-y-2">
+                <label class="text-base sm:text-lg font-semibold text-foreground">¿Cuál es tu edad?</label>
+                <input id="age" type="number" placeholder="Ej: 35" class="h-12 sm:h-14 text-base sm:text-lg w-full" min="18" max="120" />
+              </div>
+
+              <!-- Altura con selector de unidad -->
+              <div class="space-y-2">
+                <label class="text-base sm:text-lg font-semibold text-foreground">¿Cuál es tu altura?</label>
+                <div class="flex gap-2">
+                  <input id="height" type="number" placeholder="Ej: 175" class="h-12 sm:h-14 text-base sm:text-lg flex-1" min="0" max="300" />
+                  <select id="height-unit" class="h-12 sm:h-14 text-base sm:text-lg w-24 bg-secondary border-border rounded-xl px-2 text-foreground">
+                    <option value="cm" selected>cm</option>
+                    <option value="in">in</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Nueva pregunta de salud -->
+              <div class="space-y-2">
+                <label class="text-base sm:text-lg font-semibold text-foreground">¿Tiene algún problema de salud que desee informarnos?</label>
+                <input id="health" type="text" placeholder="Ej: diabetes, hipertensión, etc." class="h-12 sm:h-14 text-base sm:text-lg w-full" />
+              </div>
+
+              <!-- Tiempo de resultados -->
+              <div class="space-y-3">
+                <label class="text-base sm:text-lg font-semibold text-foreground">¿En cuánto tiempo le gustaría ver los resultados?</label>
+                <div class="space-y-3">
+                  <button type="button" data-value="fast" class="choice-button" id="option-fast">
+                    <span class="font-medium">Lo más rápido posible</span>
+                    <p class="text-sm text-muted-foreground mt-1">Quiero tener resultados hoy si es posible</p>
+                  </button>
+
+                  <button type="button" data-value="normal" class="choice-button" id="option-normal">
+                    <span class="font-medium">Puedo esperar</span>
+                    <p class="text-sm text-muted-foreground mt-1">De 15 a 25 días para tener los primeros resultados</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full mt-8 h-12 sm:h-14 text-base sm:text-lg font-bold bg-gradient-primary hover:opacity-90 transition-all shadow-gold hover:shadow-glow btn-submit">
+              Continuar
+            </button>
+          </div>
+
+          <div class="text-center space-y-2 text-muted-foreground text-xs sm:text-sm">
+            <p>🔒 Su información está segura</p>
+            <p>✓ Datos cifrados y protegidos</p>
+          </div>
+        </form>
+      </section>
+
+      <section id="phase-loading" class="space-y-8 animate-fade-in" style="display: none;">
+        <div class="bg-card rounded-2xl p-8 sm:p-12 border border-border shadow-gold">
+          <div class="flex justify-center mb-8">
+            <div class="relative">
+              <div class="w-24 h-24 rounded-full border-4 animate-spin" style="border-color: hsla(45,65%,55%,0.3); border-top-color: var(--primary);"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4 mb-8 text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-primary">Procesando su información...</h2>
+            <div class="space-y-3 text-center text-muted-foreground">
+              <p id="check-20">○ Analizando datos personales</p>
+              <p id="check-50">○ Calculando resultados</p>
+              <p id="check-80">○ Preparando su acceso</p>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="w-full bg-secondary rounded-full h-3 overflow-hidden">
+              <div id="loadingProgressBar" class="h-full bg-gradient-primary transition-all duration-100 ease-out" style="width: 0%; border-radius: 9999px;"></div>
+            </div>
+            <p id="loadingLabel" class="text-center text-sm text-muted-foreground">0% - Casi listo...</p>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted-foreground text-sm">🔒 Su información se está procesando de forma segura</p>
+        </div>
+      </section>
+
+      <section id="phase-video" class="space-y-8 animate-fade-in" style="display: none;">
+        <div class="bg-card rounded-2xl p-4 sm:p-6 border border-border shadow-gold">
+          <h2 class="text-xl sm:text-2xl font-bold text-center mb-6 text-primary">Vea el video completo</h2>
+
+          <!-- NUEVO CÓDIGO VTURB -->
+          <div class="w-full">
+            <vturb-smartplayer id="vid-6a2f25d0c24e5836ecea4d13" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+            <script type="text/javascript">
+              var s=document.createElement("script");
+              s.src="https://scripts.converteai.net/5eacad5b-3bd7-422a-ba9d-81810e988eda/players/6a2f25d0c24e5836ecea4d13/v4/player.js";
+              s.async=!0;
+              document.head.appendChild(s);
+            </script>
+          </div>
+
+          <!-- ✅ UPSELL KIWIFY (con retraso CSS) -->
+          <div id="payt-upsell" style="text-align:center">
+            <div id="kiwify-upsell-Zeo6Tr2" data-upsell-url="" data-downsell-url="https://pizzalabays.shop/downsell.html">
+              <button id="kiwify-upsell-trigger-Zeo6Tr2" style="background-color:#27AF60;padding:12px 16px;cursor:pointer;color:#FFFFFF;font-weight:600;border-radius:4px;border:1px solid #27AF60;font-size:20px;">¡Sí, acepto esta oferta especial!</button>
+              <div id="kiwify-upsell-cancel-trigger-Zeo6Tr2" style="margin-top:1rem;cursor:pointer;font-size:16px;text-decoration:underline;font-family:sans-serif;">No, prefiero rechazar esta oferta.</div>
+            </div>
+            <script src="https://snippets.kiwify.com/upsell/upsell.min.js"></script>
+          </div>
+          <!-- ✅ FIN UPSELL -->
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted-foreground text-sm">🔒 Compra 100% segura y garantizada</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span class="toast-title">Campos obligatorios</span>
+    <span>Por favor, complete todos los campos.</span>
+  </div>
+
+  <script>
+    (function() {
+      const phaseQuiz = document.getElementById('phase-quiz');
+      const phaseLoading = document.getElementById('phase-loading');
+      const phaseVideo = document.getElementById('phase-video');
+
+      const quizForm = document.getElementById('quizForm');
+      const headerStep = document.getElementById('headerStep');
+      const headerProgress = document.getElementById('headerProgress');
+      const headerProgressBar = document.getElementById('headerProgressBar');
+
+      const toast = document.getElementById('toast');
+      const choiceButtons = document.querySelectorAll('.choice-button');
+
+      const loadingProgressBar = document.getElementById('loadingProgressBar');
+      const loadingLabel = document.getElementById('loadingLabel');
+      const check20 = document.getElementById('check-20');
+      const check50 = document.getElementById('check-50');
+      const check80 = document.getElementById('check-80');
+
+      let selectedTime = '';
+      let loadingInterval = null;
+
+      choiceButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          choiceButtons.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedTime = btn.dataset.value;
+        });
+      });
+
+      function showToast() {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      }
+
+      function updateHeader(step, progress) {
+        headerStep.textContent = `Paso ${step} de 3`;
+        headerProgress.textContent = `${progress}%`;
+        headerProgressBar.style.width = `${progress}%`;
+      }
+
+      function startLoadingPhase() {
+        phaseQuiz.style.display = 'none';
+        phaseVideo.style.display = 'none';
+        phaseLoading.style.display = 'block';
+
+        updateHeader(2, 85);
+
+        let current = 0;
+        const totalDuration = 3000;
+        const interval = 50;
+        const increment = 100 / (totalDuration / interval);
+
+        loadingInterval = setInterval(() => {
+          current = Math.min(100, current + increment);
+          const rounded = Math.round(current);
+
+          loadingProgressBar.style.width = `${rounded}%`;
+          loadingLabel.textContent = `${rounded}% - Casi listo...`;
+
+          check20.textContent = `${rounded > 20 ? '✓' : '○'} Analizando datos personales`;
+          check20.style.color = rounded > 20 ? 'var(--primary)' : 'var(--muted-foreground)';
+
+          check50.textContent = `${rounded > 50 ? '✓' : '○'} Calculando resultados`;
+          check50.style.color = rounded > 50 ? 'var(--primary)' : 'var(--muted-foreground)';
+
+          check80.textContent = `${rounded > 80 ? '✓' : '○'} Preparando su acceso`;
+          check80.style.color = rounded > 80 ? 'var(--primary)' : 'var(--muted-foreground)';
+
+          if (rounded >= 100) {
+            clearInterval(loadingInterval);
+            setTimeout(() => { showVideoPhase(); }, 300);
+          }
+        }, interval);
+      }
+
+      function showVideoPhase() {
+        phaseLoading.style.display = 'none';
+        phaseQuiz.style.display = 'none';
+        phaseVideo.style.display = 'block';
+        updateHeader(3, 100);
+        // El script del Vturb ya está incluido en el HTML, no es necesario cargarlo dinámicamente
+      }
+
+      quizForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const weight = document.getElementById('weight').value.trim();
+        const age = document.getElementById('age').value.trim();
+        const height = document.getElementById('height').value.trim();
+
+        if (!weight || !age || !height || !selectedTime) {
+          showToast();
+          return;
+        }
+        startLoadingPhase();
+      });
+
+      updateHeader(2, 65);
+    })();
+  </script>
+</body>
+</html>

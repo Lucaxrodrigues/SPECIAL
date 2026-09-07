@@ -1,0 +1,94 @@
+import { CheckCircle, Mail, Phone } from "lucide-react";
+import ProgressHeaderLordVigor from "@/components/ProgressHeaderLordVigor";
+
+const SucessoLordVigor = () => {
+  return (
+    <div className="min-h-screen bg-gradient-dark">
+      <ProgressHeaderLordVigor step={3} progress={100} />
+
+      <div className="container max-w-2xl mx-auto px-4 py-12 sm:py-20">
+        <div className="space-y-8 animate-fade-in">
+          {/* Success Card */}
+          <div className="bg-card rounded-2xl p-8 sm:p-12 border border-border shadow-gold text-center space-y-6">
+            <div className="flex justify-center">
+              <CheckCircle className="w-20 h-20 text-green-500" />
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl font-bold text-primary">
+              Fórmula Aprovada!
+            </h1>
+
+            <p className="text-base sm:text-lg text-foreground leading-relaxed">
+              Sua fórmula foi <span className="text-primary font-bold">personalizada com sucesso</span> com base nas informações que você forneceu. Ela foi desenvolvida especialmente para o seu perfil.
+            </p>
+
+            <div className="bg-secondary rounded-xl p-6 border border-border space-y-3">
+              <p className="text-base sm:text-lg text-foreground font-semibold">
+                📦 Código de Rastreio
+              </p>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                O código de rastreio do seu produto será enviado para o <span className="text-primary font-bold">e-mail cadastrado</span> na sua compra. Fique atento à sua caixa de entrada e spam.
+              </p>
+            </div>
+          </div>
+
+          {/* Contact Card */}
+          <div className="bg-card rounded-2xl p-8 sm:p-10 border border-border shadow-gold space-y-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-center text-primary">
+              Precisa de ajuda?
+            </h2>
+            <p className="text-sm sm:text-base text-center text-muted-foreground">
+              Entre em contato conosco por qualquer um dos canais abaixo:
+            </p>
+
+            <div className="space-y-4">
+              {/* Email 1 */}
+              <a
+                href="mailto:sac@lordvigor.com.br"
+                className="flex items-center gap-4 bg-secondary rounded-xl p-4 border border-border hover:border-primary transition-colors"
+              >
+                <Mail className="w-6 h-6 text-primary shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground">E-mail</p>
+                  <p className="text-base font-semibold text-foreground">sac@lordvigor.com.br</p>
+                </div>
+              </a>
+
+              {/* Email 2 */}
+              <a
+                href="mailto:guiasuporteoficial@gmail.com"
+                className="flex items-center gap-4 bg-secondary rounded-xl p-4 border border-border hover:border-primary transition-colors"
+              >
+                <Mail className="w-6 h-6 text-primary shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground">E-mail</p>
+                  <p className="text-base font-semibold text-foreground">guiasuporteoficial@gmail.com</p>
+                </div>
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href="https://wa.me/5519981909667"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 bg-secondary rounded-xl p-4 border border-border hover:border-primary transition-colors"
+              >
+                <Phone className="w-6 h-6 text-primary shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground">WhatsApp</p>
+                  <p className="text-base font-semibold text-foreground">(19) 98190-9667</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div className="text-center text-muted-foreground text-xs sm:text-sm">
+            <p>✓ Obrigado por escolher o Lord Vigor</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SucessoLordVigor;

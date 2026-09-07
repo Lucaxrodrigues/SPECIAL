@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LordVigor - Saúde</title>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MKF9HT6T');</script>
+  <!-- End Google Tag Manager -->
+  <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69af1c8aa61fe7c3c1e2e9d6/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/69af19c06975d631dcea764c/main.m3u8" as="fetch">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://api.vturb.com.br">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #fff;
+      color: #333;
+    }
+
+    /* Header */
+    .header {
+      background: #cc0000;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .header h1 {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0px;
+    }
+
+/* Banner de urgência */
+    .urgency-banner {
+      background: #990000;
+      color: #fff;
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+
+    .urgency-banner strong {
+      font-weight: 700;
+    }
+
+    /* Seção do vídeo */
+    .video-section {
+      background: #fff;
+      padding: 30px 15px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .sound-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .sound-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Seção de preços */
+    .pricing-section {
+      background: #1a3a5c;
+      padding: 40px 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .price-card {
+      background: #fff;
+      border: 3px solid #2980b9;
+      border-radius: 12px;
+      padding: 25px 20px;
+      width: 300px;
+      text-align: center;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border-color: #2980b9;
+      transform: scale(1.03);
+    }
+
+    .badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #cc0000;
+      color: #fff;
+      padding: 4px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 0 0 8px 8px;
+      white-space: nowrap;
+    }
+
+    .price-card h3 {
+      font-size: 28px;
+      font-weight: 900;
+      color: #1a3a5c;
+      margin-top: 20px;
+    }
+
+    .price-card .subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .price-card .product-img {
+      width: 180px;
+      height: 160px;
+      margin: 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .price-card .product-img img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .product-placeholder {
+      width: 180px;
+      height: 160px;
+      margin: 10px auto;
+      background: #e8f4f8;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2980b9;
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .installments {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .installments span {
+      display: inline;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 900;
+      color: #1a3a5c;
+    }
+
+    .price .currency {
+      font-size: 20px;
+      vertical-align: super;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 15px 0 10px;
+    }
+
+    .btn-buy {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .btn-cartao {
+      background: #f4d03f;
+      color: #333;
+    }
+
+    .btn-cartao:hover {
+      background: #f1c40f;
+    }
+
+    .btn-pix {
+      background: #2ecc71;
+      color: #fff;
+    }
+
+    .btn-pix:hover {
+      background: #27ae60;
+    }
+
+    .total-price {
+      font-size: 14px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .shipping {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #555;
+      font-style: italic;
+      margin: 5px 0;
+    }
+
+    .guarantee-days {
+      font-size: 13px;
+      color: #555;
+      margin: 8px 0;
+    }
+
+    .payment-flags {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .payment-flags img {
+      height: 28px;
+    }
+
+    .flag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .flag-visa { background: #1a1f71; }
+    .flag-master { background: #eb001b; }
+    .flag-discover { background: #ff6000; }
+    .flag-amex { background: #006fcf; }
+
+    /* Garantia */
+    .guarantee-section {
+      background: #fdf8e8;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .guarantee-box {
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background: #fdf8e8;
+      border: 2px solid #e8dcc8;
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .guarantee-img {
+      flex-shrink: 0;
+      width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .guarantee-img-placeholder {
+      width: 200px;
+      height: 200px;
+      background: #f0e6cc;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #8b7a50;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px;
+    }
+
+    .guarantee-content h2 {
+      font-size: 26px;
+      font-weight: 900;
+      color: #333;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .guarantee-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .guarantee-content strong {
+      color: #333;
+    }
+
+    /* CTA final */
+    .cta-section {
+      padding: 40px 20px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      background: #f4d03f;
+      color: #333;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 14px 30px;
+      border: 2px solid #333;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-cta:hover {
+      background: #f1c40f;
+    }
+
+    /* Referências */
+    .references-section {
+      padding: 30px 20px 50px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .references-badge {
+      display: inline-block;
+      background: #2c5aa0;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 12px 40px;
+      border-radius: 30px;
+      margin-bottom: 25px;
+    }
+
+    .references-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .references-logos span {
+      font-size: 22px;
+      font-weight: 800;
+      color: #555;
+    }
+
+    .ref-globo { color: #e31e24; }
+    .ref-terra { color: #e35d22; }
+    .ref-cnn { color: #cc0000; background: #cc0000; color: #fff; padding: 4px 12px; border-radius: 4px; font-size: 16px; }
+    .ref-uol { color: #f5a623; }
+
+    /* Responsivo */
+    @media (max-width: 960px) {
+      .pricing-section {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .price-card.featured {
+        transform: none;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 14px;
+      }
+
+      .guarantee-box {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .price-card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .guarantee-content h2 {
+        font-size: 20px;
+      }
+    }
+
+    /* Disclaimer / Footer */
+    .disclaimer-footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 40px 20px;
+      font-size: 12px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .disclaimer-footer p {
+      max-width: 900px;
+      margin: 0 auto 15px;
+    }
+
+    .disclaimer-footer .footer-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .disclaimer-footer .footer-links a {
+      color: #ccc;
+      text-decoration: underline;
+      font-size: 12px;
+    }
+
+    .disclaimer-footer .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* Elementos ocultos até o pitch (39:30) */
+    .pricing-section,
+    .guarantee-section,
+    .cta-section {
+      display: none !important;
+    }
+    .pricing-section.revealed,
+    .guarantee-section.revealed,
+    .cta-section.revealed {
+      display: flex !important;
+    }
+    .cta-section.revealed {
+      display: block !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKF9HT6T"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- Header -->
+  <header class="header">
+    <h1 id="viewer-count"></h1>
+  </header>
+
+  <!-- Banner de urgência -->
+  <div class="urgency-banner">
+    Apresenta&ccedil;&atilde;o dispon&iacute;vel somente at&eacute;: <strong id="deadline-date">quarta, 04/03/2026</strong>
+  </div>
+
+  <!-- Vídeo -->
+  <section class="video-section">
+    <div class="video-wrapper">
+      <vturb-smartplayer id="vid-69af1c8aa61fe7c3c1e2e9d6" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+      <script type="text/javascript">
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69af1c8aa61fe7c3c1e2e9d6/v4/player.js",
+        s.async=!0,document.head.appendChild(s);
+      </script>
+    </div>
+    <div class="sound-notice">
+      <svg class="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+        <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/>
+      </svg>
+      Por favor, verifique se o som est&aacute; ligado.
+    </div>
+  </section>
+
+  <!-- Preços -->
+  <section class="pricing-section" id="kits">
+
+    <!-- 10 Frascos -->
+    <div class="price-card featured">
+      <div class="badge">Mais vendido</div>
+      <h3>10 Frascos</h3>
+      <p class="subtitle">Suficiente para 10 meses</p>
+      <div class="product-img">
+        <img src="t10 frasco.png" alt="10 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        12x de <span class="price"><span class="currency">R$</span> 72,09</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/fd50cabb132077c1993b8d09a7e93f99?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/fd50cabb132077c1993b8d09a7e93f99?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 697,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 600 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 5 Frascos -->
+    <div class="price-card">
+      <h3>5 Frascos</h3>
+      <p class="subtitle">Suficiente para 5 meses</p>
+      <div class="product-img">
+        <img src="t5 frasco.png" alt="5 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        12x de <span class="price"><span class="currency">R$</span> 41,06</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/301663af69e4461de3abb7ab4f9409d7?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/301663af69e4461de3abb7ab4f9409d7?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 397,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 300 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 3 Frascos -->
+    <div class="price-card">
+      <h3>3 Frascos</h3>
+      <p class="subtitle">Suficiente para 3 meses</p>
+      <div class="product-img">
+        <img src="t3 frasco.png" alt="3 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        5x de <span class="price"><span class="currency">R$</span> 65,76</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/6f5ead1f4256eac39bff7abb00c6f238?split=5" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/6f5ead1f4256eac39bff7abb00c6f238?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 297,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 180 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 1 Frasco -->
+    <div class="price-card">
+      <h3>1 Frasco</h3>
+      <p class="subtitle">Suficiente para 1 m&ecirc;s</p>
+      <div class="product-img">
+        <img src="t1 frasco.png" alt="1 Frasco LordVigor">
+      </div>
+      <div class="installments">
+        <span class="price"><span class="currency">R$</span> 197,00</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/5e94fac6e972b0c182a1692872bc1281?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/5e94fac6e972b0c182a1692872bc1281?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 197,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 60 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Garantia -->
+  <section class="guarantee-section">
+    <div class="guarantee-box">
+      <div class="guarantee-img">
+        <img src="garantia blindada.png" alt="Garantia Blindada LordVigor" style="max-width: 100%; height: auto;">
+      </div>
+      <div class="guarantee-content">
+        <h2>GARANTIA BLINDADA LORDVIGOR</h2>
+        <p>Quando voc&ecirc; pedir o LordVigor, tamb&eacute;m receber&aacute; uma <strong>garantia blindada de 60 dias em cada frasco</strong> para solicitar todo o seu dinheiro de volta.</p>
+        <p>Estamos t&atilde;o confiantes que o LordVigor vai te trazer resultados, que se voc&ecirc; n&atilde;o estiver 100% satisfeito e n&atilde;o notar uma grande melhora na sua qualidade de vida, <strong>n&oacute;s vamos te devolver at&eacute; o &uacute;ltimo centavo pago.</strong></p>
+        <p>Basta enviar um e-mail para sac@lordvigor.com.br em at&eacute; 60 dias a partir da sua compra que faremos a devolu&ccedil;&atilde;o integral do seu dinheiro, <strong>sem qualquer questionamento!</strong></p>
+        <p>Por isso, fa&ccedil;a seu pedido agora. Voc&ecirc; n&atilde;o tem absolutamente NADA a perder, e tudo a ganhar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <a href="#kits" class="btn-cta">ESCOLHER MEU KIT</a>
+  </section>
+
+  <!-- Referências Científicas -->
+  <section class="references-section">
+    <div class="references-badge">Refer&ecirc;ncias Cient&iacute;ficas</div>
+    <img src="referencias-cientificas.png" alt="Refer&ecirc;ncias Cient&iacute;ficas" style="max-width: 100%; height: auto;">
+  </section>
+
+  <!-- Footer -->
+  <footer class="disclaimer-footer">
+    <p>2026 &copy; Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Número aleatório de pessoas assistindo (800-1000), atualiza a cada 5s
+    function updateViewers() {
+      var viewers = Math.floor(Math.random() * (1000 - 800 + 1)) + 800;
+      document.getElementById('viewer-count').textContent = viewers + ' Pessoas estão vendo esse vídeo';
+    }
+    updateViewers();
+    setInterval(updateViewers, 5000);
+  </script>
+
+  <script>
+    // Atualiza a data do banner dinamicamente
+    (function() {
+      var dias = ['domingo','segunda','ter\u00e7a','quarta','quinta','sexta','s\u00e1bado'];
+      var hoje = new Date();
+      var dia = dias[hoje.getDay()];
+      var dd = String(hoje.getDate()).padStart(2, '0');
+      var mm = String(hoje.getMonth() + 1).padStart(2, '0');
+      var yyyy = hoje.getFullYear();
+      document.getElementById('deadline-date').textContent = dia + ', ' + dd + '/' + mm + '/' + yyyy;
+    })();
+  </script>
+
+  <script>
+    // Revela kits, garantia e CTA após 39:30 (2370 segundos)
+    setTimeout(function() {
+      document.querySelector('.pricing-section').classList.add('revealed');
+      document.querySelector('.guarantee-section').classList.add('revealed');
+      document.querySelector('.cta-section').classList.add('revealed');
+    }, 2370000);
+  </script>
+
+  <script>
+    // Repassa parâmetros da URL (UTM, gclid, etc.) para os links de checkout
+    (function() {
+      var params = window.location.search;
+      if (!params) return;
+      var links = document.querySelectorAll('a[href*="checkout.payt.com.br"]');
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href');
+        var separator = href.indexOf('?') !== -1 ? '&' : '?';
+        links[i].setAttribute('href', href + separator + params.substring(1));
+      }
+    })();
+  </script>
+
+  <script>
+    (function() {
+      var startTime = Date.now();
+      var revealTime = 2400000;
+      history.pushState(null, '', window.location.href);
+      window.addEventListener('popstate', function() {
+        history.pushState(null, '', window.location.href);
+        var elapsed = Date.now() - startTime;
+        if (elapsed < revealTime) {
+          window.location.href = 'bk-google.html' + window.location.search;
+        } else {
+          window.location.href = 'bk-google-oferta.html' + window.location.search;
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

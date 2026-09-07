@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LordVigor - Sa&uacute;de</title>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '984865513967074');
+  fbq('init', '916958714544544');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=984865513967074&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MKF9HT6T');</script>
+  <!-- End Google Tag Manager -->
+  <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+  <link rel="preload" href="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69bc7d9eb1f8e9f7f4f00c38/v4/player.js" as="script">
+  <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+  <link rel="preload" href="https://cdn.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/69bc7bfb423ef7939ca30326/main.m3u8" as="fetch">
+  <link rel="dns-prefetch" href="https://cdn.converteai.net">
+  <link rel="dns-prefetch" href="https://scripts.converteai.net">
+  <link rel="dns-prefetch" href="https://images.converteai.net">
+  <link rel="dns-prefetch" href="https://api.vturb.com.br">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #fff;
+      color: #333;
+    }
+
+    /* Header */
+    .header {
+      background: #cc0000;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .header h1 {
+      color: #fff;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .header .menu-icon {
+      position: absolute;
+      right: 20px;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .header .menu-icon span {
+      display: block;
+      width: 28px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    /* Banner de urgência */
+    .urgency-banner {
+      background: #990000;
+      color: #fff;
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+
+    .urgency-banner strong {
+      font-weight: 700;
+    }
+
+    /* Seção do vídeo */
+    .video-section {
+      background: #fff;
+      padding: 30px 15px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .sound-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .sound-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Seção de preços */
+    .pricing-section {
+      background: #1a3a5c;
+      padding: 40px 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .price-card {
+      background: #fff;
+      border: 3px solid #2980b9;
+      border-radius: 12px;
+      padding: 25px 20px;
+      width: 300px;
+      text-align: center;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border-color: #2980b9;
+      transform: scale(1.03);
+    }
+
+    .badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #cc0000;
+      color: #fff;
+      padding: 4px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 0 0 8px 8px;
+      white-space: nowrap;
+    }
+
+    .price-card h3 {
+      font-size: 28px;
+      font-weight: 900;
+      color: #1a3a5c;
+      margin-top: 20px;
+    }
+
+    .price-card .subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .price-card .product-img {
+      width: 180px;
+      height: 160px;
+      margin: 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .price-card .product-img img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .product-placeholder {
+      width: 180px;
+      height: 160px;
+      margin: 10px auto;
+      background: #e8f4f8;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2980b9;
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .installments {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .installments span {
+      display: inline;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 900;
+      color: #1a3a5c;
+    }
+
+    .price .currency {
+      font-size: 20px;
+      vertical-align: super;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 15px 0 10px;
+    }
+
+    .btn-buy {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .btn-cartao {
+      background: #f4d03f;
+      color: #333;
+    }
+
+    .btn-cartao:hover {
+      background: #f1c40f;
+    }
+
+    .btn-pix {
+      background: #2ecc71;
+      color: #fff;
+    }
+
+    .btn-pix:hover {
+      background: #27ae60;
+    }
+
+    .total-price {
+      font-size: 14px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .shipping {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #555;
+      font-style: italic;
+      margin: 5px 0;
+    }
+
+    .guarantee-days {
+      font-size: 13px;
+      color: #555;
+      margin: 8px 0;
+    }
+
+    .payment-flags {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .payment-flags img {
+      height: 28px;
+    }
+
+    .flag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .flag-visa { background: #1a1f71; }
+    .flag-master { background: #eb001b; }
+    .flag-discover { background: #ff6000; }
+    .flag-amex { background: #006fcf; }
+
+    /* Garantia */
+    .guarantee-section {
+      background: #fdf8e8;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .guarantee-box {
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background: #fdf8e8;
+      border: 2px solid #e8dcc8;
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .guarantee-img {
+      flex-shrink: 0;
+      width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .guarantee-img-placeholder {
+      width: 200px;
+      height: 200px;
+      background: #f0e6cc;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #8b7a50;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px;
+    }
+
+    .guarantee-content h2 {
+      font-size: 26px;
+      font-weight: 900;
+      color: #333;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .guarantee-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .guarantee-content strong {
+      color: #333;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 40px 20px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      background: #f4d03f;
+      color: #333;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 14px 30px;
+      border: 2px solid #333;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-cta:hover {
+      background: #f1c40f;
+    }
+
+    /* Refer&ecirc;ncias */
+    .references-section {
+      padding: 30px 20px 50px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .references-badge {
+      display: inline-block;
+      background: #2c5aa0;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 12px 40px;
+      border-radius: 30px;
+      margin-bottom: 25px;
+    }
+
+    .references-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .references-logos span {
+      font-size: 22px;
+      font-weight: 800;
+      color: #555;
+    }
+
+    .ref-globo { color: #e31e24; }
+    .ref-terra { color: #e35d22; }
+    .ref-cnn { color: #cc0000; background: #cc0000; color: #fff; padding: 4px 12px; border-radius: 4px; font-size: 16px; }
+    .ref-uol { color: #f5a623; }
+
+    /* Responsivo */
+    @media (max-width: 960px) {
+      .pricing-section {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .price-card.featured {
+        transform: none;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .guarantee-box {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .price-card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .guarantee-content h2 {
+        font-size: 20px;
+      }
+    }
+
+    /* Elementos ocultos até reveal */
+    .faq-section,
+    .guarantee-section,
+    .pricing-section,
+    .cta-section {
+      display: none !important;
+    }
+    .faq-section.revealed,
+    .guarantee-section.revealed,
+    .pricing-section.revealed,
+    .cta-section.revealed {
+      display: flex !important;
+    }
+    .cta-section.revealed {
+      display: block !important;
+    }
+    .faq-section.revealed {
+      display: block !important;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      background: #2B6A9B;
+      padding: 50px 20px 60px;
+    }
+
+    .faq-section h2 {
+      text-align: center;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 35px;
+      letter-spacing: 1px;
+    }
+
+    .faq-container {
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: #fff;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #222;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 20px 55px 20px 22px;
+      text-align: left;
+      cursor: pointer;
+      position: relative;
+      display: block;
+      font-family: inherit;
+    }
+
+    .faq-question::after {
+      content: '▼';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #D4AF37;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question::after {
+      content: '▲';
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-answer p {
+      color: #444;
+      font-size: 15px;
+      line-height: 1.7;
+      padding: 0 22px 20px;
+      margin: 0;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    /* Facebook Comments Section - Plugin Style */
+    .fb-comments-section {
+      background: #fff;
+      padding: 0 15px 60px;
+    }
+
+    .fb-comments-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .fb-comments-header {
+      padding: 15px 25px 0;
+    }
+
+    .fb-comments-header h4 {
+      color: #686868;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    .fb-comments-divider {
+      height: 2px;
+      background: #cfcfcf;
+      margin: 10px 25px;
+    }
+
+    .fb-comment {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 25px;
+    }
+
+    .fb-comment-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .fb-comment-body {
+      flex: 1;
+    }
+
+    .fb-comment-name {
+      color: #365899;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .fb-comment-text {
+      color: #5C5C5C;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .fb-comment-actions {
+      margin-top: 4px;
+      color: #7A7A7A;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .fb-comment-actions h6 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 400;
+      color: #7A7A7A;
+    }
+
+    .fb-plugin-footer {
+      padding: 10px 25px 15px;
+      border-top: 2px solid #cfcfcf;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fb-plugin-footer img {
+      width: 13%;
+      border-radius: 2px;
+    }
+
+    .fb-plugin-footer span {
+      color: #7A7A7A;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    /* Disclaimer / Footer */
+    .disclaimer-footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 40px 20px;
+      font-size: 12px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .disclaimer-footer p {
+      max-width: 900px;
+      margin: 0 auto 15px;
+    }
+
+    .disclaimer-footer .footer-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .disclaimer-footer .footer-links a {
+      color: #ccc;
+      text-decoration: underline;
+      font-size: 12px;
+    }
+
+    .disclaimer-footer .footer-links a:hover {
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKF9HT6T"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- Header -->
+  <header class="header">
+    <h1>SA&Uacute;DE</h1>
+    <div class="menu-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- Banner de urgência -->
+  <div class="urgency-banner">
+    Apresenta&ccedil;&atilde;o dispon&iacute;vel somente at&eacute;: <strong id="deadline-date">quarta, 04/03/2026</strong>
+  </div>
+
+  <!-- Vídeo -->
+  <section class="video-section">
+    <div class="video-wrapper">
+      <img src="headlinezinha.jpg" alt="Headline" style="width: 100%; max-width: 400px; display: block; margin: 0 auto 15px;">
+      <vturb-smartplayer id="vid-69bc7d9eb1f8e9f7f4f00c38" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+      <script type="text/javascript">
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69bc7d9eb1f8e9f7f4f00c38/v4/player.js",
+        s.async=!0,document.head.appendChild(s);
+      </script>
+    </div>
+    <div class="sound-notice">
+      <svg class="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+        <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/>
+      </svg>
+      Por favor, verifique se o som est&aacute; ligado.
+    </div>
+  </section>
+
+  <!-- Preços -->
+  <section class="pricing-section" id="kits">
+
+    <!-- 6 Frascos -->
+    <div class="price-card featured">
+      <div class="badge">Mais vendido</div>
+      <h3>6 Frascos</h3>
+      <p class="subtitle">Suficiente para 6 meses</p>
+      <div class="product-img">
+        <img src="t6 frasco.png" alt="6 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        12x de <span class="price"><span class="currency">R$</span> 41,06</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/d5e7a42f848de89069733d940881fa90?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/d5e7a42f848de89069733d940881fa90?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 397,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 360 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 3 Frascos -->
+    <div class="price-card">
+      <h3>3 Frascos</h3>
+      <p class="subtitle">Suficiente para 3 meses</p>
+      <div class="product-img">
+        <img src="t3 frasco.png" alt="3 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        12x de <span class="price"><span class="currency">R$</span> 30,72</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/6f5ead1f4256eac39bff7abb00c6f238?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/6f5ead1f4256eac39bff7abb00c6f238?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 297,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 180 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 1 Frasco -->
+    <div class="price-card">
+      <h3>1 Frasco</h3>
+      <p class="subtitle">Suficiente para 1 m&ecirc;s</p>
+      <div class="product-img">
+        <img src="t1 frasco.png" alt="1 Frasco LordVigor">
+      </div>
+      <div class="installments">
+        <span class="price"><span class="currency">R$</span> 197,00</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/5e94fac6e972b0c182a1692872bc1281?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/5e94fac6e972b0c182a1692872bc1281?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 197,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 60 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Garantia -->
+  <section class="guarantee-section">
+    <div class="guarantee-box">
+      <div class="guarantee-img">
+        <img src="garantia blindada.png" alt="Garantia Blindada LordVigor" style="max-width: 100%; height: auto;">
+      </div>
+      <div class="guarantee-content">
+        <h2>GARANTIA BLINDADA LORDVIGOR</h2>
+        <p>Quando voc&ecirc; pedir o LordVigor, tamb&eacute;m receber&aacute; uma <strong>garantia blindada de 60 dias em cada frasco</strong> para solicitar todo o seu dinheiro de volta.</p>
+        <p>Estamos t&atilde;o confiantes que o LordVigor vai te trazer resultados, que se voc&ecirc; n&atilde;o estiver 100% satisfeito e n&atilde;o notar uma grande melhora na sua qualidade de vida, <strong>n&oacute;s vamos te devolver at&eacute; o &uacute;ltimo centavo pago.</strong></p>
+        <p>Basta enviar um e-mail para sac@lordvigor.com.br em at&eacute; 60 dias a partir da sua compra que faremos a devolu&ccedil;&atilde;o integral do seu dinheiro, <strong>sem qualquer questionamento!</strong></p>
+        <p>Por isso, fa&ccedil;a seu pedido agora. Voc&ecirc; n&atilde;o tem absolutamente NADA a perder, e tudo a ganhar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2>D&uacute;vidas Frequentes</h2>
+    <div class="faq-container">
+
+    <div class="faq-item">
+      <button class="faq-question">O que &eacute; o LordVigor?</button>
+      <div class="faq-answer">
+        <p>O LordVigor &eacute; um composto 100% natural, com f&oacute;rmula premium com ingredientes aprovados pela ANVISA e n&atilde;o possui nenhum efeito colateral.<br>Al&eacute;m disso, o LordVigor n&atilde;o tem contra indica&ccedil;&otilde;es, sendo consumido por milhares de pessoas todos os dias.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Quantos frascos devo pedir?</button>
+      <div class="faq-answer">
+        <p>Os melhores resultados surgem quando voc&ecirc; toma o LordVigor por 3 meses ou mais. Dessa forma, ele tem tempo suficiente para agir em todo o seu corpo.<br>Por isso, recomendamos fortemente que voc&ecirc; aproveite os pacotes de desconto de 3 ou 6 frascos.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Como devo tomar o LordVigor?</button>
+      <div class="faq-answer">
+        <p>Basta pingar uma gota embaixo da l&iacute;ngua todos os dias, ap&oacute;s o caf&eacute; da manh&atilde; ou almo&ccedil;o e voc&ecirc; vai adorar os resultados.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Em quanto tempo posso ver resultados?</button>
+      <div class="faq-answer">
+        <p>Os resultados variam de acordo com o organismo de cada pessoa.<br>Mas os clientes do LordVigor afirmam terem notado sinais de melhora j&aacute; nos primeiros dias de uso.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">O LordVigor &eacute; vendido em farm&aacute;cia ou em lojas f&iacute;sicas?</button>
+      <div class="faq-answer">
+        <p>Devido &agrave; alta demanda e a qualidade da f&oacute;rmula, a venda &eacute; feita exclusivamente neste site oficial. Se voc&ecirc; ver o LordVigor em farm&aacute;cia ou mercado livre, n&atilde;o compre pois &eacute; uma falsifica&ccedil;&atilde;o que pode colocar a sua sa&uacute;de em risco.<br>&Eacute; totalmente proibida a revenda de terceiros em outros sites.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">E se n&atilde;o funcionar para mim?</button>
+      <div class="faq-answer">
+        <p>Cada frasco do LordVigor vem com nossa garantia blindada de 60 dias.<br>Se, por algum motivo, voc&ecirc; n&atilde;o estiver satisfeito com os resultados, basta devolver os frascos (mesmo que vazios), e n&oacute;s reembolsaremos 100% do seu dinheiro, sem perguntas.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">O que eu fa&ccedil;o agora?</button>
+      <div class="faq-answer">
+        <p>Escolha o seu kit acima e clique no bot&atilde;o escrito &quot;Comprar&quot;.<br>Na pr&oacute;xima p&aacute;gina, basta preencher as suas informa&ccedil;&otilde;es e dizer para onde devemos enviar o seu pedido do LordVigor.</p>
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <a href="#kits" class="btn-cta">ESCOLHER MEU KIT</a>
+  </section>
+
+  <!-- Referências Científicas -->
+  <section class="references-section">
+    <div class="references-badge">Refer&ecirc;ncias Cient&iacute;ficas</div>
+    <img src="referencias-cientificas.png" alt="Refer&ecirc;ncias Cient&iacute;ficas" style="max-width: 100%; height: auto;">
+  </section>
+
+  <!-- Comentários estilo Facebook Plugin -->
+  <section class="fb-comments-section">
+    <div class="fb-comments-container">
+      <div class="fb-comments-header">
+        <h4>24 Coment&aacute;rios</h4>
+      </div>
+      <div class="fb-comments-divider"></div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="EduardoCoelho.png" alt="Eduardo Coelho">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Eduardo Coelho</div>
+          <div class="fb-comment-text">Ainda bem que eu vi o v&iacute;deo at&eacute; o final. Fico feliz demais Muito obrigado Dra. por ter descoberto, fiz o teste e em dois dias j&aacute; voltei duro, azulzinho nunca mais!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 37 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="RobertoBelmonte.png" alt="Roberto Belmonte">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Roberto Belmonte</div>
+          <div class="fb-comment-text">O neg&oacute;cio funciona mo&ccedil;o</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 12 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="PedroPaulo.png" alt="Pedro Paulo">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Pedro Paulo</div>
+          <div class="fb-comment-text">No in&iacute;cio eu duvidava muito, at&eacute; porque j&aacute; tinha tentado de tudo antes Mas mesmo assim resolvi dar uma chance e fiquei impressionado!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 7 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="LucasAlmeida.png" alt="Lucas Almeida">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Lucas Almeida</div>
+          <div class="fb-comment-text">Tava querendo saber se funcionava de verdade e agora vendo todos esses coment&aacute;rios positivos, j&aacute; sei a resposta. Mto obg gente!!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 6 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="MarceloSantosLima.png" alt="Marcelo Santos Lima">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Marcelo Santos Lima</div>
+          <div class="fb-comment-text">Estou surpreso como esse truque funciona mesmo! Duvidava que realmente ia funcionar, estou usando h&aacute; 30 dias e voltei a fazer 2 vezes por dia, imagina quando fizer 3 meses de uso, minha mulher que me espere</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 27 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="GuilhermeMotta.png" alt="Guilherme Motta">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Guilherme Motta</div>
+          <div class="fb-comment-text">Eu realmente precisava desse truque para salvar meu casamento, nao sabia mais o que fazer. O v&iacute;deo demora um pouco, mas depois que &eacute; revelado o truque eu fiquei surpreso pq funciona de verdade! obrigado Doutora!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 1d</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="RodrigoMenezes.png" alt="Rodrigo Menezes">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Rodrigo Menezes</div>
+          <div class="fb-comment-text">Depois que completei 56 anos, comecei a sofrer com a disfun&ccedil;&atilde;o, o que me fazia sempre ficar meia bomba, sem falar na minha libido que tava l&aacute; no ch&atilde;o&hellip; Agora, depois de usar sua solu&ccedil;&atilde;o, tudo isso acabou! Eu parei de passar vergonha. Realmente funciona, eu recomendo mto</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 38 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="BrunoMartins.png" alt="Bruno Martins">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Bruno Martins</div>
+          <div class="fb-comment-text">Voc&ecirc; devia mostrar esse truque para todo mundo! Ele funciona mesmo!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 4 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="EmanuelSilva.png" alt="Emanuel Silva">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Emanuel Silva</div>
+          <div class="fb-comment-text">Eu sofria com ele ficando apenas meia bomba, n&atilde;o chegava a falhar, mas minha esposa notava que tinha algo errado, ela chegou a brigar comigo achando que eu tava traindo ela Mas era s&oacute; que o menino n&atilde;o subia mesmo. Mas agora n&atilde;o tem quem me segure, virei adolescente de novo!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 3 h</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="WagnerMoura.png" alt="Wagner Moura">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Wagner Moura</div>
+          <div class="fb-comment-text">N&atilde;o consigo deixar ele rigido faz mais de 8 anos, ser&aacute; que funciona?</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 9 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="CeliaIvano.png" alt="Celia Ivano">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Celia Ivano</div>
+          <div class="fb-comment-text">Wagner o neg&oacute;cio fica igual concreto rsrs Esse metodo foi a &uacute;nica tentativa que deu certo pra mim. Pode testar, vc vai ver como funciona!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 8 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="DiegoSilva.png" alt="Diego Silva">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Diego Silva</div>
+          <div class="fb-comment-text">J&aacute; fazia tr&ecirc;s anos que eu n&atilde;o conseguia levantar o mastro tentei de tudo gel massagem e nada funcionava. So esse metodo que conseguiu me salva s&oacute; n&atilde;o use muito sen&atilde;o n&atilde;o tem quem fa&ccedil;a descer o mein&atilde;o!!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 17 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="Joaopaulo.png" alt="Jo&atilde;o Paulo">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Jo&atilde;o Paulo</div>
+          <div class="fb-comment-text">Valeu, vou testar tamb&eacute;m!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 2 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="OtavioNeto.png" alt="Otavio Neto">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Otavio Neto</div>
+          <div class="fb-comment-text">Fazia tempo que estava procurando isso, sorte que achei de novo</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 1 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="EduardoMachado.png" alt="Eduardo Machado">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Eduardo Machado</div>
+          <div class="fb-comment-text">Quero agradecer a Rog&eacute;rio, que me mostrou esse m&eacute;todo e me deixou duro de um jeito que nunca fiquei na vida, me sinto at&eacute; um adolescente novamente!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 41 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="JoseCarvalho.png" alt="Jos&eacute; Carvalho">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Jos&eacute; Carvalho</div>
+          <div class="fb-comment-text">eu sofria com a mesma coisa que voc&ecirc;s Minha esposa j&aacute; tava pra me deixar Esse truque da semente verde foi minha &uacute;nica tentativa que deu certo, voc&ecirc; vai ver como funciona.</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 6 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="JoseAntonio.png" alt="Jos&eacute; Ant&ocirc;nio">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Jos&eacute; Ant&ocirc;nio</div>
+          <div class="fb-comment-text">No in&iacute;cio eu n&atilde;o acreditei, mas os resultados falam por si. Lutando com a disfun&ccedil;&atilde;o e noites mal sucedidas, o tratamento foi o &uacute;nico que me deu al&iacute;vio</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 12 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="FernandoLuizAlmeida.png" alt="Fernando Luiz Almeida">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Fernando Luiz Almeida</div>
+          <div class="fb-comment-text">Pagaria at&eacute; um milh&atilde;o por esse tratamento se soubesse que ia me fazer t&atilde;o bem assim</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 7 min</h6></div>
+      </div>
+      </div>
+
+      <div class="fb-comment">
+        <img class="fb-comment-avatar" src="BentoSilva.png" alt="Bento Silva">
+        <div class="fb-comment-body">
+          <div class="fb-comment-name">Bento Silva</div>
+          <div class="fb-comment-text">Hoje eu finalmente parei de sofrer com aquela meia bomba e agora, eu n&atilde;o acordo mais envergonhado, mas sim com minha mulher querendo fogo!</div>
+        <div class="fb-comment-actions"><h6>Responder &middot; Curtir &middot; Seguir &middot; 4 min</h6></div>
+      </div>
+      </div>
+
+      <!-- Facebook Plugin Footer -->
+      <div class="fb-plugin-footer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">
+        <span>Plug-in social do Facebook</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Disclaimer -->
+  <footer class="disclaimer-footer">
+    <p>2026 Copyright &copy;. Todos os direitos reservados. Todo o conte&uacute;do deste site, incluindo fotos, imagens, logotipos, marcas e layout, &eacute; de propriedade exclusiva do LordVigor e protegido por leis de direitos autorais e propriedade intelectual. A reprodu&ccedil;&atilde;o, modifica&ccedil;&atilde;o ou distribui&ccedil;&atilde;o sem autoriza&ccedil;&atilde;o expressa &eacute; proibida.</p>
+    <p>A inclus&atilde;o de qualquer conte&uacute;do ou link neste site n&atilde;o implica endosso, garantia, patroc&iacute;nio ou recomenda&ccedil;&atilde;o por parte do LordVigor.</p>
+    <p>As informa&ccedil;&otilde;es apresentadas neste site n&atilde;o constituem aconselhamento m&eacute;dico e n&atilde;o substituem diagn&oacute;sticos realizados por um profissional de sa&uacute;de. Este produto &eacute; um suplemento alimentar de uso amplo e n&atilde;o deve ser utilizado como substituto para tratamentos m&eacute;dicos. Sempre consulte um profissional de sa&uacute;de antes de iniciar o uso.</p>
+    <p>Este produto n&atilde;o tem inten&ccedil;&atilde;o de dar diagn&oacute;sticos, curas ou prevenir doen&ccedil;as, e n&atilde;o &eacute; um medicamento, mas sim um suplemento alimentar de uso amplo. Resultados podem variar de pessoa para pessoa e dependem de diversos fatores individuais.</p>
+    <p>Depoimentos, estudos de caso e exemplos encontrados nesta p&aacute;gina s&atilde;o resultados que nos foram encaminhados por usu&aacute;rios, e podem n&atilde;o refletir a experi&ecirc;ncia do comprador t&iacute;pico, podem n&atilde;o se aplicar a uma pessoa comum e n&atilde;o pretendem representar ou garantir que qualquer pessoa alcan&ccedil;ar&aacute; os mesmos resultados ou resultados semelhantes. Alguns nomes e informa&ccedil;&otilde;es de identifica&ccedil;&atilde;o pessoal neste site foram alterados para proteger a privacidade dos indiv&iacute;duos.</p>
+    <p>O conte&uacute;do deste v&iacute;deo foi criado exclusivamente para fins publicit&aacute;rios. Todos os personagens e situa&ccedil;&otilde;es apresentadas s&atilde;o interpretados por atores profissionais e n&atilde;o representam pessoas reais. Qualquer semelhan&ccedil;a com eventos, locais ou indiv&iacute;duos reais &eacute; mera coincid&ecirc;ncia. As opini&otilde;es, atitudes e comportamentos exibidos neste v&iacute;deo s&atilde;o fict&iacute;cios e n&atilde;o refletem necessariamente as opini&otilde;es ou pol&iacute;ticas da empresa respons&aacute;vel pela produ&ccedil;&atilde;o do v&iacute;deo. Este v&iacute;deo &eacute; interpretado por atores com a exclusiva inten&ccedil;&atilde;o de material publicit&aacute;rio.</p>
+    <p>Esse disclaimer abrangente deixa claro tanto a natureza fict&iacute;cia e publicit&aacute;ria do v&iacute;deo quanto as importantes informa&ccedil;&otilde;es de sa&uacute;de e recomenda&ccedil;&otilde;es associadas aos produtos apresentados.</p>
+    <p>Para acessar os estudos cient&iacute;ficos, <a href="#" style="color: #ccc; text-decoration: underline;">clique aqui</a>. Caso n&atilde;o consiga atrav&eacute;s do link, entre em contato com nosso suporte.</p>
+    <div class="footer-links">
+      <a href="politica-privacidade.html">Pol&iacute;tica de Privacidade</a>
+      <a href="termos-uso.html">Termos de Uso</a>
+      <a href="politica-reembolso.html">Pol&iacute;tica de Envio e Estorno</a>
+      <a href="aviso-legal.html">Aviso Legal</a>
+    </div>
+  </footer>
+
+  <script>
+    // Atualiza a data do banner dinamicamente
+    (function() {
+      var dias = ['domingo','segunda','ter\u00e7a','quarta','quinta','sexta','s\u00e1bado'];
+      var hoje = new Date();
+      var dia = dias[hoje.getDay()];
+      var dd = String(hoje.getDate()).padStart(2, '0');
+      var mm = String(hoje.getMonth() + 1).padStart(2, '0');
+      var yyyy = hoje.getFullYear();
+      document.getElementById('deadline-date').textContent = dia + ', ' + dd + '/' + mm + '/' + yyyy;
+    })();
+  </script>
+
+  <script>
+    // Revela FAQ, garantia, kits e CTA após 40 minutos (2400 segundos)
+    setTimeout(function() {
+      document.querySelector('.faq-section').classList.add('revealed');
+      document.querySelector('.guarantee-section').classList.add('revealed');
+      document.querySelector('.pricing-section').classList.add('revealed');
+      document.querySelector('.cta-section').classList.add('revealed');
+    }, 2400000);
+  </script>
+
+  <script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.parentElement;
+        var wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(function(el) {
+          el.classList.remove('active');
+        });
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+  </script>
+
+  <script>
+    // Repassa parâmetros da URL (UTM, fbclid, etc.) para os links de checkout
+    (function() {
+      var params = window.location.search;
+      if (!params) return;
+      var links = document.querySelectorAll('a[href*="checkout.payt.com.br"]');
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href');
+        var separator = href.indexOf('?') !== -1 ? '&' : '?';
+        links[i].setAttribute('href', href + separator + params.substring(1));
+      }
+    })();
+  </script>
+
+  <script>
+    (function() {
+      var startTime = Date.now();
+      var revealTime = 2400000;
+      history.pushState(null, '', window.location.href);
+      window.addEventListener('popstate', function() {
+        history.pushState(null, '', window.location.href);
+        var elapsed = Date.now() - startTime;
+        if (elapsed < revealTime) {
+          window.location.href = 'bk-meta.html' + window.location.search;
+        } else {
+          window.location.href = 'bk-meta-oferta.html' + window.location.search;
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alfa Max &mdash; Recupere Su Vigor Natural Despu&eacute;s de los 50</title>
+  <meta name="description" content="Ebook digital (PDF) con protocolo de recetas naturales para hombres mayores de 50 a&ntilde;os. Descarga inmediata tras la compra.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter',system-ui,-apple-system,sans-serif;
+      background:#fff;color:#1A1A1A;
+      line-height:1.65;font-size:18px;
+      -webkit-font-smoothing:antialiased;
+    }
+    img{max-width:100%;height:auto}
+
+    /* HEADER */
+    .site-header{
+      background:#fff;border-bottom:1px solid #eef0f3;
+      padding:14px 20px;position:sticky;top:0;z-index:100;
+    }
+    .header-inner{
+      max-width:1100px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .logo{font-size:22px;font-weight:900;color:#0F2A45;text-decoration:none;letter-spacing:.5px}
+    .logo span{color:#27AF60}
+    .header-badge{
+      font-size:12px;color:#3B7EA1;font-weight:700;
+      background:#EAF3F8;padding:6px 12px;border-radius:20px;
+      letter-spacing:.5px;text-transform:uppercase;
+    }
+
+    /* HERO */
+    .hero{
+      background:linear-gradient(135deg,#0F2A45 0%,#1a3a5c 100%);
+      color:#fff;padding:60px 20px;text-align:center;
+    }
+    .hero .badge{
+      display:inline-block;background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.2);
+      color:#f4d03f;font-size:12px;font-weight:700;
+      padding:8px 18px;border-radius:30px;
+      margin-bottom:20px;letter-spacing:1px;text-transform:uppercase;
+    }
+    .hero h1{
+      font-size:34px;font-weight:800;line-height:1.2;
+      max-width:780px;margin:0 auto 22px;
+    }
+    .hero h1 span{color:#f4d03f}
+    .hero-sub{
+      font-size:18px;color:rgba(255,255,255,.85);
+      max-width:640px;margin:0 auto 32px;line-height:1.6;
+    }
+    .hero-cta{
+      display:inline-block;background:#27AF60;color:#fff;
+      font-size:17px;font-weight:800;padding:18px 38px;
+      border-radius:8px;text-decoration:none;
+      text-transform:uppercase;letter-spacing:.5px;
+      box-shadow:0 6px 20px rgba(39,175,96,.35);
+      transition:transform .2s;
+    }
+    .hero-cta:hover{transform:scale(1.04)}
+    .hero-small{
+      font-size:13px;color:rgba(255,255,255,.6);
+      margin-top:14px;
+    }
+
+    /* TRUST BAR */
+    .trust-bar{
+      background:#f8f9fa;border-bottom:1px solid #eef0f3;
+      padding:18px 20px;
+    }
+    .trust-inner{
+      max-width:900px;margin:0 auto;
+      display:flex;justify-content:center;gap:32px;flex-wrap:wrap;
+    }
+    .trust-item{
+      display:flex;align-items:center;gap:8px;
+      font-size:14px;font-weight:600;color:#3B7EA1;
+    }
+    .trust-item .ico{font-size:18px}
+
+    /* SECTIONS */
+    .section{padding:60px 20px}
+    .section-inner{max-width:740px;margin:0 auto}
+    .section h2{
+      font-size:28px;font-weight:800;color:#0F2A45;
+      line-height:1.3;margin-bottom:22px;text-align:center;
+    }
+    .section h3{
+      font-size:22px;font-weight:800;color:#0F2A45;
+      line-height:1.35;margin:32px 0 14px;
+    }
+    .section p{
+      font-size:18px;color:#333;line-height:1.75;
+      margin-bottom:20px;
+    }
+    .section p strong{color:#0F2A45;font-weight:700}
+    .section-alt{background:#f8f9fa}
+
+    /* Impacto */
+    .impacto{
+      font-size:22px;font-weight:800;text-align:center;
+      color:#0F2A45;margin:36px 0;line-height:1.4;
+    }
+
+    /* STATS */
+    .stats{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+      max-width:900px;margin:40px auto;
+    }
+    .stat-card{
+      background:#fff;border:1px solid #e6ecf0;
+      border-radius:14px;padding:26px 18px;text-align:center;
+      box-shadow:0 4px 16px rgba(15,42,69,.05);
+    }
+    .stat-num{
+      font-size:42px;font-weight:900;color:#27AF60;
+      line-height:1;margin-bottom:8px;
+    }
+    .stat-label{
+      font-size:14px;color:#555;font-weight:600;
+      line-height:1.4;
+    }
+
+    /* DOCTOR CARD */
+    .doctor-card{
+      background:#fff;border:1px solid #d8e6ed;border-radius:16px;
+      padding:36px 30px;margin:40px 0;
+      display:flex;gap:24px;align-items:center;
+      box-shadow:0 6px 24px rgba(15,42,69,.06);
+    }
+    .doctor-card .avatar{
+      width:110px;height:110px;flex-shrink:0;
+      border-radius:50%;background:linear-gradient(135deg,#EAF3F8,#c8dde8);
+      display:flex;align-items:center;justify-content:center;
+      font-size:44px;color:#3B7EA1;font-weight:800;
+    }
+    .doctor-card .info h3{margin:0 0 6px;font-size:20px;color:#0F2A45}
+    .doctor-card .info p{margin:0;font-size:14px;color:#3B7EA1;font-weight:600;line-height:1.5}
+
+    /* PROBLEM CARDS */
+    .problem-list{display:flex;flex-direction:column;gap:14px;margin:30px 0}
+    .problem-item{
+      background:#fff;border-left:4px solid #cc0000;
+      border-radius:8px;padding:18px 20px;
+      display:flex;gap:12px;align-items:flex-start;
+      box-shadow:0 2px 10px rgba(0,0,0,.04);
+    }
+    .problem-item .x{
+      color:#cc0000;font-size:22px;font-weight:900;flex-shrink:0;line-height:1;
+    }
+    .problem-item p{margin:0;font-size:16px;color:#333;line-height:1.6}
+    .problem-item strong{color:#cc0000}
+
+    /* SOLUTION VIS */
+    .solution-visual{
+      background:linear-gradient(135deg,#EAF3F8,#f8fbfd);
+      border:1px solid #d8e6ed;border-radius:14px;
+      padding:28px 22px;margin:30px 0;text-align:center;
+    }
+    .solution-visual h3{color:#3B7EA1;margin:0 0 10px;font-size:20px}
+    .solution-visual p{font-size:16px;color:#2C5F7C;margin:0;line-height:1.6}
+
+    /* HOW IT WORKS STEPS */
+    .steps{display:flex;flex-direction:column;gap:20px;margin:34px 0}
+    .step{
+      display:flex;gap:18px;align-items:flex-start;
+      background:#fff;border:1px solid #eef0f3;
+      border-radius:12px;padding:22px 20px;
+    }
+    .step-num{
+      flex-shrink:0;width:44px;height:44px;border-radius:50%;
+      background:#27AF60;color:#fff;
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;
+    }
+    .step-body h3{font-size:18px;color:#0F2A45;margin:0 0 6px;font-weight:800}
+    .step-body p{font-size:15px;color:#555;margin:0;line-height:1.6}
+
+    /* TESTIMONIALS */
+    .testimonials{display:flex;flex-direction:column;gap:20px;margin:30px 0}
+    .test-card{
+      background:#fff;border:1px solid #e6ecf0;
+      border-radius:14px;padding:26px 22px;
+      box-shadow:0 4px 16px rgba(15,42,69,.05);
+    }
+    .test-header{
+      display:flex;align-items:center;gap:14px;margin-bottom:14px;
+    }
+    .test-avatar{
+      width:52px;height:52px;border-radius:50%;
+      background:linear-gradient(135deg,#EAF3F8,#c8dde8);
+      display:flex;align-items:center;justify-content:center;
+      font-size:20px;font-weight:800;color:#3B7EA1;
+    }
+    .test-name{font-size:16px;font-weight:800;color:#0F2A45;line-height:1.2}
+    .test-loc{font-size:13px;color:#666;margin-top:2px}
+    .test-stars{color:#f4b400;font-size:16px;letter-spacing:2px;margin-bottom:8px}
+    .test-text{font-size:16px;color:#333;line-height:1.65;font-style:italic}
+
+    /* GUARANTEE */
+    .guarantee-box{
+      background:linear-gradient(135deg,#fef9ec,#fef4d8);
+      border:2px solid #f4d03f;border-radius:16px;
+      padding:34px 28px;margin:30px 0;text-align:center;
+    }
+    .guarantee-box h3{
+      font-size:22px;color:#0F2A45;margin:0 0 12px;font-weight:800;
+    }
+    .guarantee-box p{font-size:16px;color:#555;line-height:1.65;margin:0}
+
+    /* FAQ */
+    .faq-item{
+      background:#fff;border:1px solid #eef0f3;border-radius:10px;
+      margin-bottom:12px;overflow:hidden;
+    }
+    .faq-q{
+      width:100%;background:none;border:none;font-family:inherit;
+      font-size:16px;font-weight:700;color:#0F2A45;
+      padding:18px 50px 18px 20px;text-align:left;cursor:pointer;
+      position:relative;
+    }
+    .faq-q::after{
+      content:'+';position:absolute;right:20px;top:50%;
+      transform:translateY(-50%);font-size:22px;color:#3B7EA1;
+      transition:transform .3s;font-weight:800;
+    }
+    .faq-item.active .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .faq-a p{padding:0 20px 18px;font-size:15px;color:#555;line-height:1.65;margin:0}
+    .faq-item.active .faq-a{max-height:400px}
+
+    /* FINAL CTA */
+    .final-cta{
+      background:linear-gradient(135deg,#0F2A45,#1a3a5c);
+      color:#fff;padding:60px 20px;text-align:center;
+    }
+    .final-cta h2{color:#fff;margin-bottom:18px;font-size:28px}
+    .final-cta p{color:rgba(255,255,255,.85);font-size:17px;margin-bottom:30px;max-width:560px;margin-left:auto;margin-right:auto}
+    .final-cta .btn{
+      display:inline-block;background:#27AF60;color:#fff;
+      font-size:18px;font-weight:800;padding:20px 42px;
+      border-radius:8px;text-decoration:none;text-transform:uppercase;
+      letter-spacing:.5px;box-shadow:0 8px 24px rgba(39,175,96,.4);
+      transition:transform .2s;
+    }
+    .final-cta .btn:hover{transform:scale(1.04)}
+    .final-cta .small{color:rgba(255,255,255,.5);font-size:13px;margin-top:14px}
+
+    /* FOOTER */
+    .site-footer{background:#0a1a2b;color:#7a8a9a;padding:40px 20px;font-size:13px;line-height:1.7;text-align:center}
+    .site-footer p{max-width:800px;margin:0 auto 12px}
+    .footer-links{margin-top:18px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+    .footer-links a{color:#a8b8c8;text-decoration:underline;font-size:13px}
+
+    @media(max-width:640px){
+      .hero{padding:44px 20px}
+      .hero h1{font-size:26px}
+      .hero-sub{font-size:16px}
+      .section{padding:44px 20px}
+      .section h2{font-size:24px}
+      .section h3{font-size:19px}
+      .section p, .test-text{font-size:16px}
+      .impacto{font-size:19px}
+      .stats{grid-template-columns:1fr;gap:14px}
+      .stat-card{padding:22px 16px}
+      .stat-num{font-size:36px}
+      .doctor-card{flex-direction:column;text-align:center;padding:28px 22px}
+      .final-cta h2{font-size:24px}
+      .final-cta .btn{font-size:16px;padding:18px 32px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Begin of Digistore24 Trusted Badge Code -->
+  <script type="text/javascript" src="https://www.digistore24.com/trusted-badge/47482/EnQSPDKcfGsM8k0/salespage"></script>
+  <!-- End of Digistore24 Trusted Badge Code -->
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo">Alfa<span>Max</span></a>
+      <span class="header-badge">Ebook Digital</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">Recomendado para hombres 50+</div>
+    <h1>Recupere su <span>vigor natural</span> con el primer <strong>ebook personalizado</strong> para hombres despu&eacute;s de los 50</h1>
+    <p class="hero-sub">Un libro digital en PDF con recetas naturales y rutinas simples que usted mismo prepara en casa &mdash; para hombres que quieren volver a sentirse como en sus mejores a&ntilde;os, sin recurrir a medicamentos con efectos secundarios.</p>
+    <a href="https://www.checkout-ds24.com/product/709690" class="hero-cta">Descubra si es para usted</a>
+    <div class="hero-small"><strong style="color:#f4d03f">$27 USD</strong> &middot; pago &uacute;nico &middot; acceso inmediato por email</div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-inner">
+      <div class="trust-item"><span class="ico">&#128218;</span> Ebook Digital en PDF</div>
+      <div class="trust-item"><span class="ico">&#128231;</span> Acceso Inmediato por Email</div>
+      <div class="trust-item"><span class="ico">&#128190;</span> Descarga y Lea Cuando Quiera</div>
+      <div class="trust-item"><span class="ico">&#11088;</span> 20.000+ Hombres</div>
+    </div>
+  </div>
+
+  <!-- INFOPRODUCT CALLOUT -->
+  <section style="background:#EAF3F8;border-bottom:1px solid #d8e6ed;padding:22px 20px;text-align:center">
+    <div style="max-width:740px;margin:0 auto">
+      <div style="display:inline-block;background:#3B7EA1;color:#fff;font-size:12px;font-weight:800;padding:6px 14px;border-radius:20px;letter-spacing:1px;margin-bottom:12px">EBOOK DIGITAL EN PDF</div>
+      <p style="font-size:15px;color:#2C5F7C;line-height:1.6;margin:0"><strong>Alfa Max es un ebook (libro digital en PDF) con un protocolo de recetas naturales para hombres.</strong> La entrega es <strong>inmediata por correo electr&oacute;nico</strong>, con login y contrase&ntilde;a de acceso al &aacute;rea de miembros donde usted <strong>descarga el ebook</strong> y lo lee cuando quiera, en cualquier dispositivo. <strong>No se env&iacute;a nada por correo postal &mdash; no hay frascos, c&aacute;psulas ni productos f&iacute;sicos, y no hay video-clases.</strong></p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 1: HOOK / PROBLEMA -->
+  <section class="section">
+    <div class="section-inner">
+      <h2>Si despu&eacute;s de los 50 usted ya no rinde como antes...</h2>
+      <p>...no es su culpa. Y tampoco est&aacute; solo.</p>
+      <p>Los estudios muestran que <strong>3 de cada 5 hombres</strong> despu&eacute;s de los 50 a&ntilde;os pierden parte de su vigor y confianza en la intimidad. Y no es porque sean "menos hombres" &mdash; es simple biolog&iacute;a.</p>
+      <p>Con los a&ntilde;os, las venas que llevan sangre a las zonas m&aacute;s importantes del cuerpo van perdiendo elasticidad y se van tapando con peque&ntilde;as placas de grasa. La sangre pasa cada vez con m&aacute;s dificultad. Y entonces empieza a fallar la firmeza, la resistencia y la confianza.</p>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-num">60%</div>
+          <div class="stat-label">de los hombres 50+ enfrentan p&eacute;rdida de vigor</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">72%</div>
+          <div class="stat-label">no busca ayuda por verg&uuml;enza</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">20K+</div>
+          <div class="stat-label">hombres ya recuperaron su vigor con Alfa Max</div>
+        </div>
+      </div>
+
+      <p class="impacto">Y lo peor: la mayor&iacute;a intenta resolverlo con pastillas que <strong>no atacan el problema real</strong>.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2: MENSAGEM DO ESPECIALISTA -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2>Un mensaje del especialista detr&aacute;s del m&eacute;todo</h2>
+
+      <div class="doctor-card">
+        <div class="avatar">Dr</div>
+        <div class="info">
+          <h3>Dr. Juan Guti&eacute;rrez</h3>
+          <p>Especialista en salud masculina<br>Investigador en circulaci&oacute;n vascular<br>Creador del m&eacute;todo Alfa Max</p>
+        </div>
+      </div>
+
+      <p>Durante m&aacute;s de 20 a&ntilde;os atendiendo hombres mayores de 50, entend&iacute; una verdad que la industria farmac&eacute;utica prefiere que usted no sepa.</p>
+      <p>Las pastillas m&aacute;s conocidas del mercado <strong>no curan nada</strong>. Ellas simplemente fuerzan la sangre a pasar por las venas, aunque estas est&eacute;n tapadas. Es como tratar de meter agua a presi&oacute;n en una manguera con basura adentro &mdash; funciona en el momento, pero el problema sigue ah&iacute;.</p>
+      <p>Por eso las dosis van aumentando con el tiempo. Y por eso muchos hombres empiezan a sufrir dolores de cabeza, problemas cardiacos o simplemente sienten que "ya no hacen efecto".</p>
+      <p>Yo quer&iacute;a encontrar una soluci&oacute;n diferente. Una que atacara la causa, no el s&iacute;ntoma.</p>
+
+      <p class="impacto">Fue as&iacute; que naci&oacute; el m&eacute;todo Alfa Max.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: O QUE É / COMO FUNCIONA -->
+  <section class="section">
+    <div class="section-inner">
+      <h2>&iquest;Qu&eacute; es Alfa Max?</h2>
+      <p>Alfa Max es un <strong>ebook digital personalizado</strong> (libro electr&oacute;nico en PDF, descargable) creado especialmente para hombres despu&eacute;s de los 50. No es una pastilla. No es un frasco. No es un producto f&iacute;sico. Es un <strong>protocolo escrito paso a paso</strong>, con recetas naturales y rutinas simples que usted mismo prepara y aplica en casa, para atacar la causa real de la p&eacute;rdida de vigor: <strong>la circulaci&oacute;n obstruida</strong>.</p>
+
+      <div class="solution-visual">
+        <h3>Piense en su cuerpo como una tuber&iacute;a</h3>
+        <p>Con los a&ntilde;os, las venas se van llenando de placas de grasa. La sangre pasa cada vez con m&aacute;s dificultad, y por eso la firmeza y la resistencia disminuyen. El ebook Alfa Max ense&ntilde;a, paso a paso y por escrito, <strong>recetas naturales</strong> y rutinas simples que usted mismo prepara en casa &mdash; con ingredientes que se consiguen en cualquier mercado &mdash; para <strong>estimular la circulaci&oacute;n de forma 100% natural</strong> y hacer que la sangre vuelva a fluir como cuando usted ten&iacute;a 25 a&ntilde;os.</p>
+      </div>
+
+      <h3>&iquest;C&oacute;mo funciona en la pr&aacute;ctica?</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Responde un cuestionario r&aacute;pido</h3>
+            <p>Nueve preguntas simples sobre su edad, peso, h&aacute;bitos y objetivos. Toma menos de 2 minutos.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Reciba su protocolo personalizado</h3>
+            <p>Nuestro sistema genera un <strong>protocolo digital exclusivo para su perfil</strong>, ajustado a su edad, peso y objetivos. Todo dentro del &aacute;rea de miembros.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Acceso inmediato por email</h3>
+            <p>Tras la confirmaci&oacute;n del pago, recibe <strong>autom&aacute;ticamente por correo electr&oacute;nico</strong> su login y contrase&ntilde;a para entrar en el &aacute;rea de miembros online (MemberKit) y empezar el mismo d&iacute;a, desde cualquier dispositivo.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Siga el m&eacute;todo y vuelva a sentirse como antes</h3>
+            <p>Abra el ebook, siga las recetas y el paso a paso escrito del protocolo. La mayor&iacute;a de nuestros usuarios reporta mejoras en la primera semana. Los resultados completos aparecen entre los d&iacute;as 20 y 45 de aplicaci&oacute;n del m&eacute;todo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4: POR QUE PERSONALIZADO -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2>&iquest;Por qu&eacute; un ebook personalizado?</h2>
+      <p>Piense conmigo. El organismo de un hombre de 52 a&ntilde;os con 78 kilos <strong>no es igual</strong> al de un hombre de 68 a&ntilde;os con 92 kilos. Sus venas son distintas. Su circulaci&oacute;n es distinta. Sus necesidades son distintas.</p>
+      <p>Y sin embargo, los <strong>ebooks gen&eacute;ricos</strong> del mercado ofrecen a ambos exactamente el mismo contenido, sin distinci&oacute;n. Es por eso que la mayor&iacute;a no aplica el m&eacute;todo hasta el final.</p>
+      <p>Alfa Max es diferente. Junto con el ebook en PDF, usted recibe un <strong>protocolo de recetas ajustado</strong> a su perfil despu&eacute;s de responder el cuestionario, indicando cu&aacute;les recetas y rutinas del libro debe priorizar seg&uacute;n su edad, peso y objetivos. Es la misma l&oacute;gica de una gu&iacute;a personalizada &mdash; solo que en formato de libro digital.</p>
+      <p class="impacto">Por eso Alfa Max tiene una tasa de &eacute;xito tan alta.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 5: DEPOIMENTOS -->
+  <section class="section">
+    <div class="section-inner">
+      <h2>Lo que dicen los hombres que ya recuperaron su vigor</h2>
+
+      <div class="testimonials">
+        <div class="test-card">
+          <div class="test-header">
+            <div class="test-avatar">R</div>
+            <div>
+              <div class="test-name">Roberto M., 63 a&ntilde;os</div>
+              <div class="test-loc">Guadalajara, M&eacute;xico</div>
+            </div>
+          </div>
+          <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-text">&ldquo;Llevaba casi cinco a&ntilde;os evitando la intimidad con mi esposa por miedo de fallar. Prob&eacute; las pastillas conocidas y me dieron dolor de cabeza. Descargu&eacute; el ebook Alfa Max, empec&eacute; a preparar las recetas en casa, y en la tercera semana ya sent&iacute; el cambio. Hoy mi esposa dice que soy otro hombre.&rdquo;</p>
+        </div>
+
+        <div class="test-card">
+          <div class="test-header">
+            <div class="test-avatar">M</div>
+            <div>
+              <div class="test-name">Miguel A., 58 a&ntilde;os</div>
+              <div class="test-loc">Bogot&aacute;, Colombia</div>
+            </div>
+          </div>
+          <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-text">&ldquo;Descargu&eacute; el ebook, empec&eacute; con las recetas el mismo d&iacute;a de la compra, y lo que m&aacute;s me impresion&oacute; fue el soporte. El equipo me escribi&oacute; por WhatsApp para saber c&oacute;mo iba con el m&eacute;todo. Sent&iacute; que realmente les importaba mi resultado. Y despu&eacute;s de un mes, la diferencia fue notable.&rdquo;</p>
+        </div>
+
+        <div class="test-card">
+          <div class="test-header">
+            <div class="test-avatar">C</div>
+            <div>
+              <div class="test-name">Carlos F., 67 a&ntilde;os</div>
+              <div class="test-loc">Lima, Per&uacute;</div>
+            </div>
+          </div>
+          <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-text">&ldquo;Yo pensaba que a mi edad ya no hab&iacute;a soluci&oacute;n. Alfa Max me devolvi&oacute; algo que cre&iacute; perdido para siempre: la confianza. Y no es solo en la cama &mdash; es en todo. Camino m&aacute;s derecho, hablo m&aacute;s firme. Me siento un hombre completo de nuevo.&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 6: DIFERENCIAIS -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2>Lo que hace a Alfa Max diferente de todo lo que ya intent&oacute;</h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="background:#3B7EA1">&#10004;</div>
+          <div class="step-body">
+            <h3>Ebook con protocolo personalizado</h3>
+            <p>El libro digital viene con un protocolo de recetas ajustado a su perfil, seg&uacute;n edad, peso y objetivos.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#3B7EA1">&#10004;</div>
+          <div class="step-body">
+            <h3>Recetas 100% naturales</h3>
+            <p>Ingredientes simples y accesibles que se consiguen en cualquier mercado. Nada de pastillas, nada de suplementos.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#3B7EA1">&#10004;</div>
+          <div class="step-body">
+            <h3>Ataca la causa, no s&oacute;lo el s&iacute;ntoma</h3>
+            <p>Trabaja para restaurar la circulaci&oacute;n natural del cuerpo, no la fuerza artificialmente.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#3B7EA1">&#10004;</div>
+          <div class="step-body">
+            <h3>Soporte por WhatsApp y email</h3>
+            <p>Nuestro equipo est&aacute; a su lado durante toda la aplicaci&oacute;n del m&eacute;todo del ebook. Cualquier duda sobre las recetas, respondemos.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:#3B7EA1">&#10004;</div>
+          <div class="step-body">
+            <h3>Acceso inmediato tras la compra</h3>
+            <p>Sin esperas por env&iacute;o. Login y contrase&ntilde;a para el &aacute;rea de miembros llegan a su correo minutos despu&eacute;s del pago. Ya empieza el mismo d&iacute;a.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 7: GARANTIA -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="guarantee-box">
+        <h3>&#128737; Garant&iacute;a incondicional de 60 d&iacute;as</h3>
+        <p style="margin-bottom:14px">Tenemos tanta confianza en el m&eacute;todo Alfa Max que le damos <strong>60 d&iacute;as completos desde la fecha de compra</strong> para leer el ebook y probar las recetas sin ning&uacute;n riesgo.</p>
+        <p style="margin-bottom:14px">Si dentro de esos <strong>60 d&iacute;as</strong> usted no queda satisfecho, por cualquier motivo &mdash; <strong>no necesita explicar nada</strong>, no necesita devolver nada (es un producto digital) &mdash; basta con enviarnos un correo a <strong>guiasuporteoficial@gmail.com</strong> o solicitar el reembolso directamente en el panel de Digistore24, y le devolvemos <strong>el 100% del valor pagado</strong>.</p>
+        <p style="margin:0;font-size:14px;color:#666"><strong>Pol&iacute;tica de reembolso:</strong> 60 d&iacute;as desde la compra &middot; Reembolso completo del 100% &middot; Sin preguntas ni justificaciones &middot; Procesado por Digistore24</p>
+      </div>
+      <p style="text-align:center;font-size:16px;color:#666">Confiamos tanto en los resultados que el riesgo es nuestro, no suyo.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 8: FAQ -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2>Preguntas frecuentes</h2>
+
+      <div class="faq-item">
+        <button class="faq-q">&iquest;En cu&aacute;nto tiempo aparecen los resultados?</button>
+        <div class="faq-a"><p>Los resultados var&iacute;an entre hombres. La mayor&iacute;a nota mejoras en la primera semana de aplicaci&oacute;n de las recetas del ebook. Los resultados completos aparecen entre los d&iacute;as 20 y 45, siguiendo el m&eacute;todo del libro de forma constante.</p></div>
+
+      <div class="faq-item">
+        <button class="faq-q">&iquest;Las recetas del ebook son seguras para hombres con presi&oacute;n alta o diabetes?</button>
+        <div class="faq-a"><p>Las recetas del ebook Alfa Max usan <strong>ingredientes naturales</strong> que se consiguen en cualquier mercado &mdash; no son medicamentos ni suplementos, es solo un libro digital con instrucciones. Aun as&iacute;, si usted tiene alguna condici&oacute;n de salud espec&iacute;fica, siempre recomendamos consultar a su m&eacute;dico antes de cambiar su alimentaci&oacute;n o rutina.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">&iquest;C&oacute;mo se usa el ebook?</button>
+        <div class="faq-a"><p>El ebook est&aacute; disponible dentro del &aacute;rea de miembros online para <strong>descargar en PDF</strong>. Usted lo guarda en su celular, tablet o computadora, lo lee cuando quiere, y sigue las <strong>recetas naturales</strong> y las rutinas paso a paso &mdash; ingredientes simples que se consiguen en cualquier mercado. Todo el m&eacute;todo est&aacute; explicado por escrito, sin necesidad de conexi&oacute;n despu&eacute;s de la descarga.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">&iquest;C&oacute;mo recibo el ebook?</button>
+        <div class="faq-a"><p>Alfa Max es un ebook 100% digital &mdash; no se env&iacute;a nada por correo postal. Tras la confirmaci&oacute;n del pago usted recibe autom&aacute;ticamente un correo electr&oacute;nico con su login y contrase&ntilde;a de acceso al &aacute;rea de miembros en <strong>https://alfa-max-app.memberkit.com.br</strong>, donde <strong>descarga el ebook en PDF</strong> y lo guarda en su celular, tablet o computadora. La entrega es inmediata.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">&iquest;C&oacute;mo funciona la garant&iacute;a de reembolso de 60 d&iacute;as?</button>
+        <div class="faq-a"><p>Usted tiene <strong>60 d&iacute;as completos desde la fecha de la compra</strong> para leer el ebook y probar las recetas. Si por cualquier motivo no queda satisfecho &mdash; no necesita explicar nada &mdash; le devolvemos el <strong>100% del valor pagado</strong>. Para solicitar el reembolso: <strong>(1)</strong> env&iacute;e un correo a <strong>guiasuporteoficial@gmail.com</strong> con el email usado en la compra, o <strong>(2)</strong> solicite directamente en el panel de Digistore24, quien procesa el pago y el reembolso. La devoluci&oacute;n se realiza por el mismo m&eacute;todo de pago original.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">&iquest;Se vende en otras plataformas o farmacias?</button>
+        <div class="faq-a"><p>No. Alfa Max es un ebook digital exclusivo, comercializado &uacute;nicamente a trav&eacute;s de este sitio oficial. Como es un libro digital en PDF, no existe versi&oacute;n f&iacute;sica impresa ni se vende en farmacias o librer&iacute;as.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">&iquest;C&oacute;mo hablo con el soporte si tengo dudas?</button>
+        <div class="faq-a"><p>Tenemos dos canales de soporte disponibles: correo electr&oacute;nico <strong>guiasuporteoficial@gmail.com</strong> y WhatsApp <strong>+55 19 99996-2986</strong>. Contestamos de lunes a domingo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTREGA & SOPORTE -->
+  <section class="section">
+    <div class="section-inner">
+      <div style="background:#f8f9fa;border:1px solid #e6ecf0;border-radius:14px;padding:30px 26px">
+        <h3 style="font-size:20px;color:#0F2A45;margin:0 0 18px;font-weight:800;text-align:center">&#128231; C&oacute;mo funciona la entrega</h3>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Producto:</strong> <strong>Ebook (libro digital en PDF)</strong> con protocolo de recetas naturales. <strong>Descargable</strong>. No hay env&iacute;o f&iacute;sico, no hay c&aacute;psulas ni frascos, no hay video-clases.</p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Precio:</strong> <strong style="color:#27AF60;font-size:17px">$27 USD</strong> &mdash; pago &uacute;nico, sin mensualidades ni renovaciones autom&aacute;ticas.</p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Entrega:</strong> Autom&aacute;tica por correo electr&oacute;nico, inmediatamente despu&eacute;s de la confirmaci&oacute;n del pago.</p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Acceso:</strong> Login y contrase&ntilde;a para el &aacute;rea de miembros online en <a href="https://alfa-max-app.memberkit.com.br/members" target="_blank" style="color:#3B7EA1;font-weight:700;text-decoration:underline">alfa-max-app.memberkit.com.br</a> &mdash; disponible 24/7, desde cualquier dispositivo.</p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Soporte:</strong> Correo electr&oacute;nico <a href="mailto:guiasuporteoficial@gmail.com" style="color:#3B7EA1;font-weight:700;text-decoration:underline">guiasuporteoficial@gmail.com</a> &middot; WhatsApp <a href="https://wa.me/5519999962986" target="_blank" style="color:#3B7EA1;font-weight:700;text-decoration:underline">+55 19 99996-2986</a></p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0"><strong>Garant&iacute;a de reembolso:</strong> <strong>60 d&iacute;as</strong> desde la fecha de la compra. Reembolso del <strong>100%</strong> sin preguntas ni justificaciones. Solicitud por correo (<a href="mailto:guiasuporteoficial@gmail.com" style="color:#3B7EA1;font-weight:700;text-decoration:underline">guiasuporteoficial@gmail.com</a>) o directamente en el panel de Digistore24.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POLÍTICA DE REEMBOLSO (Digistore compliance) -->
+  <section class="section" style="padding-top:0" id="politica-reembolso">
+    <div class="section-inner">
+      <div style="background:#fef9ec;border:2px solid #f4d03f;border-radius:14px;padding:28px 24px">
+        <h3 style="font-size:20px;color:#0F2A45;margin:0 0 16px;font-weight:800;text-align:center">&#128179; Pol&iacute;tica de Reembolso &mdash; 60 d&iacute;as</h3>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Plazo:</strong> <strong>60 d&iacute;as</strong> completos, contados a partir de la fecha de la compra.</p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Reembolso:</strong> <strong>100% del valor pagado</strong>, sin preguntas, sin justificaciones, sin trampas.</p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>C&oacute;mo solicitar:</strong> env&iacute;e un correo a <a href="mailto:guiasuporteoficial@gmail.com" style="color:#3B7EA1;font-weight:700;text-decoration:underline">guiasuporteoficial@gmail.com</a> con el email usado en la compra, o solicite directamente desde el panel de Digistore24 (el vendedor autorizado).</p>
+        <p style="font-size:15px;color:#333;line-height:1.75;margin:0 0 10px"><strong>Devoluci&oacute;n:</strong> procesada por el mismo m&eacute;todo de pago original, en los plazos habituales de Digistore24.</p>
+        <p style="font-size:14px;color:#666;line-height:1.6;margin:14px 0 0;text-align:center;font-style:italic">Esta pol&iacute;tica de 60 d&iacute;as se conforma con la configuraci&oacute;n de reembolso de Digistore24 para este producto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="final-cta">
+    <h2>Empiece hoy mismo su cuestionario personalizado</h2>
+    <p>Responda 9 preguntas simples y descubra si el m&eacute;todo Alfa Max es el indicado para usted. Toma menos de 2 minutos.</p>
+    <div style="display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(244,208,63,.4);border-radius:12px;padding:18px 28px;margin-bottom:22px">
+      <div style="font-size:13px;color:rgba(255,255,255,.7);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Precio</div>
+      <div style="font-size:36px;color:#f4d03f;font-weight:900;line-height:1">$27 <span style="font-size:18px;font-weight:700">USD</span></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px">pago &uacute;nico &middot; acceso inmediato</div>
+    </div>
+    <br>
+    <a href="https://www.checkout-ds24.com/product/709690" class="btn">Comenzar el cuestionario</a>
+    <div class="small">Pago seguro procesado por Digistore24 &middot; Garant&iacute;a de 60 d&iacute;as</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Alfa Max. Todos los derechos reservados.</p>
+    <p>Alfa Max es un <strong>infoproducto digital educativo</strong>. Las informaciones presentadas no constituyen consejo m&eacute;dico y no reemplazan tratamientos m&eacute;dicos convencionales. Consulte a un profesional de la salud antes de iniciar cualquier m&eacute;todo nuevo.</p>
+    <p>Los resultados pueden variar de una persona a otra. Los testimonios corresponden a usuarios reales y pueden no reflejar la experiencia t&iacute;pica.</p>
+    <p>Entrega 100% digital por correo electr&oacute;nico. Acceso en <a href="https://alfa-max-app.memberkit.com.br/members" target="_blank" style="color:#a8b8c8;text-decoration:underline">alfa-max-app.memberkit.com.br</a>. Soporte: <a href="mailto:guiasuporteoficial@gmail.com" style="color:#a8b8c8;text-decoration:underline">guiasuporteoficial@gmail.com</a> &middot; WhatsApp <a href="https://wa.me/5519999962986" target="_blank" style="color:#a8b8c8;text-decoration:underline">+55 19 99996-2986</a>.</p>
+    <p><strong style="color:#c8d4e0">Pol&iacute;tica de reembolso: 60 d&iacute;as desde la compra &middot; 100% del valor devuelto &middot; sin preguntas.</strong> Ver detalles en <a href="#politica-reembolso" style="color:#a8b8c8;text-decoration:underline">Pol&iacute;tica de Reembolso</a>.</p>
+
+    <div style="max-width:800px;margin:24px auto 0;padding:18px 20px;border-top:1px solid #1a2a3b;border-bottom:1px solid #1a2a3b">
+      <p style="margin:0 0 8px;font-size:13px;color:#c8d4e0"><strong style="color:#fff">Vendido por: Digistore24 Inc. (EE. UU.)</strong></p>
+      <p style="margin:0;font-size:12px;color:#7a8a9a;line-height:1.6">Digistore24 Inc. es el vendedor (retailer) autorizado de este producto. El papel de Digistore24 Inc. como vendedor no constituye respaldo, aprobaci&oacute;n ni revisi&oacute;n de este producto ni de ninguna afirmaci&oacute;n, declaraci&oacute;n u opini&oacute;n utilizada en su promoci&oacute;n. Para preguntas sobre el pedido, reembolsos o soporte t&eacute;cnico del checkout, contacte a Digistore24 en <a href="https://www.digistore24.com/support" target="_blank" style="color:#a8b8c8;text-decoration:underline">digistore24.com/support</a>.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="privacidade.html">Pol&iacute;tica de Privacidad</a>
+      <a href="termos.html">T&eacute;rminos de Uso</a>
+      <a href="etica.html">Aviso Legal</a>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-q').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var item = this.parentElement;
+        var wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(function(el){ el.classList.remove('active'); });
+        if(!wasActive) item.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

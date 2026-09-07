@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TESTE VTurb Reveal - CNN Brasil</title>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MKF9HT6T');</script>
+  <!-- End Google Tag Manager -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18093234152"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18093234152');
+  </script>
+  <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69a8e31128e69ca0dc4560c0/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/69a8e165f0493964ec9163f2/main.m3u8" as="fetch">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://api.vturb.com.br">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    /* ===== CNN HEADER ===== */
+    .cnn-header {
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      height: 50px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .cnn-header-inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .cnn-menu-icon {
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .cnn-menu-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+    }
+
+    .cnn-logo {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+    }
+
+    .cnn-logo-box {
+      background: #cc0000;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .cnn-logo-brasil {
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      margin-left: 4px;
+      letter-spacing: 1px;
+    }
+
+    .cnn-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex: 1;
+    }
+
+    .cnn-nav a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .cnn-nav a:hover {
+      color: #fff;
+    }
+
+    .cnn-nav .ao-vivo {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .cnn-nav .ao-vivo::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #cc0000;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .cnn-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: auto;
+    }
+
+    .cnn-header-actions svg {
+      width: 20px;
+      height: 20px;
+      stroke: #ccc;
+      fill: none;
+      cursor: pointer;
+    }
+
+    .cnn-header-actions svg:hover {
+      stroke: #fff;
+    }
+
+    /* ===== ARTICLE CONTAINER ===== */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 40px 60px;
+      min-height: 60vh;
+    }
+
+    /* Category tag */
+    .article-category {
+      display: inline-block;
+      color: #cc0000;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    /* Headline */
+    .article-headline {
+      font-size: 38px;
+      font-weight: 800;
+      color: #111;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    /* Subtitle */
+    .article-subtitle {
+      font-size: 18px;
+      font-weight: 400;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* Author & date */
+    .article-meta {
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .article-author {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .article-author a {
+      color: #111;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .article-date {
+      font-size: 13px;
+      color: #888;
+    }
+
+    /* Share bar */
+    .article-share {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .article-share-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .share-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .share-icon:hover {
+      border-color: #666;
+    }
+
+    .share-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: #555;
+    }
+
+    /* Article body text */
+    .article-body p {
+      font-size: 17px;
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .article-body strong {
+      color: #111;
+    }
+
+    /* ===== VIDEO WRAPPER ===== */
+    .video-section {
+      margin: 30px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      max-width: 660px;
+    }
+
+    .sound-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .sound-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===== PRICING SECTION ===== */
+    .pricing-section {
+      background: #1a3a5c;
+      padding: 40px 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .price-card {
+      background: #fff;
+      border: 3px solid #2980b9;
+      border-radius: 12px;
+      padding: 25px 20px;
+      width: 300px;
+      text-align: center;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border-color: #2980b9;
+      transform: scale(1.03);
+    }
+
+    .badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #cc0000;
+      color: #fff;
+      padding: 4px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 0 0 8px 8px;
+      white-space: nowrap;
+    }
+
+    .price-card h3 {
+      font-size: 28px;
+      font-weight: 900;
+      color: #1a3a5c;
+      margin-top: 20px;
+    }
+
+    .price-card .subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .price-card .product-img {
+      width: 180px;
+      height: 160px;
+      margin: 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .price-card .product-img img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .installments {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 900;
+      color: #1a3a5c;
+    }
+
+    .price .currency {
+      font-size: 20px;
+      vertical-align: super;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 15px 0 10px;
+    }
+
+    .btn-buy {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .btn-cartao {
+      background: #f4d03f;
+      color: #333;
+    }
+
+    .btn-cartao:hover {
+      background: #f1c40f;
+    }
+
+    .btn-pix {
+      background: #2ecc71;
+      color: #fff;
+    }
+
+    .btn-pix:hover {
+      background: #27ae60;
+    }
+
+    .total-price {
+      font-size: 14px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .shipping {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #555;
+      font-style: italic;
+      margin: 5px 0;
+    }
+
+    .guarantee-days {
+      font-size: 13px;
+      color: #555;
+      margin: 8px 0;
+    }
+
+    .payment-flags {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .payment-flags img {
+      height: 28px;
+    }
+
+    /* Garantia */
+    .guarantee-section {
+      background: #fdf8e8;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .guarantee-box {
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background: #fdf8e8;
+      border: 2px solid #e8dcc8;
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .guarantee-img {
+      flex-shrink: 0;
+      width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .guarantee-content h2 {
+      font-size: 26px;
+      font-weight: 900;
+      color: #333;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .guarantee-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .guarantee-content strong {
+      color: #333;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 40px 20px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      background: #f4d03f;
+      color: #333;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 14px 30px;
+      border: 2px solid #333;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-cta:hover {
+      background: #f1c40f;
+    }
+
+    /* Refer&ecirc;ncias */
+    .references-section {
+      padding: 30px 20px 50px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .references-badge {
+      display: inline-block;
+      background: #2c5aa0;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 12px 40px;
+      border-radius: 30px;
+      margin-bottom: 25px;
+    }
+
+    /* ===== CNN FOOTER ===== */
+    .cnn-footer {
+      background: #222;
+      padding: 20px 20px 24px;
+      text-align: center;
+    }
+
+    .cnn-footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .cnn-footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .cnn-footer-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .cnn-footer-copy {
+      color: #888;
+      font-size: 12px;
+    }
+
+    /* ===== HIDDEN SECTIONS (VTurb controla o reveal) ===== */
+    /* SEM !important - permite que o VTurb sobrescreva via inline style */
+    .pricing-section,
+    .guarantee-section,
+    .cta-section {
+      display: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .pricing-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      .price-card.featured {
+        transform: none;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cnn-nav {
+        display: none;
+      }
+
+      .article-container {
+        padding: 24px 20px;
+      }
+
+      .article-headline {
+        font-size: 26px;
+      }
+
+      .article-subtitle {
+        font-size: 16px;
+      }
+
+      .guarantee-box {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .price-card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .guarantee-content h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKF9HT6T"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- ===== CNN HEADER ===== -->
+  <header class="cnn-header">
+    <div class="cnn-header-inner">
+      <div class="cnn-menu-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      </div>
+      <div class="cnn-logo">
+        <span class="cnn-logo-box">CNN</span>
+        <span class="cnn-logo-brasil">BRASIL</span>
+      </div>
+      <nav class="cnn-nav">
+        <a href="#" class="ao-vivo">Ao vivo</a>
+        <a href="#">Pol&iacute;tica</a>
+        <a href="#">WW</a>
+        <a href="#">Money</a>
+        <a href="#">Agro</a>
+        <a href="#">Esportes</a>
+        <a href="#">Viagem &amp; Gastronomia</a>
+      </nav>
+      <div class="cnn-header-actions">
+        <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== ARTICLE ===== -->
+  <main class="article-container">
+    <img src="headlinezinha.jpg" alt="" style="width: 100%; height: auto; display: block; margin-bottom: 20px;">
+
+    <div class="article-meta">
+      <p class="article-author">Por <a href="#">Reda&ccedil;&atilde;o CNN Brasil</a></p>
+      <p class="article-date" id="article-date">05/03/2026 &agrave;s 14:32 | Atualizado 05/03/2026 &agrave;s 16:45</p>
+    </div>
+
+    <div class="article-share">
+      <span class="article-share-label">Compartilhar</span>
+      <!-- Twitter/X -->
+      <div class="share-icon">
+        <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0012 7.5v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+      </div>
+      <!-- Facebook -->
+      <div class="share-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </div>
+      <!-- WhatsApp -->
+      <div class="share-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      </div>
+    </div>
+
+    <!-- V&iacute;deo de TESTE -->
+    <section class="video-section">
+      <div class="video-wrapper">
+        <vturb-smartplayer id="vid-69a8e31128e69ca0dc4560c0" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+        <script type="text/javascript">
+          var s=document.createElement("script");
+          s.src="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69a8e31128e69ca0dc4560c0/v4/player.js",
+          s.async=!0,document.head.appendChild(s);
+        </script>
+      </div>
+      <div class="sound-notice">
+        <svg class="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/>
+        </svg>
+        Por favor, verifique se o som est&aacute; ligado.
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pre&ccedil;os -->
+  <section class="pricing-section" id="kits">
+    <!-- 10 Frascos -->
+    <div class="price-card featured">
+      <div class="badge">Mais vendido</div>
+      <h3>10 Frascos</h3>
+      <p class="subtitle">Suficiente para 10 meses</p>
+      <div class="product-img">
+        <img src="t10 frasco.png" alt="10 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        12x de <span class="price"><span class="currency">R$</span> 72,09</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/fd50cabb132077c1993b8d09a7e93f99?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/fd50cabb132077c1993b8d09a7e93f99?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 697,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 600 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 5 Frascos -->
+    <div class="price-card">
+      <h3>5 Frascos</h3>
+      <p class="subtitle">Suficiente para 5 meses</p>
+      <div class="product-img">
+        <img src="t5 frasco.png" alt="5 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        12x de <span class="price"><span class="currency">R$</span> 41,06</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/301663af69e4461de3abb7ab4f9409d7?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/301663af69e4461de3abb7ab4f9409d7?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 397,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 300 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 3 Frascos -->
+    <div class="price-card">
+      <h3>3 Frascos</h3>
+      <p class="subtitle">Suficiente para 3 meses</p>
+      <div class="product-img">
+        <img src="t3 frasco.png" alt="3 Frascos LordVigor">
+      </div>
+      <div class="installments">
+        5x de <span class="price"><span class="currency">R$</span> 65,76</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/6f5ead1f4256eac39bff7abb00c6f238?split=5" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/6f5ead1f4256eac39bff7abb00c6f238?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 297,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 180 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+
+    <!-- 1 Frasco -->
+    <div class="price-card">
+      <h3>1 Frasco</h3>
+      <p class="subtitle">Suficiente para 1 m&ecirc;s</p>
+      <div class="product-img">
+        <img src="t1 frasco.png" alt="1 Frasco LordVigor">
+      </div>
+      <div class="installments">
+        <span class="price"><span class="currency">R$</span> 197,00</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://checkout.payt.com.br/5e94fac6e972b0c182a1692872bc1281?split=12" class="btn-buy btn-cartao">COMPRAR AGORA VIA CART&Atilde;O DE CR&Eacute;DITO</a>
+        <a href="https://checkout.payt.com.br/5e94fac6e972b0c182a1692872bc1281?payment=pix" class="btn-buy btn-pix">COMPRAR AGORA VIA PIX</a>
+      </div>
+      <p class="total-price">Total: R$ 197,00</p>
+      <p class="shipping"><span>&#128666;</span> Frete Gr&aacute;tis</p>
+      <p class="guarantee-days">Garantia de 60 dias</p>
+      <div class="payment-flags">
+        <img src="bandeiras-cartao.webp" alt="Bandeiras de cart&atilde;o">
+      </div>
+    </div>
+  </section>
+
+  <!-- Garantia -->
+  <section class="guarantee-section">
+    <div class="guarantee-box">
+      <div class="guarantee-img">
+        <img src="garantia blindada.png" alt="Garantia Blindada LordVigor" style="max-width: 100%; height: auto;">
+      </div>
+      <div class="guarantee-content">
+        <h2>GARANTIA BLINDADA LORDVIGOR</h2>
+        <p>Quando voc&ecirc; pedir o LordVigor, tamb&eacute;m receber&aacute; uma <strong>garantia blindada de 60 dias em cada frasco</strong> para solicitar todo o seu dinheiro de volta.</p>
+        <p>Estamos t&atilde;o confiantes que o LordVigor vai te trazer resultados, que se voc&ecirc; n&atilde;o estiver 100% satisfeito e n&atilde;o notar uma grande melhora na sua qualidade de vida, <strong>n&oacute;s vamos te devolver at&eacute; o &uacute;ltimo centavo pago.</strong></p>
+        <p>Basta enviar um e-mail para sac@lordvigor.com.br em at&eacute; 60 dias a partir da sua compra que faremos a devolu&ccedil;&atilde;o integral do seu dinheiro, <strong>sem qualquer questionamento!</strong></p>
+        <p>Por isso, fa&ccedil;a seu pedido agora. Voc&ecirc; n&atilde;o tem absolutamente NADA a perder, e tudo a ganhar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <a href="#kits" class="btn-cta">ESCOLHER MEU KIT</a>
+  </section>
+
+  <!-- Refer&ecirc;ncias -->
+  <section class="references-section">
+    <div class="references-badge">Refer&ecirc;ncias Cient&iacute;ficas</div>
+    <img src="referencias-cientificas.png" alt="Refer&ecirc;ncias Cient&iacute;ficas" style="max-width: 100%; height: auto;">
+  </section>
+
+  <!-- ===== CNN FOOTER ===== -->
+  <footer class="cnn-footer">
+    <div class="cnn-footer-links">
+      <a href="#">Sobre a CNN Brasil</a>
+      <a href="#">Aviso Legal e Pol&iacute;tica de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Fale com a CNN</a>
+      <a href="#">Fa&ccedil;a parte da Equipe CNN</a>
+    </div>
+    <p class="cnn-footer-copy">&copy; Cable News Network Brasil. Uma empresa NOVUS M&Iacute;DIA. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Atualiza a data do artigo dinamicamente
+    (function() {
+      var hoje = new Date();
+      var dd = String(hoje.getDate()).padStart(2, '0');
+      var mm = String(hoje.getMonth() + 1).padStart(2, '0');
+      var yyyy = hoje.getFullYear();
+      var dataStr = dd + '/' + mm + '/' + yyyy;
+      document.getElementById('article-date').textContent = dataStr + ' \u00e0s 14:32 | Atualizado ' + dataStr + ' \u00e0s 16:45';
+    })();
+  </script>
+
+  <!-- SEM setTimeout de reveal - VTurb controla tudo -->
+
+  <script>
+    // Repassa par&acirc;metros da URL (UTM, gclid, etc.) para os links de checkout
+    (function() {
+      var params = window.location.search;
+      if (!params) return;
+      var links = document.querySelectorAll('a[href*="checkout.payt.com.br"]');
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href');
+        var separator = href.indexOf('?') !== -1 ? '&' : '?';
+        links[i].setAttribute('href', href + separator + params.substring(1));
+      }
+    })();
+  </script>
+
+</body>
+</html>

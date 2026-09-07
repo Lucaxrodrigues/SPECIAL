@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação Gratuita</title>
+
+    <!-- VTurb player dependencies (mantidas da versão original) -->
+    <script>
+        !function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);
+    </script>
+    <link rel="preload" href="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69a0b0df4c57d8bd07c1f64d/v4/player.js" as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+    <link rel="preload" href="https://cdn.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/69a0b0dadfeab82d62493612/main.m3u8" as="fetch">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+
+    <style>
+        /* -------------------- RESET & VARIÁVEIS -------------------- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-start: #0b0b1a;
+            --bg-mid: #1a1b3b;
+            --bg-end: #0b0b1a;
+            --accent: #4cc9f0;
+            --accent-hover: #72d5fe;
+            --text: #f0f3fa;
+            --muted: rgba(255, 255, 255, 0.3);
+            --shadow-button: 0 12px 30px rgba(76, 201, 240, 0.25);
+            --radius-card: 20px;
+            --radius-button: 50px;
+            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 50% 30%, var(--bg-mid) 0%, var(--bg-start) 70%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* -------------------- LAYOUT PRINCIPAL -------------------- */
+        .page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 3rem 1.5rem;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 780px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+            animation: fadeSlideIn 0.8s ease-out both;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* -------------------- PLAYER DE VÍDEO -------------------- */
+        .video-wrapper {
+            width: 100%;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            background: #000;
+            transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+        }
+
+        .video-wrapper:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 60px -5px rgba(76, 201, 240, 0.2), 0 0 0 1px rgba(76, 201, 240, 0.2);
+        }
+
+        vturb-smartplayer {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
+
+        /* -------------------- TEXTO DE APRESENTAÇÃO -------------------- */
+        .headline {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+        }
+
+        .headline .destaque {
+            color: var(--accent);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .headline .destaque::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            opacity: 0.3;
+            border-radius: 2px;
+        }
+
+        /* -------------------- BOTÃO CTA -------------------- */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #3a86ff 0%, #4cc9f0 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1.1rem 2.8rem;
+            border: none;
+            border-radius: var(--radius-button);
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: var(--shadow-button);
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #4cc9f0 0%, #3a86ff 100%);
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(76, 201, 240, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        .cta-button span,
+        .cta-button svg {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button svg {
+            width: 1.3em;
+            height: 1.3em;
+            transition: transform var(--transition-smooth);
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* -------------------- RODAPÉ -------------------- */
+        .footer {
+            margin-top: auto;
+            padding: 2.5rem 1rem 1.5rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color var(--transition-smooth);
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* -------------------- RESPONSIVO -------------------- */
+        @media (max-width: 600px) {
+            .page {
+                padding: 2rem 1rem;
+            }
+
+            .content {
+                gap: 2rem;
+            }
+
+            .video-wrapper {
+                border-radius: 14px;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 320px;
+                justify-content: center;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .footer-links {
+                gap: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <div class="content">
+            <!-- Player VTurb (mantido igual ao original) -->
+            <div class="video-wrapper">
+                <vturb-smartplayer id="vid-69a0b0df4c57d8bd07c1f64d" style="display: block; margin: 0 auto; width: 100%;"></vturb-smartplayer>
+            </div>
+
+            <p class="headline">
+                Clique no botão abaixo para assistir a apresentação <span class="destaque">GRÁTIS!</span>
+            </p>
+
+            <a href="/aulaesp.html" class="cta-button" id="ctaButton">
+                <span>Assistir agora</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <nav class="footer-links" aria-label="Links legais">
+                <a href="politica-privacidad.html">Privacidade</a>
+                <a href="termos-uso.html">Termos</a>
+                <a href="aviso-legal.html">Aviso Legal</a>
+                <a href="politica-reembolso.html">Reembolso</a>
+            </nav>
+        </footer>
+    </main>
+
+    <!-- Carregamento assíncrono do player VTurb (mantido) -->
+    <script async src="https://scripts.converteai.net/88c2dd25-2774-43f4-a038-f2a84bb4bd89/players/69a0b0df4c57d8bd07c1f64d/v4/player.js"></script>
+
+    <!-- Propagação de parâmetros da URL para os links (melhorada) -->
+    <script>
+        (function() {
+            const searchParams = window.location.search;
+            if (!searchParams) return;
+
+            // Atualiza o botão CTA
+            const cta = document.getElementById('ctaButton');
+            if (cta) {
+                const base = cta.getAttribute('href');
+                cta.setAttribute('href', base + searchParams);
+            }
+
+            // Atualiza todos os links do rodapé
+            const links = document.querySelectorAll('.footer-links a');
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http')) {
+                    link.setAttribute('href', href + searchParams);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
