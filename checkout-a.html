@@ -171,7 +171,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
     checkout=stripe.initCheckoutElementsSdk({clientSecret:secret,elementsOptions:{appearance:{theme:'stripe',variables:{colorPrimary:'#1d8f67',colorText:'#18212b',fontFamily:'system-ui, sans-serif',fontSizeBase:'16px',borderRadius:'10px'}},savedPaymentMethod:{enableSave:'never',enableRedisplay:'auto'}},adaptivePricing:{allowed:false}});
     checkout.on('change',s=>{updateTotals(s);controls();});
     const result=await checkout.loadActions();if(result.type!=='success')throw Error('load_actions');actions=result.actions;updateTotals(actions.getSession());
-    paymentElement=checkout.createPaymentElement({layout:'accordion',fields:{billingDetails:{name:'never',email:'never',phone:'never'}}});
+    paymentElement=checkout.createPaymentElement({layout:'accordion',fields:{billingDetails:{name:'auto',email:'never',phone:'never',address:'auto'}}});
     paymentElement.on('ready',()=>{ready=true;$('stripe-placeholder').hidden=true;all('[data-customer]').forEach(el=>el.disabled=false);controls();});
     paymentElement.on('loaderror',()=>{ready=false;show('No se pudo cargar el pago. Inténtalo otra vez.',true);$('retry-payment').hidden=false;controls();});
     paymentElement.mount('#stripe-payment-element');
@@ -195,7 +195,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
       .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]')
       .replace(/(?:\d[ -]?){7,}/g,'[dato]');
     for(const el of all('[data-customer]')){const value=el.value?.trim();if(value)detail=detail.split(value).join('[dato]');}
-    $('payment-status').textContent+=' | DIAG-A1 / '+stage+': '+detail.slice(0,700);
+    $('payment-status').textContent+=' | DIAG-A2 / '+stage+': '+detail.slice(0,700);
   }
   async function confirmPayment(expressEvent){
     if(busy||!actions||uncertain||complete)return;
@@ -205,7 +205,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
       const recorded=await api('consent',{sessionId,acceptedTerms:true,savePaymentMethod:saveCard(),language:lang},statusToken());if(recorded.recorded!==true)throw Error('consent');
       stage='PREPARE';const options={redirect:'if_required',savePaymentMethod:saveCard()};
       if(expressEvent)options.expressCheckoutConfirmEvent=expressEvent;
-      else{options.email=$('customer-email').value.trim();const name=$('customer-name').value.trim();const billing=actions.getSession().billingAddress;options.billingAddress={name,address:{...(billing?.address||{})}};const phone=$('customer-phone')?.value.replace(/\D/g,'');if(phone)options.phoneNumber=($('dial-code')?.value||'')+phone;}
+      else{options.email=$('customer-email').value.trim();const phone=$('customer-phone')?.value.replace(/\D/g,'');if(phone)options.phoneNumber=($('dial-code')?.value||'')+phone;}
       stage='TOTAL';updateTotals(actions.getSession());stage='STRIPE_CONFIRM';submitted=true;
       const result=await actions.confirm(options);
       if(result.type==='error'){
