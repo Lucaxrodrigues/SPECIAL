@@ -195,7 +195,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
       .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]')
       .replace(/(?:\d[ -]?){7,}/g,'[dato]');
     for(const el of all('[data-customer]')){const value=el.value?.trim();if(value)detail=detail.split(value).join('[dato]');}
-    $('payment-status').textContent+=' | DIAG-A3 / '+stage+': '+detail.slice(0,700);
+    $('payment-status').textContent+=' | DIAG-A4 / '+stage+': '+detail.slice(0,700);
   }
   async function confirmPayment(expressEvent){
     if(busy||!actions||uncertain||complete)return;
@@ -235,6 +235,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
   $('new-payment').addEventListener('click',()=>changeSettings(lang,$('currency').value));
   $('retry-payment').addEventListener('click',async()=>{if(busy)return;if(!sessionId){location.reload();return;}busy=true;controls();try{await checkStatus(true);}catch{show('No se pudo cargar el pago. Inténtalo otra vez.',true);}finally{busy=false;controls();}});
   async function start(){
+    let loadStage='CATALOG';
     controls();if(!active)return;
     $('mode-banner').hidden=cfg.expectedMode==='live';$('mode-banner').textContent=t('Modo de prueba · No se cobran importes reales');$('stripe-placeholder').textContent=t('Cargando el formulario seguro…');busy=true;controls();
     try{
@@ -245,8 +246,8 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
       const dials={AR:'+54',UY:'+598',MX:'+52',CO:'+57',CL:'+56',PE:'+51',ES:'+34',US:'+1',BR:'+55',BO:'+591',PY:'+595',CR:'+506',GT:'+502',HN:'+504',NI:'+505',PA:'+507',SV:'+503',DO:'+1'};if($('dial-code')&&dials[offer.country])$('dial-code').value=dials[offer.country];
       all('.coupon').forEach(el=>el.hidden=!offer.allowCoupons);
       if(!sessionId){const cached=read(attemptKey);if(cached?.sessionId){sessionId=cached.sessionId;const url=new URL(location.href);url.searchParams.set('session_id',sessionId);history.replaceState(null,'',url);}}
-      if(sessionId)await checkStatus(true);else{await createSession();await mount(session.clientSecret);}
-    }catch{show('No se pudo cargar el pago. Inténtalo otra vez.',true);$('stripe-placeholder').textContent=t('El pago todavía no está habilitado.');$('retry-payment').hidden=false;}
+      if(sessionId){loadStage='RESTORE_SESSION';await checkStatus(true);}else{loadStage='CREATE_SESSION';await createSession();loadStage='STRIPE_FORM';await mount(session.clientSecret);}
+    }catch(error){show('No se pudo cargar el pago. Inténtalo otra vez.',true);testDiagnostic(error,loadStage);$('stripe-placeholder').textContent=t('No se pudo cargar el pago. Inténtalo otra vez.');$('retry-payment').hidden=false;}
     finally{busy=false;controls();}
   }
   start();
