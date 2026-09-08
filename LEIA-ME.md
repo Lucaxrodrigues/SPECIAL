@@ -21,11 +21,16 @@ Atualização de 8 de setembro de 2026.
 
 Não exige npm ou framework. Esta versão deixou de ser um HTML autossuficiente: politicas.css precisa acompanhar todas as páginas. LEIA-ME.md é instrução para o proprietário, não uma página jurídica.
 
-## Informações incluídas
-- Empresa: Dropix Editora e Marketing Ltda., Brasil (CNPJ e endereço ainda ausentes).
+## Informações incluídas — atualização cadastral
+- Empresa: Dropix Editora e Marketing Ltda., Brasil.
+- CNPJ: 65.255.590/0001-49.
+- Endereço: Rua Antonio Basil Schroeder, 37, Barreiros, São José, Santa Catarina, CEP 88110-400, Brasil. Dados transcritos conforme fornecidos; não foram certificados em consulta cadastral.
 - E-mail: guiasuporteoficial@gmail.com.
 - WhatsApp: +55 19 99996-2986; link internacional https://wa.me/5519999962986.
-- Atendimento: 08:00 a 18:00, com zona horária e dias ainda pendentes.
+- Atendimento: 08:00 a 18:00, hora de Nova York (America/New_York), acompanhando as mudanças sazonais.
+- Prazo máximo de resposta: 24 horas corridas desde o recebimento da mensagem. Não foi acrescentada restrição a dias úteis.
+- Prazo máximo de entrega: 24 horas corridas após confirmação do pagamento.
+- Garantia comercial: 60 dias corridos após disponibilização efetiva do acesso ao Alfa Max; devolução integral do valor pago pelo kit, sem exigir justificativa ou prova de conclusão. O marco inicial foi adotado como decisão de redação e está explícito na página.
 - Entrega prevista: link de download por e-mail e área privada no próprio site.
 - Acesso: sem data de vencimento e sem renovação paga, conforme solicitado.
 - Público: hispanofalantes, com mercados sujeitos às restrições legais e da Stripe.
@@ -40,10 +45,10 @@ A atualização cria páginas próprias; não implementa checkout, envio de e-ma
 O conteúdo do produto ainda precisa ser produzido e corresponder aos sete módulos e arquivos anunciados. Os exemplos do planner são ilustrativos.
 
 ## Pendências para a próxima revisão
-1. CNPJ e endereço comercial completo.
-2. Cidade/fuso do horário 08:00–18:00 (por exemplo, America/New_York, se for a escolha real), dias de atendimento e prazo máximo de resposta.
-3. Prazo máximo para envio e ativação de acesso depois da confirmação de pagamento.
-4. Prazo comercial de reembolso e revisão dos requisitos de cada mercado, incluindo eventuais mecanismos próprios de desistimento e confirmação.
+1. Revisão dos requisitos de cada mercado, incluindo eventuais mecanismos próprios de desistimento e confirmação.
+2. Organização do atendimento para cumprir o limite de 24 horas corridas.
+3. Implementação do envio e ativação de acesso em até 24 horas.
+4. Definição operacional da execução dos reembolsos: as 24 horas informadas são de resposta, não promessa de crédito bancário nesse período.
 5. Lista operacional de países habilitados. Espanhol não implica aceitação mundial: Cuba consta nas restrições da Stripe.
 6. Fornecedores reais de hospedagem, autenticação, arquivos, e-mail de entrega e pagamento, além de retenção de dados e transferências internacionais.
 7. Plano técnico de continuidade para cumprir acesso sem vencimento. Não anunciar acesso permanente e limitá-lo retroativamente à vida da plataforma.
@@ -54,10 +59,14 @@ O conteúdo do produto ainda precisa ser produzido e corresponder aos sete módu
 ## Observações sobre políticas
 - Os links de solicitação de reembolso abrem e-mail ou WhatsApp. O visitante precisa enviar a mensagem. O clique não registra automaticamente um pedido.
 - Não há uma função completa de desistimento eletrônico com protocolo/acuse automático. Essa implementação deverá ser avaliada e feita conforme os países atendidos.
-- Nenhuma garantia comercial de 7, 14 ou 30 dias foi inventada.
+- Garantia comercial de 60 dias incluída conforme solicitado. O prazo não substitui direitos legais mais favoráveis.
+- A garantia descrita se refere ao kit principal. As condições dos upsells, especialmente do acompanhamento, precisam de definição antes de serem oferecidos.
 - Nenhuma renúncia automática ao direito de desistimento foi aplicada por download.
 - A privacidade distingue a prévia estática da operação futura. Não adicionar rastreamento sem atualizar os textos e a implementação aplicáveis.
 - Gmail foi mantido conforme solicitado; domínio próprio não foi imposto como requisito universal.
+
+## Correção de publicação
+O design depende de politicas.css, que deve ficar junto dos HTML. O proprietário confirmou que a publicação normalizou ao incluir esse arquivo; o CSS foi preservado byte a byte nesta atualização. Não houve redesenho nem troca de hospedagem.
 
 ## Verificação
 Sintaxe JavaScript válida; IDs únicos; links internos, arquivos CSS e âncoras verificados nas seis páginas. Contatos e avisos revisados. Não houve conferência visual em navegador ou testes do sistema de vendas, que ainda não existe nesta versão.
