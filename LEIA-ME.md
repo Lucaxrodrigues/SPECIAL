@@ -11,15 +11,19 @@ Atualização de 8 de setembro de 2026.
 - entrega.html: entrega e acesso.
 - contacto.html: contatos e atendimento.
 
+## Checkout embutido — atualização
+
+A nova `checkout.html` tem CSS e JavaScript internos. Os botões de compra levam até ela. O pacote inclui o Worker de pagamento em `integracao/`; siga `CHECKOUT-LEIA-ME.md` para conectar Stripe e Cloudflare. Pagamentos continuam desativados até a configuração. A entrega pelo n8n é administrada pelo proprietário.
+
 ## Como conferir e publicar uma prévia no GitHub
 1. Extraia todos os arquivos na mesma pasta.
 2. Abra index.html no navegador.
 3. Faça backup dos arquivos atuais do seu site.
-4. Envie os seis HTML e politicas.css à pasta publicada pelo GitHub Pages.
+4. Envie os sete HTML e politicas.css à pasta publicada pelo GitHub Pages.
 5. Preserve o arquivo CNAME do seu domínio, caso exista.
 6. Confirme que os links das políticas abrem e que os estilos aparecem.
 
-Não exige npm ou framework. Esta versão deixou de ser um HTML autossuficiente: politicas.css precisa acompanhar todas as páginas. LEIA-ME.md é instrução para o proprietário, não uma página jurídica.
+Não exige npm ou framework. A página principal e as políticas dependem de politicas.css. A nova checkout.html tem design independente, totalmente dentro do arquivo. LEIA-ME.md é instrução para o proprietário, não uma página jurídica.
 
 ## Informações incluídas — atualização cadastral
 - Empresa: Dropix Editora e Marketing Ltda., Brasil.
@@ -38,9 +42,9 @@ Não exige npm ou framework. Esta versão deixou de ser um HTML autossuficiente:
 Os contatos são os fornecidos pelo proprietário; não foi enviado e-mail nem mensagem para verificar sua operação.
 
 ## Status comercial e técnico
-As políticas são rascunhos detalhados para revisão. Não representam aprovação da Stripe nem certificação de conformidade mundial. O botão de compra continua desativado e todas as páginas têm noindex. Noindex não é controle de acesso e não torna a prévia privada.
+As políticas são rascunhos detalhados para revisão. Não representam aprovação da Stripe nem certificação de conformidade mundial. Os botões de compra abrem checkout.html, mas a cobrança permanece desativada até conectar a Stripe. Todas as páginas têm noindex. Noindex não é controle de acesso e não torna a prévia privada.
 
-A atualização cria páginas próprias; não implementa checkout, envio de e-mail, área de membros, autenticação ou entrega dos PDFs. Esses serviços estão descritos como a operação prevista. Não existe login fictício ou formulário que simule uma entrega bem-sucedida.
+A atualização inclui páginas próprias e código do checkout embutido e do Worker. A integração ainda precisa ser configurada e testada com a conta Stripe. Não implementa envio de e-mail, área de membros, autenticação ou entrega dos PDFs. Esses serviços estão descritos como a operação prevista. Não existe login fictício ou formulário que simule uma entrega bem-sucedida.
 
 O conteúdo do produto ainda precisa ser produzido e corresponder aos sete módulos e arquivos anunciados. Os exemplos do planner são ilustrativos.
 
@@ -66,10 +70,10 @@ O conteúdo do produto ainda precisa ser produzido e corresponder aos sete módu
 - Gmail foi mantido conforme solicitado; domínio próprio não foi imposto como requisito universal.
 
 ## Correção de publicação
-O design depende de politicas.css, que deve ficar junto dos HTML. O proprietário confirmou que a publicação normalizou ao incluir esse arquivo; o CSS foi preservado byte a byte nesta atualização. Não houve redesenho nem troca de hospedagem.
+O design da página principal e das políticas depende de politicas.css, que deve ficar junto dos HTML. O checkout não depende desse arquivo. O proprietário confirmou que a publicação normalizou ao incluir esse arquivo; o CSS foi preservado byte a byte nesta atualização. Não houve redesenho nem troca de hospedagem.
 
 ## Verificação
-Sintaxe JavaScript válida; IDs únicos; links internos, arquivos CSS e âncoras verificados nas seis páginas. Contatos e avisos revisados. Não houve conferência visual em navegador ou testes do sistema de vendas, que ainda não existe nesta versão.
+Sintaxe JavaScript, IDs únicos e links internos verificados. Contatos e avisos revisados. Consulte CHECKOUT-LEIA-ME.md para a verificação do código de pagamento e os testes de integração ainda necessários.
 
 ## Referências consultadas para a revisão
 - Stripe: https://stripe.com/legal/restricted-businesses
