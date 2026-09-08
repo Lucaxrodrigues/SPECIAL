@@ -205,7 +205,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
       const recorded=await api('consent',{sessionId,acceptedTerms:true,savePaymentMethod:saveCard(),language:lang},statusToken());if(recorded.recorded!==true)throw Error('consent');
       stage='PREPARE';const options={redirect:'if_required',savePaymentMethod:saveCard()};
       if(expressEvent)options.expressCheckoutConfirmEvent=expressEvent;
-      else{options.email=$('customer-email').value.trim();const name=$('customer-name').value.trim();options.billingAddress={...(actions.getSession().billingAddress||{}),name};const phone=$('customer-phone')?.value.replace(/\D/g,'');if(phone)options.phoneNumber=($('dial-code')?.value||'')+phone;}
+      else{options.email=$('customer-email').value.trim();const name=$('customer-name').value.trim();const billing=actions.getSession().billingAddress;options.billingAddress={name,address:{...(billing?.address||{})}};const phone=$('customer-phone')?.value.replace(/\D/g,'');if(phone)options.phoneNumber=($('dial-code')?.value||'')+phone;}
       stage='TOTAL';updateTotals(actions.getSession());stage='STRIPE_CONFIRM';submitted=true;
       const result=await actions.confirm(options);
       if(result.type==='error'){
