@@ -195,7 +195,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
       .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]')
       .replace(/(?:\d[ -]?){7,}/g,'[dato]');
     for(const el of all('[data-customer]')){const value=el.value?.trim();if(value)detail=detail.split(value).join('[dato]');}
-    $('payment-status').textContent+=' | DIAG-A2 / '+stage+': '+detail.slice(0,700);
+    $('payment-status').textContent+=' | DIAG-A3 / '+stage+': '+detail.slice(0,700);
   }
   async function confirmPayment(expressEvent){
     if(busy||!actions||uncertain||complete)return;
@@ -205,7 +205,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
       const recorded=await api('consent',{sessionId,acceptedTerms:true,savePaymentMethod:saveCard(),language:lang},statusToken());if(recorded.recorded!==true)throw Error('consent');
       stage='PREPARE';const options={redirect:'if_required',savePaymentMethod:saveCard()};
       if(expressEvent)options.expressCheckoutConfirmEvent=expressEvent;
-      else{options.email=$('customer-email').value.trim();const phone=$('customer-phone')?.value.replace(/\D/g,'');if(phone)options.phoneNumber=($('dial-code')?.value||'')+phone;}
+      else{options.email=$('customer-email').value.trim();}
       stage='TOTAL';updateTotals(actions.getSession());stage='STRIPE_CONFIRM';submitted=true;
       const result=await actions.confirm(options);
       if(result.type==='error'){
