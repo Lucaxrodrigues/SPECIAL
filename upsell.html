@@ -5,10 +5,16 @@ const CONFIG={api:'https://alfa-max-stripe.lucaszrodx.workers.dev',key:'pk_test_
 (()=>{'use strict';const $=id=>document.getElementById(id),root=new URLSearchParams(location.search).get('parent_session_id');let token,offer,checkout,actions,element,busy=false,uncertain=false,useSaved=false;
 try{token=JSON.parse(sessionStorage.getItem('alfa-v2-order:'+root)||'null')?.statusToken;}catch{}
 function message(text,error=false){$('status').textContent=text;$('status').className='status'+(error?' error':'');}
+function diagnostic(error,stage){
+ if(!CONFIG.key.startsWith('pk_test_'))return;
+ let detail=[error?.message||'Error sin mensaje',error?.type,error?.code,error?.decline_code].filter(x=>typeof x==='string').join(' / ');
+ detail=detail.replace(/(?:sk|rk|pk)_(?:test|live)_[A-Za-z0-9]+/g,'[clave]').replace(/(?:cs|pi)_[A-Za-z0-9_]+/g,'[sesion]').replace(/https?:\/\/[^\s]+/g,'[URL]').replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]').replace(/(?:\d[ -]?){7,}/g,'[dato]');
+ $('status').textContent+=' | DIAG-U2 / '+stage+': '+detail.slice(0,700);
+}
 function buttons(){ $('buy').disabled=busy||uncertain||!actions;$('skip').disabled=busy||uncertain||!offer;$('other-card').disabled=busy||uncertain;$('check').disabled=busy;}
 async function api(action,extra={}){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);try{const r=await fetch(CONFIG.api+'/v2/upsell',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({sessionId:root,action,...extra}),credentials:'omit',cache:'no-store',signal:controller.signal});const data=await r.json();if(!r.ok)throw Error(data.error||'HTTP '+r.status);return data;}finally{clearTimeout(timer);}}
 function format(amount,currency){const zero=['bif','clp','djf','gnf','jpy','kmf','krw','mga','pyg','rwf','vnd','vuv','xaf','xof','xpf'];return new Intl.NumberFormat('es-419',{style:'currency',currency:currency.toUpperCase(),currencyDisplay:'code'}).format(amount/(zero.includes(currency)?1:100));}
-function total(s){const label=s.total.total.amount+' '+s.currency.toUpperCase();$('total').textContent=label;$('buy').textContent='Comprar por '+label;}
+function total(s){const amount=s.total.total.amount,currency=s.currency.toUpperCase();const label=new RegExp('\\b'+currency+'\\b','i').test(amount)?amount:amount+' '+currency;$('total').textContent=label;$('buy').textContent='Comprar por '+label;}
 function loadStripe(){return new Promise((resolve,reject)=>{if(window.Stripe)return resolve();const script=document.createElement('script');script.src='https://js.stripe.com/dahlia/stripe.js';script.onload=resolve;script.onerror=()=>reject(Error('stripe_load'));document.head.append(script);});}
 function mountCard(){useSaved=false;$('saved').hidden=true;actions=null;buttons();element=checkout.createPaymentElement({layout:'accordion',fields:{billingDetails:{name:'auto',email:'never',phone:'never',address:'auto'}}});element.on('ready',async()=>{const loaded=await checkout.loadActions();if(loaded.type==='success'){actions=loaded.actions;buttons();}});element.on('loaderror',()=>{message('No se pudo cargar la tarjeta. Consulta el estado o recarga la página.',true);$('check').hidden=false;});element.mount('#payment-element');}
 async function start(){
@@ -23,13 +29,13 @@ async function start(){
  finally{busy=false;buttons();}
 }
 $('other-card').onclick=()=>{if(!busy&&!uncertain)mountCard();};
-$('buy').onclick=async()=>{if(busy||uncertain||!actions)return;busy=true;buttons();message('Procesando…');let submitted=false;try{
+$('buy').onclick=async()=>{if(busy||uncertain||!actions)return;busy=true;buttons();message('Procesando…');let submitted=false,stage='CONSENT';try{
  const accepted=await api('accept',{step:offer.step,acceptedTerms:true});if(!accepted.accepted){location.reload();return;}
- total(actions.getSession());const options={redirect:'if_required',email:offer.email};if(useSaved)options.paymentMethod=offer.savedCard.id;
- submitted=true;const result=await actions.confirm(options);
- if(result.type==='error'){const error=result.error;if(['api_connection_error','api_error'].includes(error?.type)||error?.code==='processing_error')throw Error('payment_uncertain');message(error?.message||'No se pudo aprobar el pago.',true);return;}
- const state=await api('status');if(state.waiting){uncertain=true;message('El pago aún no está confirmado. Consulta el estado.');$('check').hidden=false;}else location.reload();
- }catch{uncertain=submitted;message('No se pudo confirmar el estado. Compruébalo antes de volver a pagar.',true);$('check').hidden=false;}finally{busy=false;buttons();}};
+ stage='PREPARE';total(actions.getSession());const options={redirect:'if_required',email:offer.email};if(useSaved)options.paymentMethod=offer.savedCard.id;
+ stage='STRIPE_CONFIRM';submitted=true;const result=await actions.confirm(options);
+ if(result.type==='error'){const error=result.error;if(['api_connection_error','api_error'].includes(error?.type)||error?.code==='processing_error')throw Object.assign(Error(error.message||'payment_uncertain'),{type:error.type,code:error.code});message(error?.message||'No se pudo aprobar el pago.',true);diagnostic(error,stage);return;}
+ stage='STATUS';const state=await api('status');if(state.waiting){uncertain=true;message('El pago aún no está confirmado. Consulta el estado.');$('check').hidden=false;}else location.reload();
+ }catch(error){uncertain=submitted;message('No se pudo confirmar el estado. Compruébalo antes de volver a pagar.',true);diagnostic(error,stage);$('check').hidden=false;}finally{busy=false;buttons();}};
 $('skip').onclick=async()=>{if(busy||uncertain||!offer)return;busy=true;buttons();try{const state=await api('skip',{step:offer.step});if(state.waiting){uncertain=true;message('Comprobando un pago pendiente. Consulta el estado.');$('check').hidden=false;}else location.reload();}catch{uncertain=true;message('No se pudo confirmar el estado. Consulta antes de continuar.',true);$('check').hidden=false;}finally{busy=false;buttons();}};
 $('check').onclick=async()=>{if(busy)return;busy=true;buttons();try{await api('status');location.reload();}catch(error){message('No se pudo consultar. Contacta con soporte. [PRUEBA: '+error.message+']',true);}finally{busy=false;buttons();}};
 start();})();
