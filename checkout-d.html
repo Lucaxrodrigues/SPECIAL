@@ -8,50 +8,150 @@
 
 .media-preview[style*="color:white"] strong{color:white}
 
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}</style><style id="alfa-meta-style">#alfa-meta-consent{position:fixed;z-index:10000;bottom:12px;left:12px;width:min(440px,calc(100% - 24px));max-height:65vh;overflow:auto;background:white;color:#1c3028;border:1px solid #b9c9be;border-radius:12px;padding:16px;box-shadow:0 4px 24px #0002;font:14px/1.5 system-ui}#alfa-meta-consent[hidden]{display:none!important}#alfa-meta-consent p{margin:0 0 12px}.alfa-meta-buttons{display:flex;gap:10px;align-items:center;flex-wrap:wrap}#alfa-meta-consent button{font:inherit;width:auto;min-height:44px;padding:8px 16px;margin:0;border:1px solid #216b48;border-radius:6px;background:white;color:#216b48;cursor:pointer}#alfa-meta-preferences{display:block;margin:20px auto;padding:8px 16px;min-height:44px;width:auto;font:12px system-ui;background:transparent;color:#345744;border:1px solid #b9c9be;border-radius:6px;cursor:pointer}</style><script id="alfa-meta-script">/* Inline Meta adapter. Payment never waits for Meta. Test deployment only. */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}</style><style id="alfa-meta-style">#alfa-meta-preferences{max-width:720px;margin:24px auto;padding:12px 16px;font:13px/1.5 system-ui;color:#345744}#alfa-meta-preferences summary{cursor:pointer;min-height:44px;display:list-item}#alfa-meta-preferences button{font:inherit;width:auto;min-height:44px;padding:8px 14px;margin:6px;border:1px solid #b9c9be;border-radius:6px;background:white;color:#345744;cursor:pointer}#alfa-meta-preferences a{display:inline-block;padding:8px}</style><script id="alfa-meta-script">/* M2: own visitor/action IDs are separate from the real Meta cookie identifiers. */
 (()=>{'use strict';
 const PIXEL='25604776625865776',API='https://alfa-max-stripe.lucaszrodx.workers.dev';
-const KEY='alfa-marketing-v1',QUEUE='alfa-meta-receipts-v1';let auth=null,scriptReady=false,started=false,banner=null,choice=null,ic=null;
-const pending=new Map();
-function read(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch{return null;}}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
-function cookie(k){return document.cookie.split('; ').find(x=>x.startsWith(k+'='))?.slice(k.length+1)||'';}
-function allowed(){return navigator.globalPrivacyControl!==true&&choice===true;}
-function source(){return location.origin+location.pathname;}
-function context(){try{return {consent:allowed(),source:source(),...(allowed()?{fbp:cookie('_fbp'),fbc:cookie('_fbc')||read('alfa-meta-fbc-v1')||''}:{})};}catch{return {consent:false,source:source()};}}
-function persist(){try{sessionStorage.setItem(QUEUE,JSON.stringify([...pending.values()]));}catch{}}
-function add(r){if(r?.eventId&&typeof r.value==='number'&&/^[A-Z]{3}$/.test(r.currency)){pending.set(r.eventId,r);persist();}}
-function pixel(name,params,id){if(allowed()&&scriptReady)window.fbq('track',name,params,{eventID:id});}
-function flush(){if(!allowed()||!scriptReady)return;for(const [id,r]of pending){const key='alfa-meta-sent:'+id;if(!read(key)){pixel('Purchase',{currency:r.currency,value:r.value,content_ids:[r.offer],content_type:'product',num_items:1,integration_test:true},id);save(key,Date.now());}pending.delete(id);}persist();}
-function sync(){if(!auth)return;fetch(API+'/v2/meta-context',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+auth.token},body:JSON.stringify({sessionId:auth.id,meta:context()}),credentials:'omit',keepalive:true}).catch(()=>{});}
-function startPixel(){
- if(!allowed()||started)return;started=true;
- const click=new URLSearchParams(location.search).get('fbclid');
- if(click&&/^[A-Za-z0-9_.-]{1,450}$/.test(click))save('alfa-meta-fbc-v1','fb.1.'+Date.now()+'.'+click);
+const KEY='alfa-marketing-v1',VISITOR='alfa-meta-visitor-v2',ATTR='alfa-meta-attribution-v2',QUEUE='alfa-meta-queue-v2';
+const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const attrs=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaign_id','adset_id','ad_id','placement','site_source_name'];
+const entry=new URLSearchParams(location.search),pageId=crypto.randomUUID(),pageTime=Math.floor(Date.now()/1000);
+let choice=null,automatic=false,visitor=null,visitToken=null,booting=null,auth=null,scriptReady=false,scriptStarted=false,checkoutId=null,contactWaiting=null,flushing=false,retryTimer=null,policyReady=false,pixelGraceUntil=0;
+const pending=new Map(),receiptsSeen=new Map();let attribution={},realClick=null;
+function read(k,session=false){try{return JSON.parse((session?sessionStorage:localStorage).getItem(k)||'null');}catch{return null;}}
+function save(k,v,session=false){try{(session?sessionStorage:localStorage).setItem(k,JSON.stringify(v));}catch{}}
+function cookie(k){try{return document.cookie.split('; ').find(x=>x.startsWith(k+'='))?.slice(k.length+1)||'';}catch{return '';}}
+function allowed(){return navigator.globalPrivacyControl!==true&&choice!==false&&(choice===true||automatic);}
+function cleanSource(){return location.origin+location.pathname;}
+function rememberAttribution(){
+ const old=read(ATTR);attribution=old&&Date.now()-old.at<90*86400000?old.data:{};realClick=old?.click&&Date.now()-old.click.createdAt<90*86400000?old.click:null;
+ const fresh={};for(const k of attrs){const v=entry.get(k);if(v&&v.length<=200&&!/[\u0000-\u001f@]/.test(v))fresh[k]=v;}
+ // A new explicit campaign replaces the previous campaign rather than mixing keys.
+ if(Object.keys(fresh).length)attribution=fresh;
+
+ const click=entry.get('fbclid');
+ if(click&&/^[A-Za-z0-9_.-]{1,450}$/.test(click)){
+  const existing=cookie('_fbc');
+  if(!existing.endsWith('.'+click)){
+   const value=realClick?.fbclid===click?realClick.fbc:'fb.1.'+Date.now()+'.'+click;
+   realClick={fbclid:click,fbc:value,createdAt:realClick?.fbclid===click?realClick.createdAt:Date.now()};
+   try{document.cookie='_fbc='+value+'; Max-Age=7776000; Path=/; Secure; SameSite=Lax';}catch{}
+  }
+ }
+ const native=cookie('_fbc');if(/^fb\.\d+\.\d{10,16}\.[A-Za-z0-9_.-]+$/.test(native)){realClick={fbclid:native.split('.').slice(3).join('.'),fbc:native,createdAt:Number(native.split('.')[2])};}
+ save(ATTR,{data:attribution,click:realClick,at:Date.now()});
+ // No random _fbp; fbc fallback is derived only from a real captured Meta click.
+}
+function context(){const c={choice,automatic,consent:choice===true,gpc:navigator.globalPrivacyControl===true,source:cleanSource()};if(allowed()){c.visitorId=visitor?.id;c.fbp=cookie('_fbp');c.fbc=cookie('_fbc')||realClick?.fbc||'';c.tracking={...attribution};}return c;}
+function persist(){save(QUEUE,[...pending.values()].slice(-100),true);}
+function enqueue(item){
+ if(!allowed())return;
+ const k=item.eventId;
+ if(pending.has(k))return;
+ const pixelSent=!!read('alfa-meta-sent:'+k),capiSent=item.name==='Purchase'||!!read('alfa-meta-capi:'+k);
+ if(pixelSent&&capiSent)return;
+ pending.set(k,{...item,pixelSent,capiSent});persist();schedule();
+}
+function schedule(){if(!retryTimer)retryTimer=setTimeout(()=>{retryTimer=null;flush();},1200);}
+async function post(path,body,token){const r=await fetch(API+'/v2/'+path,{method:'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:JSON.stringify(body),credentials:'omit',keepalive:true,signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('tracking_http_'+r.status);return r.json();}
+async function hash(v){return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)))).map(x=>x.toString(16).padStart(2,'0')).join('');}
+function pixel(item){
+ if(!allowed()||!scriptReady||item.pixelSent)return;
+ const method=item.name==='CheckoutContactProvided'?'trackCustom':'track';
+ window.fbq(method,item.name,item.custom,{eventID:item.eventId});item.pixelSent=true;save('alfa-meta-sent:'+item.eventId,Date.now());
+}
+async function flush(){
+ if(flushing||!allowed())return;flushing=true;
+ try{
+  if(!visitToken)await boot();
+  if(!scriptReady&&Date.now()<pixelGraceUntil){schedule();return;}
+  for(const [id,item]of pending){
+   if(!allowed())break;
+   if(item.eventTime<Date.now()/1000-86400){pending.delete(id);continue;}
+   pixel(item);
+   if(!item.capiSent&&visitToken){
+    const meta=item.frozenMeta||context();item.frozenMeta=meta;
+    try{const result=await post('meta-events',{visitorId:visitor.id,eventName:item.name,eventTime:item.eventTime,pageId:item.pageId,checkoutId:item.checkoutId,sessionId:item.sessionId,sessionToken:item.sessionToken,contact:item.contact,meta},visitToken);if(result.recorded){item.capiSent=true;save('alfa-meta-capi:'+id,Date.now());}}
+    catch{ /* Retry tracking; never interrupt payment or redirect. */ }
+   }
+   if(item.pixelSent&&item.capiSent)pending.delete(id);
+  }
+ }catch{}finally{flushing=false;persist();if(!retryTimer&&allowed()&&[...pending.values()].some(x=>!x.capiSent)){retryTimer=setTimeout(()=>{retryTimer=null;flush();},15000);}}
+}
+async function startPixel(){
+ if(!allowed()||scriptStarted)return;scriptStarted=true;pixelGraceUntil=Date.now()+1200;
  if(!window.fbq){const f=window.fbq=function(){f.callMethod?f.callMethod.apply(f,arguments):f.queue.push(arguments);};if(!window._fbq)window._fbq=f;f.push=f;f.loaded=true;f.version='2.0';f.queue=[];}
- window.fbq('consent','grant');window.fbq('set','autoConfig',false,PIXEL);window.fbq('init',PIXEL);
- const script=document.createElement('script');script.async=true;script.src='https://connect.facebook.net/en_US/fbevents.js';script.onload=()=>{scriptReady=true;pixel('PageView',{integration_test:true},'pv_'+crypto.randomUUID());sendIC();flush();sync();};script.onerror=()=>{started=false;};document.head.append(script);
+ window.fbq('consent','grant');window.fbq('set','autoConfig',false,PIXEL);
+ // Pixel performs its normal advanced-matching hashing; CAPI hashes the same raw ID.
+ window.fbq('init',PIXEL,{external_id:visitor.id});
+ const script=document.createElement('script');script.async=true;script.src='https://connect.facebook.net/en_US/fbevents.js';
+ script.onload=()=>{scriptReady=true;sync();flush();};script.onerror=()=>{scriptStarted=false;flush();};document.head.append(script);
 }
-function sendIC(){if(ic&&allowed()&&scriptReady&&!ic.sent){pixel('InitiateCheckout',{integration_test:true},'checkout_'+ic.id);ic.sent=true;}}
+async function boot(){
+ if(!allowed())return;if(visitToken)return;if(booting)return booting;
+ booting=(async()=>{
+  const previous=read(VISITOR);visitor=previous&&uuid.test(previous.id)&&previous.until>Date.now()?previous:{id:crypto.randomUUID(),until:Date.now()+180*86400000};save(VISITOR,visitor);
+  rememberAttribution();
+  // Never depend on Pixel loading to enqueue server-side events.
+  const r=await post('meta-init',{visitorId:visitor.id,meta:context()});
+  if(!r.visitToken)return;visitToken=r.visitToken;
+  startPixel().catch(()=>{});
+  for(const item of read(QUEUE,true)||[])if(item.eventTime>Date.now()/1000-86400&&!pending.has(item.eventId))pending.set(item.eventId,item);
+  enqueue({name:'PageView',eventId:'pv_'+pageId,eventTime:pageTime,pageId,custom:{integration_test:true,...attribution}});
+  if(auth?.isCheckout)queueIC();for(const r of receiptsSeen.values())queueReceipt(r);if(contactWaiting)contact(contactWaiting);sync();
+ })();try{await booting;}finally{booting=null;}
+}
+function sync(){
+ if(auth){post('meta-context',{sessionId:auth.id,meta:context()},auth.token).catch(()=>{});}
+ if(visitor&&visitToken){post('meta-choice',{visitorId:visitor.id,meta:context()},visitToken).catch(()=>{});}
+}
+function currentCheckout(){
+ if(checkoutId)return checkoutId;
+ const old=read('alfa-meta-checkout-v2',true);
+ checkoutId=old&&old.until>Date.now()&&uuid.test(old.id)?old.id:crypto.randomUUID();
+ save('alfa-meta-checkout-v2',{id:checkoutId,until:Date.now()+30*60000},true);return checkoutId;
+}
+function queueIC(){if(!allowed()||!auth?.isCheckout)return;const id=currentCheckout();enqueue({name:'InitiateCheckout',eventId:'checkout_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});}
 function observe(data,path,request){
- if(data?.statusToken&&data.sessionId){auth={id:data.sessionId,token:data.statusToken};ic={id:data.sessionId};sendIC();}
- else if(request?.token&&request?.id)auth={id:request.id,token:request.token};
- if(data?.metaPurchase)add(data.metaPurchase);for(const r of data?.metaPurchases||[])add(r);flush();
+ if(data?.statusToken&&data.sessionId){auth={id:data.sessionId,token:data.statusToken,isCheckout:true};queueIC();sync();}
+ else if(request?.token&&request?.id){auth={id:request.id,token:request.token,isCheckout:path!=='upsell'};}
+ const receipts=[data?.metaPurchase,...(data?.metaPurchases||[])].filter(Boolean);
+ for(const r of receipts){receiptsSeen.set(r.eventId,r);queueReceipt(r);}
+ if(receipts.length)save('alfa-meta-checkout-v2',null,true);
+ if(contactWaiting)contact(contactWaiting);sync();flush();
 }
-function decide(value){choice=navigator.globalPrivacyControl===true?false:value;save(KEY,{allowed:choice,at:Date.now()});if(banner)banner.hidden=true;
- if(!choice){window.fbq?.('consent','revoke');for(const k of ['_fbp','_fbc']){try{document.cookie=k+'=; Max-Age=0; Path=/; Secure; SameSite=Lax';document.cookie=k+'=; Max-Age=0; Path=/; Domain='+location.hostname+'; Secure; SameSite=Lax';}catch{}}save('alfa-meta-fbc-v1',null);pending.clear();persist();}
- else {window.fbq?.('consent','grant');startPixel();flush();}sync();
+function queueReceipt(r){
+ if(!r.eventId||typeof r.value!=='number')return;
+ enqueue({name:'Purchase',eventId:r.eventId,eventTime:Math.floor(Date.now()/1000),custom:{currency:r.currency,value:r.value,value_basis:r.value_basis,charged_currency:r.charged_currency,charged_value:r.charged_value,content_ids:[r.offer],content_type:'product',num_items:1,order_id:r.sessionId,integration_test:true,...attribution}});
 }
-function ui(){
- const language=(document.documentElement.lang||'es').slice(0,2),t={es:['Preferencias de publicidad','Con tu permiso, compartimos con Meta datos de navegación y compra e identificadores de contacto con hash para medir anuncios. Puedes comprar sin aceptar.','Aceptar','Rechazar','Privacidad'],pt:['Preferências de publicidade','Com sua permissão, compartilhamos com a Meta dados de navegação e compra e identificadores de contato com hash para medir anúncios. Você pode comprar sem aceitar.','Aceitar','Recusar','Privacidade'],en:['Advertising preferences','With your permission, we share browsing and purchase data and hashed contact identifiers with Meta to measure ads. You can purchase without accepting.','Accept','Decline','Privacy']}[language]||['Preferencias de publicidad','Con tu permiso, compartimos con Meta datos de navegación y compra e identificadores de contacto con hash para medir anuncios. Puedes comprar sin aceptar.','Aceptar','Rechazar','Privacidad'];
- banner=document.createElement('section');banner.id='alfa-meta-consent';banner.setAttribute('aria-label',t[0]);banner.hidden=choice!==null;
- const p=document.createElement('p');p.textContent=t[1];banner.append(p);const row=document.createElement('div');row.className='alfa-meta-buttons';
- for(const [label,value]of [[t[2],true],[t[3],false]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>decide(value);row.append(b);}const a=document.createElement('a');a.href='privacidad.html';a.textContent=t[4];row.append(a);banner.append(row);document.body.append(banner);
- const preference=document.createElement('button');preference.id='alfa-meta-preferences';preference.type='button';preference.textContent=t[0];preference.onclick=()=>{banner.hidden=false;banner.querySelector('button').focus();};document.body.append(preference);startPixel();
+async function contact(buyer){
+ contactWaiting={email:buyer?.email||'',phone:buyer?.phone||''};if(!allowed()||!auth?.isCheckout||!visitor)return;
+ const email=contactWaiting.email.trim().toLowerCase(),phone=contactWaiting.phone.replace(/\D/g,'');
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254)return;
+ const id=currentCheckout();const c={em:await hash(email)};if(phone.length>=6&&phone.length<=15)c.ph=await hash(phone);
+ enqueue({name:'CheckoutContactProvided',eventId:'contact_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,contact:c,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});
+ contactWaiting=null;
 }
-try{const stored=read(KEY);choice=stored&&Date.now()-stored.at<180*86400000?stored.allowed:null;if(navigator.globalPrivacyControl===true)choice=false;for(const r of JSON.parse(sessionStorage.getItem(QUEUE)||'[]'))add(r);}catch{}
-window.AlfaMeta={context,observe};
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ui,{once:true});else ui();
+function decide(value){
+ choice=value;save(KEY,{allowed:value,at:Date.now()});
+ if(!value){window.fbq?.('consent','revoke');pending.clear();persist();for(const k of ['_fbp','_fbc'])try{document.cookie=k+'=; Max-Age=0; Path=/; Secure; SameSite=Lax';document.cookie=k+'=; Max-Age=0; Path=/; Domain='+location.hostname+'; Secure; SameSite=Lax';}catch{}save(ATTR,null);realClick=null;attribution={};}
+ else{window.fbq?.('consent','grant');boot().then(flush).catch(()=>{});}
+ sync();updatePreference();
+}
+function updatePreference(){const el=document.getElementById('alfa-meta-state');if(el)el.textContent=allowed()?'Publicidad: activada.':'Publicidad: desactivada.';}
+async function init(){
+ const stored=read(KEY);choice=stored&&Date.now()-stored.at<180*86400000&&typeof stored.allowed==='boolean'?stored.allowed:null;
+ // No popup, overlay, modal or payment gate. The existing refusal always wins.
+ const box=document.createElement('details');box.id='alfa-meta-preferences';
+ const summary=document.createElement('summary');summary.textContent='Privacidad y publicidad';box.append(summary);
+ const p=document.createElement('p');p.textContent='Usamos Meta para medir anuncios con datos de navegación, compras e identificadores de contacto con hash. Puedes cambiar tu elección sin afectar el pago.';box.append(p);
+ const state=document.createElement('p');state.id='alfa-meta-state';box.append(state);
+ for(const [label,value]of [['Permitir publicidad',true],['Desactivar publicidad',false]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>decide(value);box.append(b);}
+ const a=document.createElement('a');a.href='privacidad.html';a.textContent='Política de privacidad';box.append(a);document.body.append(box);
+ try{const policy=await post('meta-policy',{});automatic=policy.autoAllowed===true;policyReady=true;}catch{automatic=false;}
+ updatePreference();if(allowed()){try{await boot();flush();}catch{setTimeout(()=>boot().then(flush).catch(()=>{}),5000);}}
+}
+window.AlfaMeta={context,observe,contact,tracking:()=>({...attribution})};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>init().catch(()=>{}),{once:true});else init().catch(()=>{});
 })();
 </script></head><body><div id="mode-banner" class="mode-banner">Vista previa · Pagos desactivados</div><div class="toolbar"><a href="index.html">Volver al kit</a><label for="language">Idioma <select id="language"><option value="es">Español</option><option value="pt">Português</option><option value="en">English</option></select></label><label for="currency">Moneda <select id="currency" disabled><option value="usd">USD</option></select></label><small>Cambiar idioma o moneda vuelve a cargar el formulario de pago.</small></div><main class="page"><section class="card" style="max-width:760px;margin:auto;overflow:hidden"><div class="slot media-preview" style="border:0;border-radius:0;min-height:130px;background:linear-gradient(120deg,#10251d,#315f49);color:white" data-media-slot="media1"><strong>Ejemplo visual · Imagen</strong><span>Espacio de medios sin contenido publicado.</span></div><header style="padding:20px;text-align:center"><div class="eyebrow">Oferta digital · Alfa Max</div><h1 style="font-size:30px;margin-top:5px">Organiza tu hogar. Simplifica tu semana.</h1><p class="muted" style="margin-top:8px">Un kit práctico en español para convertir el caos en rutinas claras.</p><div style="display:flex;justify-content:center;gap:10px;align-items:center;margin-top:16px"><div class="product-art">ALFA<br>MAX</div><div style="text-align:left"><strong>Kit Alfa Max</strong><div class="price" data-money="base">USD 27.00<small style="font-size:13px;font-weight:600">pago único</small></div></div></div></header><div class="stack" style="padding:20px"><div class="media-grid"><div class="slot media-preview" data-media-slot="media2"><strong>Ejemplo visual · Imagen</strong><span>Espacio de medios sin contenido publicado.</span></div><div class="slot media-preview" data-media-slot="media3"><strong>Ejemplo visual · Video</strong><span>Espacio de medios sin contenido publicado.</span></div><div class="slot media-preview" data-media-slot="media4"><strong>Espacio para un testimonio real</strong><span>Vista previa de ubicación; no es un testimonio de cliente.</span></div></div><div class="summary"><div class="summary-line"><span>Acceso digital Alfa Max</span><strong data-money="base">USD 27.00</strong></div><div class="summary-line total"><span>Hoy</span><span data-money="total">USD 27.00</span></div></div><form class="stack"><div class="field"><label for="customer-email">Correo electrónico</label><input type="email" placeholder="correo@ejemplo.com" required id="customer-email" name="customer-email" autocomplete="email" maxlength="254" data-customer="true"></div><div class="field"><label for="customer-name">Nombre del comprador</label><input placeholder="Tu nombre" required id="customer-name" name="customer-name" autocomplete="name" maxlength="150" data-customer="true"></div><div class="payment-choice">Pago seguro</div><details class="coupon" hidden><summary>¿Tienes un cupón?</summary><div class="coupon-row"><label class="sr-only" for="coupon-code">Código de cupón</label><input id="coupon-code" maxlength="80" autocomplete="off" placeholder="Código de cupón"><button id="apply-coupon" type="button" class="btn btn-dark" disabled>Aplicar</button><button id="remove-coupon" type="button" class="btn" hidden>Quitar cupón</button></div><p id="coupon-message" class="coupon-message" role="status"></p></details><div class="stripe-box" id="payment-step"><p id="stripe-placeholder" class="loading-text">El pago todavía no está habilitado.</p><div id="stripe-payment-element"></div></div><div class="consents"><label for="terms"><input id="terms" class="terms-box" type="checkbox" required><span>Acepto los <a href="terminos.html" target="_blank" rel="noopener">Términos de compra</a> y la <a href="reembolsos.html" target="_blank" rel="noopener">Política de reembolso</a>.</span></label><label for="save-card"><input id="save-card" class="save-card" type="checkbox"><span>Guardar mi tarjeta para futuras compras que yo confirme. Es opcional y no autoriza cargos automáticos.</span></label><p>Consulta cómo usamos tus datos en la <a href="privacidad.html" target="_blank" rel="noopener">Política de privacidad</a>.</p></div><p class="pay-total">Total: <strong data-money="total">USD 27.00</strong></p><button id="pay-button" class="btn btn-primary btn-block" type="submit" disabled>Pagar <span data-money="total">USD 27.00</span></button><div id="payment-status" role="status" aria-live="polite" class="state-panel"></div><button id="new-payment" type="button" class="btn" hidden>Iniciar otra sesión</button><button id="retry-payment" type="button" class="btn" hidden>Volver a intentar</button></form><section class="condition-box"><p><strong>Garantía comercial de 60 días</strong><br>Devolución íntegra del kit solicitada dentro de los 60 días naturales desde la entrega efectiva del acceso, sin necesidad de justificar el motivo. Se preservan tus derechos legales.</p><p><strong>Entrega y acceso</strong><br>Descarga por correo y acceso al área privada en hasta 24 horas después de confirmar el pago. Acceso sin fecha de vencimiento.</p><p>Producto digital en español · Sin suscripción ni renovación automática.</p></section><div class="slot media-preview" data-media-slot="media5"><strong>Ejemplo visual · Imagen</strong><span>Espacio de medios sin contenido publicado.</span></div></div></section></main><footer class="company-footer"><nav aria-label="Políticas"><a href="terminos.html" target="_blank" rel="noopener">Términos de compra</a><a href="privacidad.html" target="_blank" rel="noopener">Política de privacidad</a><a href="reembolsos.html" target="_blank" rel="noopener">Política de reembolso</a><a href="entrega.html" target="_blank" rel="noopener">Entrega y acceso</a><a href="contacto.html" target="_blank" rel="noopener">Soporte</a></nav><p>Políticas disponibles en español.</p><p><strong>Dropix Editora e Marketing Ltda.</strong> · CNPJ: 65.255.590/0001-49<br>Rua Antonio Basil Schroeder, 37, Barreiros, São José, Santa Catarina, CEP 88110-400, Brasil.</p><p><a href="mailto:guiasuporteoficial@gmail.com">guiasuporteoficial@gmail.com</a> · <a href="https://wa.me/5519999962986" target="_blank" rel="noopener noreferrer">WhatsApp: +55 19 99996-2986</a><br><span>08:00–18:00, hora de Nueva York. Respuesta en hasta 24 horas.</span></p></footer><noscript><p class="state-panel">Activa JavaScript para pagar. Los contactos y las políticas siguen disponibles.</p></noscript><script>
 // CONFIGURAÇÃO PÚBLICA. Segredos ficam exclusivamente no Worker.
@@ -184,6 +284,9 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
     const digits=$('customer-phone')?.value.replace(/[^0-9]/g,'')||'';
     return {name:$('customer-name').value.trim(),email:$('customer-email').value.trim(),phone:digits?($('dial-code')?.value||'')+digits:''};
   }
+  let metaContactTimer;
+  function metaContactChanged(){clearTimeout(metaContactTimer);metaContactTimer=setTimeout(()=>{try{const b=buyerDetails(),repeat=$('customer-email2');if(repeat&&repeat.value.trim().toLowerCase()!==b.email.trim().toLowerCase())return;window.AlfaMeta?.contact({email:b.email,phone:b.phone})?.catch(()=>{});}catch{}},600);}
+  all('#customer-email,#customer-email2,#customer-phone,#dial-code').forEach(el=>el.addEventListener('change',metaContactChanged));
   function validateCustomer(){
     const details=buyerDetails(),name=$('customer-name'),phone=$('customer-phone');
     name.setCustomValidity(details.name&&!/[\u0000-\u001f\u007f]/.test(details.name)?'':t('Revisa el nombre y el teléfono del comprador.'));
@@ -194,7 +297,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
     return true;
   }
   all('#customer-email,#customer-email2').forEach(input=>input.addEventListener('input',()=>$('customer-email2')?.setCustomValidity('')));
-  const tracking=()=>Object.fromEntries(['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].map(k=>[k,query.get(k)?.slice(0,200)]).filter(x=>x[1]));
+  const tracking=()=>({...window.AlfaMeta?.tracking(),...Object.fromEntries(['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].map(k=>[k,query.get(k)?.slice(0,200)]).filter(x=>x[1]))});
   function makeAttempt(currency){const result={requestId:crypto.randomUUID(),currency,language:lang,variant:cfg.variant,tracking:tracking()};write(attemptKey,result);return result;}
   async function createSession(){
     attempt=read(attemptKey);
@@ -262,6 +365,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
     if(!terms()||!validateCustomer()){show('Revisa tus datos y acepta las condiciones antes de pagar.',true);if(!terms())$('terms').focus();expressEvent?.paymentFailed?.({reason:'fail'});return;}
     busy=true;controls();show('Procesando…');let submitted=false,stage='CONSENT';
     try{
+      try{const b=buyerDetails();window.AlfaMeta?.contact({email:b.email,phone:b.phone})?.catch(()=>{});}catch{}
       const recorded=await api('consent',{sessionId,acceptedTerms:true,savePaymentMethod:saveCard(),language:lang,buyer:buyerDetails()},statusToken());if(recorded.recorded!==true||recorded.buyerRecorded!==true)throw Error('WORKER_UPDATE_REQUIRED: buyer metadata not saved');
       stage='PREPARE';const options={redirect:'if_required',savePaymentMethod:saveCard(),email:$('customer-email').value.trim()};
       if(expressEvent)options.expressCheckoutConfirmEvent=expressEvent;
