@@ -241,7 +241,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
   translate();
   function configured(){try{const url=new URL(cfg.apiBaseUrl);return cfg.enabled&&url.protocol==='https:'&&!url.username&&!url.password&&location.protocol==='https:'&&['test','live'].includes(cfg.expectedMode)&&cfg.publishableKey.startsWith('pk_'+cfg.expectedMode+'_');}catch{return false;}}
   const active=configured();let offer=null,session=null,checkout=null,actions=null,paymentElement=null,busy=false,attempt=null,ready=false,uncertain=false,complete=false;
-  const attemptKey='alfa-v2-attempt:'+cfg.variant;
+  const attemptKey='alfa-cookie-a2-attempt:'+cfg.variant;
   let sessionId=query.get('session_id');
   function read(key){try{return JSON.parse(sessionStorage.getItem(key)||'null');}catch{return null;}}
   function write(key,data){try{sessionStorage.setItem(key,JSON.stringify(data));}catch{}}
@@ -268,7 +268,7 @@ const TRANSLATIONS = {"Idioma":["Idioma","Language"],"Moneda":["Moeda","Currency
   }
   async function api(path,payload={},token){
     const c=new AbortController(),timer=setTimeout(()=>c.abort(),20000);
-    try{const response=await fetch(cfg.apiBaseUrl.replace(/\/$/,'')+'/v2/'+path,{method:'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:JSON.stringify({...payload,...(['session','consent'].includes(path)?{meta:window.AlfaMeta?.context()}: {})}),credentials:'omit',cache:'no-store',signal:c.signal});if(!response.ok){const error=Error('HTTP '+response.status+' /v2/'+path);if(cfg.expectedMode==='test'){try{const data=await response.json();error.message+=' '+[data.error,data.diagnostic?.code,data.diagnostic?.param,data.diagnostic?.requestId].filter(x=>typeof x==='string').join(' ');}catch{}}throw error;}const data=await response.json();try{window.AlfaMeta?.observe(data,path,{id:payload.sessionId,token});}catch{}return data;}finally{clearTimeout(timer);}
+    try{const response=await fetch(path==='session'?location.origin+'/api/checkout/v2/session':cfg.apiBaseUrl.replace(/\/$/,'')+'/v2/'+path,{method:'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:JSON.stringify({...payload,...(['session','consent'].includes(path)?{meta:window.AlfaMeta?.context()}: {})}),credentials:path==='session'?'same-origin':'omit',cache:'no-store',signal:c.signal});if(!response.ok){const error=Error('HTTP '+response.status+' /v2/'+path);if(cfg.expectedMode==='test'){try{const data=await response.json();error.message+=' '+[data.error,data.diagnostic?.code,data.diagnostic?.param,data.diagnostic?.requestId].filter(x=>typeof x==='string').join(' ');}catch{}}throw error;}const data=await response.json();try{window.AlfaMeta?.observe(data,path,{id:payload.sessionId,token});}catch{}return data;}finally{clearTimeout(timer);}
   }
   function statusToken(){return session?.statusToken||read('alfa-v2-order:'+sessionId)?.statusToken;}
   function media(){
