@@ -15,7 +15,7 @@
     <meta name="referrer" content="no-referrer">
     <!-- 🚫 Bloqueia indexação caso a URL vaze -->
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <title>teste</title>
+    <title>VIBROU</title>
     
     <!-- Vturb Performance Optimization -->
     <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
@@ -137,15 +137,12 @@
             text-align: center;
         }
 
-        /* ===== BOTÃO CTA ===== */
+        /* ===== BOTÃO CTA — visível direto ===== */
         .cta-section {
             text-align: center;
             margin: 40px auto;
             padding: 0 10px;
-            /* Esconde por padrão. VTurb revela no pitch. */
-            display: none;
         }
-        .cta-section.visivel { display: block; }
 
         .cta-button {
             display: inline-block;
@@ -568,7 +565,7 @@
                     </p>
                 </div>
 
-                <!-- ===== BOTÃO CTA — revelar no pitch via VTurb ===== -->
+                <!-- ===== BOTÃO CTA — visível direto ===== -->
                 <section class="cta-section" id="cta-section">
                     <a href="/go-checkout" class="cta-button" id="cta-button">
                         ¡SÍ, QUIERO VER MI OFERTA EXCLUSIVA!
@@ -977,15 +974,6 @@
         setInterval(function() {
             document.getElementById('viewerCount').textContent = getRandomViewers();
         }, Math.random() * 5000 + 5000);
-    </script>
-
-    <!-- Revela o botão quando o VTurb disparar o pitch -->
-    <script>
-        // Opção 1: VTurb adiciona a classe via API (configura no painel deles)
-        // Opção 2: fallback — libera manualmente com window.liberarCTA()
-        window.liberarCTA = function () {
-            document.getElementById('cta-section').classList.add('visivel');
-        };
     </script>
 
     <!-- Limpa o ?cpns= da URL depois de 1s (opcional, defensivo) -->
