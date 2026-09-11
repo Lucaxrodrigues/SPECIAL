@@ -21,7 +21,7 @@ const pending=new Map(),receiptsSeen=new Map();let attribution={},realClick=null
 function read(k,session=false){try{return JSON.parse((session?sessionStorage:localStorage).getItem(k)||'null');}catch{return null;}}
 function save(k,v,session=false){try{(session?sessionStorage:localStorage).setItem(k,JSON.stringify(v));}catch{}}
 function cookie(k){try{return document.cookie.split('; ').find(x=>x.startsWith(k+'='))?.slice(k.length+1)||'';}catch{return '';}}
-function allowed(){return navigator.globalPrivacyControl!==true&&choice!==false&&(choice===true||automatic);}
+function allowed(){return choice!==false&&(choice===true||automatic);}
 function cleanSource(){return location.origin+location.pathname;}
 function rememberAttribution(){
  const old=read(ATTR);attribution=old&&Date.now()-old.at<90*86400000?old.data:{};realClick=old?.click&&Date.now()-old.click.createdAt<90*86400000?old.click:null;
@@ -42,7 +42,7 @@ function rememberAttribution(){
  save(ATTR,{data:attribution,click:realClick,at:Date.now()});
  // No random _fbp; fbc fallback is derived only from a real captured Meta click.
 }
-function context(){const c={choice,automatic,consent:choice===true,gpc:navigator.globalPrivacyControl===true,source:cleanSource()};if(allowed()){c.visitorId=visitor?.id;c.fbp=cookie('_fbp');c.fbc=cookie('_fbc')||realClick?.fbc||'';c.tracking={...attribution};}return c;}
+function context(){const c={choice,automatic,consent:choice===true,gpc:false,source:cleanSource()};if(allowed()){c.visitorId=visitor?.id;c.fbp=cookie('_fbp');c.fbc=cookie('_fbc')||realClick?.fbc||'';c.tracking={...attribution};}return c;}
 function persist(){save(QUEUE,[...pending.values()].slice(-100),true);}
 function enqueue(item){
  if(!allowed())return;
