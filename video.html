@@ -35,13 +35,14 @@
     .aviso-som{background:#f1f1f1;color:#555;padding:10px 20px;border-radius:4px;font-size:14px;margin:10px auto 30px;text-align:center;max-width:420px;display:block}
 
     .cta-section{text-align:center;width:100%;max-width:650px;margin:20px auto 40px;padding:0 20px;position:relative;z-index:2}
+
+    /* ===== BOTÃO OCULTO — VTurb revela no pitch ===== */
+    /* O VTurb vai remover essa classe quando o vídeo chegar no pitch */
+    .cta-oculto{display:none !important}
+
     .cta-button{display:inline-block;background:#197d44;color:#fff;font-size:20px;font-weight:800;padding:22px 38px;border-radius:12px;text-decoration:none;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 8px 24px #27af6033;animation:ctaPulse 2.2s ease-in-out infinite;max-width:100%;line-height:1.3;overflow-wrap:anywhere}
     .cta-button:hover{background:#146739}
     a:focus-visible{outline:3px solid #174b91;outline-offset:5px}
-    .cta-sub{font-size:14px;color:#666;margin-top:14px;line-height:1.6}
-
-    /* ===== BOTÃO OCULTO — reservado para revelação via VTurb no pitch ===== */
-    .cta-oculto{display:none !important}
 
     /* ===== COMENTÁRIOS / DEPOIMENTOS ===== */
     .comments-section{margin-top:48px;background-color:#f0f2f5;padding:20px 0}
@@ -238,7 +239,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     <!-- ===== AVISO DE SOM ===== -->
     <div class="aviso-som">🔊 Por favor, verifique que el sonido esté encendido.</div>
 
-    <section class="cta-section" id="cta-section" aria-label="Acceder al kit">
+    <!-- ===== BOTÃO CTA — OCULTO — VTurb revela no pitch ===== -->
+    <!-- ID: cta-section | Classe: cta-oculto -->
+    <!-- No painel VTurb, use ID "cta-section" OU classe "cta-oculto" -->
+    <section class="cta-section cta-oculto" id="cta-section" aria-label="Acceder al kit">
       <a href="/go-checkout" class="cta-button" id="cta-button">QUIERO ACCEDER A ALFA MAX</a>
     </section>
 
