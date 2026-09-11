@@ -137,12 +137,6 @@ function updatePreference(){const el=document.getElementById('alfa-meta-state');
 async function init(){
  const stored=read(KEY);choice=stored&&Date.now()-stored.at<180*86400000&&typeof stored.allowed==='boolean'?stored.allowed:null;
  // No popup, overlay, modal or payment gate. The existing refusal always wins.
- const box=document.createElement('details');box.id='alfa-meta-preferences';
- const summary=document.createElement('summary');summary.textContent='Privacidad y publicidad';box.append(summary);
- const p=document.createElement('p');p.textContent='Usamos Meta para medir anuncios con datos de navegación, compras e identificadores de contacto con hash. Puedes cambiar tu elección sin afectar el pago.';box.append(p);
- const state=document.createElement('p');state.id='alfa-meta-state';box.append(state);
- for(const [label,value]of [['Permitir publicidad',true],['Desactivar publicidad',false]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>decide(value);box.append(b);}
- const a=document.createElement('a');a.href='privacidad.html';a.textContent='Política de privacidad';box.append(a);document.body.append(box);
  try{const policy=await post('meta-policy',{});automatic=policy.autoAllowed===true;policyReady=true;}catch{automatic=false;}
  updatePreference();if(allowed()){try{await boot();flush();}catch{setTimeout(()=>boot().then(flush).catch(()=>{}),5000);}}
 }
