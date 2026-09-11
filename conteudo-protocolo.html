@@ -7,7 +7,7 @@
 </style><script id="alfa-meta-script">/* M2: own visitor/action IDs are separate from the real Meta cookie identifiers. */
 (()=>{'use strict';
 const PIXEL='25604776625865776',API='https://alfa-max-stripe.lucaszrodx.workers.dev';
-const KEY='alfa-marketing-v1',VISITOR='alfa-meta-visitor-v2',ATTR='alfa-meta-attribution-v2',QUEUE='alfa-meta-queue-v2';
+const KEY='alfa-marketing-v1',VISITOR='alfa-meta-visitor-v2',ATTR='alfa-meta-attribution-v2',QUEUE='alfa-meta-queue-live-p1';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const attrs=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaign_id','adset_id','ad_id','placement','site_source_name'];
 const entry=new URLSearchParams(location.search),pageId=crypto.randomUUID(),pageTime=Math.floor(Date.now()/1000);
@@ -92,7 +92,7 @@ async function boot(){
   let r;try{r=await post('meta-init',{visitorId:visitor.id,meta:context()});}catch{}
   if(r?.visitToken)visitToken=r.visitToken;
   for(const item of read(QUEUE,true)||[])if(item.eventTime>Date.now()/1000-86400&&!pending.has(item.eventId))pending.set(item.eventId,item);
-  enqueue({name:'PageView',eventId:'pv_'+pageId,eventTime:pageTime,pageId,custom:{integration_test:true,...attribution}});
+  enqueue({name:'PageView',eventId:'pv_'+pageId,eventTime:pageTime,pageId,custom:{integration_test:false,...attribution}});
   if(auth?.isCheckout)queueIC();for(const r of receiptsSeen.values())queueReceipt(r);if(contactWaiting)contact(contactWaiting);sync();
  })();try{await booting;}finally{booting=null;}
 }
@@ -102,29 +102,29 @@ function sync(){
 }
 function currentCheckout(){
  if(checkoutId)return checkoutId;
- const old=read('alfa-meta-checkout-v2',true);
+ const old=read('alfa-meta-checkout-live-p1',true);
  checkoutId=old&&old.until>Date.now()&&uuid.test(old.id)?old.id:crypto.randomUUID();
- save('alfa-meta-checkout-v2',{id:checkoutId,until:Date.now()+30*60000},true);return checkoutId;
+ save('alfa-meta-checkout-live-p1',{id:checkoutId,until:Date.now()+30*60000},true);return checkoutId;
 }
-function queueIC(){if(!allowed()||!auth?.isCheckout)return;const id=currentCheckout();enqueue({name:'InitiateCheckout',eventId:'checkout_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});}
+function queueIC(){if(!allowed()||!auth?.isCheckout)return;const id=currentCheckout();enqueue({name:'InitiateCheckout',eventId:'checkout_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:false,...attribution}});}
 function observe(data,path,request){
  if(data?.statusToken&&data.sessionId){auth={id:data.sessionId,token:data.statusToken,isCheckout:true};queueIC();sync();}
  else if(request?.token&&request?.id){auth={id:request.id,token:request.token,isCheckout:['session','status','consent'].includes(path)};}
  const receipts=[data?.metaPurchase,...(data?.metaPurchases||[])].filter(Boolean);
  for(const r of receipts){receiptsSeen.set(r.eventId,r);queueReceipt(r);}
- if(receipts.length)save('alfa-meta-checkout-v2',null,true);
+ if(receipts.length)save('alfa-meta-checkout-live-p1',null,true);
  if(contactWaiting)contact(contactWaiting);sync();flush();
 }
 function queueReceipt(r){
  if(!r.eventId||typeof r.value!=='number')return;
- enqueue({name:'Purchase',eventId:r.eventId,eventTime:Math.floor(Date.now()/1000),custom:{currency:r.currency,value:r.value,value_basis:r.value_basis,charged_currency:r.charged_currency,charged_value:r.charged_value,content_ids:[r.offer],content_type:'product',num_items:1,order_id:r.sessionId,integration_test:true,...attribution}});
+ enqueue({name:'Purchase',eventId:r.eventId,eventTime:Math.floor(Date.now()/1000),custom:{currency:r.currency,value:r.value,value_basis:r.value_basis,charged_currency:r.charged_currency,charged_value:r.charged_value,content_ids:[r.offer],content_type:'product',num_items:1,order_id:r.sessionId,integration_test:false,...attribution}});
 }
 async function contact(buyer){
  contactWaiting={email:buyer?.email||'',phone:buyer?.phone||''};if(!allowed()||!auth?.isCheckout||!visitor)return;
  const email=contactWaiting.email.trim().toLowerCase(),phone=contactWaiting.phone.replace(/\D/g,'');
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254)return;
  const id=currentCheckout();const c={em:await hash(email)};if(phone.length>=6&&phone.length<=15)c.ph=await hash(phone);
- enqueue({name:'CheckoutContactProvided',eventId:'contact_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,contact:c,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});
+ enqueue({name:'CheckoutContactProvided',eventId:'contact_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,contact:c,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:false,...attribution}});
  contactWaiting=null;
 }
 function decide(value){
@@ -153,11 +153,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script></head><body data-page="content"><main class="wrap"><header><a class="brand" href="index.html">ALFA MAX</a><a href="contacto.html">¿Necesitas ayuda?</a></header><p aria-live="polite" class="status" id="access-feedback" role="status">Comprobando tu pedido…</p><div hidden="" id="verified"><section class="order-hero"><p class="eyebrow">Tu espacio de contenido</p><h1>Alfa Max + Protocolo X</h1><p>Todo lo que adquiriste, reunido para que puedas empezar a tu ritmo.</p></section><div class="content-list" id="content-cards"></div><section class="order-box"><h2>Una forma sencilla de empezar</h2><ol><li>Abre Alfa Max y elige un primer paso para tu rutina.</li><li>Consulta los materiales adicionales que aparecen en esta página.</li><li>Guarda tus instrucciones de acceso para volver cuando lo necesites.</li></ol><p>Los materiales son para tu uso personal. El acompañamiento por WhatsApp solo aparece si está incluido en tu pedido.</p><p class="reference" id="reference"></p></section></div><button id="access-retry" type="button">Volver a comprobar mi pedido</button><section class="order-box"><h2>¿Necesitas ayuda para entrar?</h2><p>Utiliza el correo que escribiste al comprar. Revisa tu bandeja de entrada, spam y promociones para encontrar el mensaje de bienvenida.</p><p>Si aún no recibes las instrucciones, el plazo máximo es de 24 horas desde la confirmación del pago. Escribe a <a href="mailto:guiasuporteoficial@gmail.com">guiasuporteoficial@gmail.com</a> indicando tu correo y la referencia del pedido.</p><p>Soporte: 08:00–18:00, hora de Nueva York. Respuesta en hasta 24 horas.</p><a href="https://alfa-max-app.memberkit.com.br/" rel="noopener noreferrer" target="_blank">Entrar en mi área de miembros</a></section><footer><nav><a href="index.html">Alfa Max</a><a href="terminos.html">Términos</a><a href="reembolsos.html">Reembolsos</a><a href="privacidad.html">Privacidad</a><a href="contacto.html">Soporte</a></nav><p>Dropix Editora e Marketing Ltda. · CNPJ 65.255.590/0001-49<br/>Rua Antonio Basil Schroeder, 37, Barreiros, São José, SC, 88110-400, Brasil.</p></footer></main><script>(()=>{'use strict';
 const API='https://alfa-max-stripe.lucaszrodx.workers.dev',root=new URLSearchParams(location.search).get('parent_session_id'),$=id=>document.getElementById(id);
+const DOWNLOAD_NAMES={alfa_max:'Alfa-Max.pdf',protocolo_x:'Protocolo-X.pdf',rincon_bebidas:'Rincon-de-Bebidas.pdf'};
 let token;try{token=JSON.parse(sessionStorage.getItem('alfa-v2-order:'+root)||'null')?.statusToken;}catch{}
 function status(text,error=false){$('access-feedback').textContent=text;$('access-feedback').className=error?'status error':'status';}
 async function call(path,body={}){return fetch(API+'/v2/'+path,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({sessionId:root,...body}),credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(25000)});}
 function destination(page){const u=new URL(page,location.href);u.searchParams.set('parent_session_id',root);return u.href;}
-async function download(key,button){button.disabled=true;status('Preparando tu descarga…');try{const r=await call('download',{product:key});if(!r.ok)throw Error();const blob=await r.blob();const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=key+'.pdf';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);status('La descarga está lista. Revisa la carpeta de descargas de tu dispositivo.');}catch{status('No se pudo iniciar la descarga. Puedes acceder al material desde tu área de miembros o contactar con soporte.',true);}finally{button.disabled=false;}}
+async function download(key,button){button.disabled=true;status('Preparando tu descarga…');try{const r=await call('download',{product:key});if(!r.ok)throw Error();const blob=await r.blob();const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=DOWNLOAD_NAMES[key];document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);status('La descarga está lista. Revisa la carpeta de descargas de tu dispositivo.');}catch{status('No se pudo iniciar la descarga. Puedes acceder al material desde tu área de miembros o contactar con soporte.',true);}finally{button.disabled=false;}}
 async function start(){
  if(!root||!token){status('Abre esta página desde la confirmación de tu compra, en el mismo navegador. También puedes entrar en tu área de miembros con el correo de compra.',true);return;}
  try{
@@ -168,9 +169,10 @@ async function start(){
   const list=$('purchased-products');if(list){list.replaceChildren();for(const p of data.products){const li=document.createElement('li');li.textContent=p.title;list.append(li);}}
   const cards=$('content-cards');if(cards){cards.replaceChildren();for(const p of data.products){
    const card=document.createElement('article');card.className='content-card';const tag=document.createElement('span');tag.className='category';tag.textContent=p.key==='whatsapp'?'Servicio adquirido · Un año':'Material adquirido';
-   const h=document.createElement('h2');h.textContent=p.title;const desc=document.createElement('p');desc.textContent=p.key==='whatsapp'?'Tu pedido incluye el acompañamiento por WhatsApp durante un año. Contacta con el equipo para consultar las instrucciones y coordinar el inicio.':'Consulta tu material a tu ritmo. Puedes volver al área de miembros cuando lo necesites y conservar tus archivos para uso personal.';card.append(tag,h,desc);
+   const h=document.createElement('h2');h.textContent=p.title;const desc=document.createElement('p');desc.textContent=p.key==='whatsapp'?'Tu compra incluye un año de acompañamiento por WhatsApp. Abre la conversación con nuestro equipo para solicitar las instrucciones de activación y coordinar el inicio de tu servicio.':'Consulta tu material a tu ritmo. Puedes volver al área de miembros cuando lo necesites y conservar tus archivos para uso personal.';card.append(tag,h,desc);
    if(p.downloadAvailable&&p.key!=='whatsapp'){const b=document.createElement('button');b.type='button';b.textContent='DESCARGAR EBOOK';b.onclick=()=>download(p.key,b);card.append(b);}
-   const a=document.createElement('a');a.href=p.key==='whatsapp'?'https://wa.me/5519999962986':data.memberArea;a.textContent=p.key==='whatsapp'?'VER INSTRUCCIONES POR WHATSAPP':'ABRIR ÁREA DE MIEMBROS';a.target='_blank';a.rel='noopener noreferrer';card.append(a);cards.append(card);
+   if(p.key==='whatsapp'){const help=document.createElement('p');help.textContent='Ten a mano el correo utilizado en la compra y la referencia de tu pedido. El botón abre WhatsApp con un mensaje preparado: revísalo y envíalo para comenzar la conversación. No se realiza ningún cobro adicional al pulsarlo.';card.append(help);}
+   const a=document.createElement('a');a.href=p.key==='whatsapp'?'https://wa.me/5519999962986?text='+encodeURIComponent('Hola, compré Alfa Max y el acompañamiento por WhatsApp de un año. Quisiera recibir las instrucciones para activar mi servicio.'):data.memberArea;a.textContent=p.key==='whatsapp'?'INICIAR MI ACOMPAÑAMIENTO':'ABRIR ÁREA DE MIEMBROS';a.target='_blank';a.rel='noopener noreferrer';card.append(a);cards.append(card);
   }}
   status('');
  }catch{status('No pudimos comprobar el pedido en este momento. Vuelve a intentarlo o entra en tu área de miembros con el correo que usaste para comprar.',true);}
