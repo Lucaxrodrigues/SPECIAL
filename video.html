@@ -19,29 +19,64 @@
   <link rel="dns-prefetch" href="https://license.vturb.com">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,sans-serif;background:#fff;color:#333;min-height:100vh}
+    body{font-family:system-ui,-apple-system,sans-serif;background:#fff;color:#333;min-height:100vh;padding-top:60px}
     main{width:100%}
-    .video-wrapper{width:100%;max-width:420px;margin:30px auto 10px;padding:0 15px;position:relative;z-index:1}
+
+    /* ===== BARRA VERMELHA DE URGÊNCIA ===== */
+    .barra-topo{position:fixed;top:0;left:0;right:0;background:#cc0000;color:#fff;text-align:center;padding:12px 15px;font-size:14px;font-weight:500;line-height:1.4;z-index:999}
+    .barra-topo b{font-weight:700}
+
+    /* ===== HEADLINE IMAGE ===== */
+    .headline-image{width:100%;max-width:600px;height:auto;display:block;margin:20px auto 20px auto;padding:0 15px}
+
+    .video-wrapper{width:100%;max-width:420px;margin:10px auto 10px;padding:0 15px;position:relative;z-index:1}
+
+    /* ===== AVISO DE SOM ===== */
+    .aviso-som{background:#f1f1f1;color:#555;padding:10px 20px;border-radius:4px;font-size:14px;margin:10px auto 30px;text-align:center;max-width:420px;display:block}
+
     .cta-section{text-align:center;width:100%;max-width:650px;margin:20px auto 40px;padding:0 20px;position:relative;z-index:2}
+
+    /* ===== BOTÃO OCULTO — VTurb revela no pitch ===== */
+    /* O VTurb vai remover essa classe quando o vídeo chegar no pitch */
+    .cta-oculto{display:none !important}
+
     .cta-button{display:inline-block;background:#197d44;color:#fff;font-size:20px;font-weight:800;padding:22px 38px;border-radius:12px;text-decoration:none;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 8px 24px #27af6033;animation:ctaPulse 2.2s ease-in-out infinite;max-width:100%;line-height:1.3;overflow-wrap:anywhere}
     .cta-button:hover{background:#146739}
     a:focus-visible{outline:3px solid #174b91;outline-offset:5px}
-    .cta-sub{font-size:14px;color:#666;margin-top:14px;line-height:1.6}
-    .footer{max-width:750px;margin:0 auto;padding:22px 20px 12px;border-top:1px solid #eee;text-align:center;font-size:13px;line-height:1.7;color:#666;overflow-wrap:anywhere}
-    .footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:14px}
-    .footer a{color:#315743;text-underline-offset:3px}
-    .footer p+p{margin-top:10px}
+
+    /* ===== COMENTÁRIOS / DEPOIMENTOS ===== */
+    .comments-section{margin-top:48px;background-color:#f0f2f5;padding:20px 0}
+    .comments-container{max-width:800px;margin:0 auto;background-color:white;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.1)}
+    .comments-header{padding:16px 16px 12px 16px;border-bottom:1px solid #e4e6eb}
+    .comments-count{font-size:17px;font-weight:600;color:#050505}
+    .comments-count-detail{font-size:15px;color:#65676b;font-weight:normal}
+    .comments-list{padding:16px}
+    .comment-item{margin-bottom:20px}
+    .comment-main{display:flex;gap:8px;margin-bottom:12px}
+    .comment-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;object-fit:cover;background:#ddd}
+    .comment-content{flex:1}
+    .comment-bubble{background-color:#f0f2f5;padding:8px 12px;border-radius:18px;display:inline-block;max-width:100%}
+    .comment-author{font-size:13px;font-weight:600;color:#385898;margin-bottom:2px;cursor:pointer}
+    .comment-author:hover{text-decoration:underline}
+    .comment-text{font-size:15px;line-height:1.3333;color:#050505;word-wrap:break-word}
+    .comment-actions{display:flex;align-items:center;gap:12px;margin-top:4px;margin-left:12px;font-size:12px;color:#65676B}
+    .comment-actions span{cursor:pointer;font-weight:600}
+    .comment-actions span:not(.timestamp):not(.reactions):hover{text-decoration:underline}
+    .comment-actions .timestamp{font-weight:normal}
+    .comment-actions .reactions{display:inline-flex;align-items:center;gap:4px;margin-left:auto;font-weight:normal}
+    .comment-actions .reactions::before{content:"👍❤️";font-size:14px;margin-right:2px}
+    .comment-reply{display:flex;gap:8px;margin-top:12px;margin-left:48px}
+
     .sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
     @keyframes ctaPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.025);box-shadow:0 12px 30px #27af6044}}
-    @media(max-width:600px){.cta-button{font-size:17px;padding:18px 24px}}
+    @media(max-width:600px){.barra-topo{font-size:12px}.cta-button{font-size:17px;padding:18px 24px}.comment-text{font-size:14px}}
     @media(prefers-reduced-motion:reduce){.cta-button{animation:none}}
   </style>
-  <!-- Integração Meta existente: mesmo Pixel, IDs e armazenamento do restante do funil. -->
-  <style id="alfa-meta-style">#alfa-meta-preferences{max-width:720px;margin:24px auto;padding:12px 16px;font:13px/1.5 system-ui;color:#345744}#alfa-meta-preferences summary{cursor:pointer;min-height:44px;display:list-item}#alfa-meta-preferences button{font:inherit;width:auto;min-height:44px;padding:8px 14px;margin:6px;border:1px solid #b9c9be;border-radius:6px;background:white;color:#345744;cursor:pointer}#alfa-meta-preferences a{display:inline-block;padding:8px}</style>
+  <style id="alfa-meta-style"></style>
   <script id="alfa-meta-script">/* M2: own visitor/action IDs are separate from the real Meta cookie identifiers. */
 (()=>{'use strict';
 const PIXEL='25604776625865776',API='https://alfa-max-stripe.lucaszrodx.workers.dev';
-const KEY='alfa-marketing-v1',VISITOR='alfa-meta-visitor-v2',ATTR='alfa-meta-attribution-v2',QUEUE='alfa-meta-queue-live-p1';
+const KEY='alfa-marketing-v1',VISITOR='alfa-meta-visitor-v2',ATTR='alfa-meta-attribution-v2',QUEUE='alfa-meta-queue-v2';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const attrs=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaign_id','adset_id','ad_id','placement','site_source_name'];
 const entry=new URLSearchParams(location.search),pageId=crypto.randomUUID(),pageTime=Math.floor(Date.now()/1000);
@@ -55,9 +90,7 @@ function cleanSource(){return location.origin+location.pathname;}
 function rememberAttribution(){
  const old=read(ATTR);attribution=old&&Date.now()-old.at<90*86400000?old.data:{};realClick=old?.click&&Date.now()-old.click.createdAt<90*86400000?old.click:null;
  const fresh={};for(const k of attrs){const v=entry.get(k);if(v&&v.length<=200&&!/[\u0000-\u001f@]/.test(v))fresh[k]=v;}
- // A new explicit campaign replaces the previous campaign rather than mixing keys.
  if(Object.keys(fresh).length)attribution=fresh;
-
  const click=entry.get('fbclid');
  if(click&&/^[A-Za-z0-9_.-]{1,450}$/.test(click)){
   const existing=cookie('_fbc');
@@ -69,7 +102,6 @@ function rememberAttribution(){
  }
  const native=cookie('_fbc');if(/^fb\.\d+\.\d{10,16}\.[A-Za-z0-9_.-]+$/.test(native)){realClick={fbclid:native.split('.').slice(3).join('.'),fbc:native,createdAt:Number(native.split('.')[2])};}
  save(ATTR,{data:attribution,click:realClick,at:Date.now()});
- // No random _fbp; fbc fallback is derived only from a real captured Meta click.
 }
 function context(){const c={choice,automatic,consent:choice===true,gpc:false,source:cleanSource()};if(allowed()){c.visitorId=visitor?.id;c.fbp=cookie('_fbp');c.fbc=cookie('_fbc')||realClick?.fbc||'';c.tracking={...attribution};}return c;}
 function persist(){save(QUEUE,[...pending.values()].slice(-100),true);}
@@ -101,7 +133,7 @@ async function flush(){
    if(!item.capiSent&&visitToken){
     const meta=item.frozenMeta||context();item.frozenMeta=meta;
     try{const result=await post('meta-events',{visitorId:visitor.id,eventName:item.name,eventTime:item.eventTime,pageId:item.pageId,checkoutId:item.checkoutId,sessionId:item.sessionId,sessionToken:item.sessionToken,contact:item.contact,meta},visitToken);if(result.recorded){item.capiSent=true;save('alfa-meta-capi:'+id,Date.now());}}
-    catch{ /* Retry tracking; never interrupt payment or redirect. */ }
+    catch{}
    }
    if(item.pixelSent&&item.capiSent)pending.delete(id);
   }
@@ -111,7 +143,6 @@ async function startPixel(){
  if(!allowed()||scriptStarted)return;scriptStarted=true;pixelGraceUntil=Date.now()+1200;
  if(!window.fbq){const f=window.fbq=function(){f.callMethod?f.callMethod.apply(f,arguments):f.queue.push(arguments);};if(!window._fbq)window._fbq=f;f.push=f;f.loaded=true;f.version='2.0';f.queue=[];}
  window.fbq('consent','grant');window.fbq('set','autoConfig',false,PIXEL);
- // Pixel performs its normal advanced-matching hashing; CAPI hashes the same raw ID.
  window.fbq('init',PIXEL,{external_id:visitor.id});
  const script=document.createElement('script');script.async=true;script.src='https://connect.facebook.net/en_US/fbevents.js';
  script.onload=()=>{scriptReady=true;sync();flush();};script.onerror=()=>{scriptStarted=false;flush();};document.head.append(script);
@@ -121,12 +152,11 @@ async function boot(){
  booting=(async()=>{
   const previous=read(VISITOR);visitor=previous&&uuid.test(previous.id)&&previous.until>Date.now()?previous:{id:crypto.randomUUID(),until:Date.now()+180*86400000};save(VISITOR,visitor);
   rememberAttribution();
-  // Never depend on Pixel loading to enqueue server-side events.
   startPixel().catch(()=>{});
   let r;try{r=await post('meta-init',{visitorId:visitor.id,meta:context()});}catch{}
   if(r?.visitToken)visitToken=r.visitToken;
   for(const item of read(QUEUE,true)||[])if(item.eventTime>Date.now()/1000-86400&&!pending.has(item.eventId))pending.set(item.eventId,item);
-  enqueue({name:'PageView',eventId:'pv_'+pageId,eventTime:pageTime,pageId,custom:{integration_test:false,...attribution}});
+  enqueue({name:'PageView',eventId:'pv_'+pageId,eventTime:pageTime,pageId,custom:{integration_test:true,...attribution}});
   if(auth?.isCheckout)queueIC();for(const r of receiptsSeen.values())queueReceipt(r);if(contactWaiting)contact(contactWaiting);sync();
  })();try{await booting;}finally{booting=null;}
 }
@@ -136,29 +166,29 @@ function sync(){
 }
 function currentCheckout(){
  if(checkoutId)return checkoutId;
- const old=read('alfa-meta-checkout-live-p1',true);
+ const old=read('alfa-meta-checkout-v2',true);
  checkoutId=old&&old.until>Date.now()&&uuid.test(old.id)?old.id:crypto.randomUUID();
- save('alfa-meta-checkout-live-p1',{id:checkoutId,until:Date.now()+30*60000},true);return checkoutId;
+ save('alfa-meta-checkout-v2',{id:checkoutId,until:Date.now()+30*60000},true);return checkoutId;
 }
-function queueIC(){if(!allowed()||!auth?.isCheckout)return;const id=currentCheckout();enqueue({name:'InitiateCheckout',eventId:'checkout_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:false,...attribution}});}
+function queueIC(){if(!allowed()||!auth?.isCheckout)return;const id=currentCheckout();enqueue({name:'InitiateCheckout',eventId:'checkout_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});}
 function observe(data,path,request){
  if(data?.statusToken&&data.sessionId){auth={id:data.sessionId,token:data.statusToken,isCheckout:true};queueIC();sync();}
  else if(request?.token&&request?.id){auth={id:request.id,token:request.token,isCheckout:['session','status','consent'].includes(path)};}
  const receipts=[data?.metaPurchase,...(data?.metaPurchases||[])].filter(Boolean);
  for(const r of receipts){receiptsSeen.set(r.eventId,r);queueReceipt(r);}
- if(receipts.length)save('alfa-meta-checkout-live-p1',null,true);
+ if(receipts.length)save('alfa-meta-checkout-v2',null,true);
  if(contactWaiting)contact(contactWaiting);sync();flush();
 }
 function queueReceipt(r){
  if(!r.eventId||typeof r.value!=='number')return;
- enqueue({name:'Purchase',eventId:r.eventId,eventTime:Math.floor(Date.now()/1000),custom:{currency:r.currency,value:r.value,value_basis:r.value_basis,charged_currency:r.charged_currency,charged_value:r.charged_value,content_ids:[r.offer],content_type:'product',num_items:1,order_id:r.sessionId,integration_test:false,...attribution}});
+ enqueue({name:'Purchase',eventId:r.eventId,eventTime:Math.floor(Date.now()/1000),custom:{currency:r.currency,value:r.value,value_basis:r.value_basis,charged_currency:r.charged_currency,charged_value:r.charged_value,content_ids:[r.offer],content_type:'product',num_items:1,order_id:r.sessionId,integration_test:true,...attribution}});
 }
 async function contact(buyer){
  contactWaiting={email:buyer?.email||'',phone:buyer?.phone||''};if(!allowed()||!auth?.isCheckout||!visitor)return;
  const email=contactWaiting.email.trim().toLowerCase(),phone=contactWaiting.phone.replace(/\D/g,'');
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254)return;
  const id=currentCheckout();const c={em:await hash(email)};if(phone.length>=6&&phone.length<=15)c.ph=await hash(phone);
- enqueue({name:'CheckoutContactProvided',eventId:'contact_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,contact:c,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:false,...attribution}});
+ enqueue({name:'CheckoutContactProvided',eventId:'contact_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,contact:c,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});
  contactWaiting=null;
 }
 function decide(value){
@@ -170,13 +200,6 @@ function decide(value){
 function updatePreference(){const el=document.getElementById('alfa-meta-state');if(el)el.textContent=allowed()?'Publicidad: activada.':'Publicidad: desactivada.';}
 async function init(){
  const stored=read(KEY);choice=stored&&Date.now()-stored.at<180*86400000&&typeof stored.allowed==='boolean'?stored.allowed:null;
- // No popup, overlay, modal or payment gate. The existing refusal always wins.
- const box=document.createElement('details');box.id='alfa-meta-preferences';
- const summary=document.createElement('summary');summary.textContent='Privacidad y publicidad';box.append(summary);
- const p=document.createElement('p');p.textContent='Usamos Meta para medir anuncios con datos de navegación, compras e identificadores de contacto con hash. Puedes cambiar tu elección sin afectar el pago.';box.append(p);
- const state=document.createElement('p');state.id='alfa-meta-state';box.append(state);
- for(const [label,value]of [['Permitir publicidad',true],['Desactivar publicidad',false]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>decide(value);box.append(b);}
- const a=document.createElement('a');a.href='privacidad.html';a.textContent='Política de privacidad';box.append(a);document.body.append(box);
  try{const policy=await post('meta-policy',{});automatic=policy.autoAllowed===true;policyReady=true;}catch{automatic=false;}
  updatePreference();if(allowed()){try{await boot();flush();}catch{setTimeout(()=>boot().then(flush).catch(()=>{}),5000);}}
 }
@@ -188,8 +211,18 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 </head>
 <body>
+  <!-- ===== BARRA VERMELHA DE URGÊNCIA ===== -->
+  <div class="barra-topo">
+    <span id="contador-pessoas">...</span> Personas están viendo este video.<br>
+    Debido a la alta demanda de accesos, garantizamos la presentación solo hasta: <b><span id="data-limite"></span></b>
+  </div>
+
   <main>
     <h1 class="sr-only">Alfa Max · Presentación del kit digital</h1>
+
+    <!-- ===== HEADLINE ===== -->
+    <img src="headline.png" alt="Alfa Max" class="headline-image">
+
     <div class="video-wrapper">
       <vturb-smartplayer id="vid-6aa45b9c6d7a1359e682f7e6" style="display:block;margin:0 auto;width:100%;max-width:400px;">
         <div class="vturb-player-placeholder" style="position:relative;width:100%;padding:177.77777777777777% 0 0;z-index:0;background-color:black;"></div>
@@ -202,33 +235,404 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         })();
       </script>
     </div>
-    <section class="cta-section" id="cta-section" aria-label="Acceder al kit">
-      <!-- TROQUE SOMENTE O href ABAIXO quando escolher: /checkout-a.html, /checkout-b.html etc. -->
+
+    <!-- ===== AVISO DE SOM ===== -->
+    <div class="aviso-som">🔊 Por favor, verifique que el sonido esté encendido.</div>
+
+    <!-- ===== BOTÃO CTA — OCULTO — VTurb revela no pitch ===== -->
+    <!-- ID: cta-section | Classe: cta-oculto -->
+    <!-- No painel VTurb, use ID "cta-section" OU classe "cta-oculto" -->
+    <section class="cta-section cta-oculto" id="cta-section" aria-label="Acceder al kit">
       <a href="/go-checkout" class="cta-button" id="cta-button">QUIERO ACCEDER A ALFA MAX</a>
-      <p class="cta-sub">Pago seguro · <a href="/reembolsos.html" style="color:inherit">Garantía comercial de 60 días</a></p>
+    </section>
+
+    <!-- ===== COMENTARIOS / DEPOIMENTOS ===== -->
+    <section class="comments-section">
+      <div class="comments-container">
+        <div class="comments-header">
+          <div class="comments-count">
+            448 COMENTARIOS <span class="comments-count-detail">- MOSTRANDO LOS 23 MÁS RELEVANTES</span>
+          </div>
+        </div>
+
+        <div class="comments-list">
+          <!-- Comentario 1 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="EduardoCoelhor.png" alt="Eduardo Coelhor" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Eduardo Coelhor</div>
+                  <div class="comment-text">Qué bueno que vi el video hasta el final. Estoy muy feliz. Muchas gracias Dr. por haberlo descubierto, hice la prueba y en dos días ya volví duro, ¡nunca más la pastilla azul!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">21 min</span>
+                  <span class="reactions">38</span>
+                </div>
+                <div class="comment-reply">
+                  <img src="RobertoBelmonte.png" alt="Roberto Belmonte" class="comment-avatar">
+                  <div class="comment-content">
+                    <div class="comment-bubble">
+                      <div class="comment-author">Roberto Belmonte</div>
+                      <div class="comment-text">El negocio funciona, amigo</div>
+                    </div>
+                    <div class="comment-actions">
+                      <span>Me gusta</span>
+                      <span>Responder</span>
+                      <span class="timestamp">1 min</span>
+                      <span class="reactions">7</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 2 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="PedroPaulo.png" alt="Pedro Paulo" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Pedro Paulo</div>
+                  <div class="comment-text">Al principio dudaba mucho, sobre todo porque ya había intentado de todo antes. Pero de todos modos decidí darle una oportunidad y ¡quedé impresionado!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">3h</span>
+                  <span class="reactions">219</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 3 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="LucasAlmeida.png" alt="Lucas Almeida" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Lucas Almeida</div>
+                  <div class="comment-text">Quería saber si funcionaba de verdad y ahora viendo todos estos comentarios positivos, ya sé la respuesta. ¡Muchas gracias a todos!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">51 min</span>
+                  <span class="reactions">24</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 4 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="MarceloSantosLima.png" alt="Marcelo Santos Lima" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Marcelo Santos Lima</div>
+                  <div class="comment-text">Estoy sorprendido de cómo funciona este truco. Dudaba que realmente funcionara, llevo 30 días usándolo y volví a hacerlo 2 veces por día, imagínate cuando complete 3 meses de uso, ¡mi mujer que me espere!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">49 min</span>
+                  <span class="reactions">14</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 5 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="GuilhermeMotta.png" alt="Guilherme Motta" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Guilherme Motta</div>
+                  <div class="comment-text">Realmente necesitaba este truco para salvar mi matrimonio, ya no sabía qué hacer. El video tarda un poco, pero después de que se revela el truco quedé sorprendido porque ¡funciona de verdad! ¡Gracias Doctor!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">45 min</span>
+                  <span class="reactions">102</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 6 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="RodrigoMenezes.png" alt="Rodrigo Menezes" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Rodrigo Menezes</div>
+                  <div class="comment-text">Después de cumplir 56 años, empecé a sufrir disfunción, lo que me hacía tener siempre una erección a medias, sin mencionar que mi libido estaba por el suelo... Ahora, después de usar tu solución, ¡todo eso se acabó! Dejé de pasar vergüenza. Realmente funciona, lo recomiendo mucho.</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">44 min</span>
+                  <span class="reactions">23</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 7 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="BrunoMartins.png" alt="Bruno Martins" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Bruno Martins</div>
+                  <div class="comment-text">¡Deberías mostrarle este truco a todo el mundo! ¡Funciona de verdad!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">2 min</span>
+                  <span class="reactions">5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 8 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="EmanuelSilva.png" alt="Emanuel Silva" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Emanuel Silva</div>
+                  <div class="comment-text">Yo sufría con erecciones a medias, no llegaba a fallar por completo, pero mi esposa notaba que algo andaba mal, incluso llegó a pelear conmigo pensando que la estaba engañando. Pero era solo que el amigo no subía bien. Ahora no hay quien me detenga, ¡volví a ser un adolescente!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">6h</span>
+                  <span class="reactions">28</span>
+                </div>
+                <div class="comment-reply">
+                  <img src="WagnerMoura.png" alt="Wagner Moura" class="comment-avatar">
+                  <div class="comment-content">
+                    <div class="comment-bubble">
+                      <div class="comment-author">Wagner Moura</div>
+                      <div class="comment-text">Hace más de 8 años que no consigo tenerlo rígido, ¿funcionará?</div>
+                    </div>
+                    <div class="comment-actions">
+                      <span>Me gusta</span>
+                      <span>Responder</span>
+                      <span class="timestamp">22 min</span>
+                      <span class="reactions">16</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment-reply">
+                  <img src="CeliaIvano.png" alt="Celia Ivano" class="comment-avatar">
+                  <div class="comment-content">
+                    <div class="comment-bubble">
+                      <div class="comment-author">Celia Ivano</div>
+                      <div class="comment-text">Wagner, eso se pone duro como concreto jaja. Este método fue el único intento que me funcionó. Pruébalo, ¡vas a ver cómo funciona!</div>
+                    </div>
+                    <div class="comment-actions">
+                      <span>Me gusta</span>
+                      <span>Responder</span>
+                      <span class="timestamp">19 min</span>
+                      <span class="reactions">11</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 9 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="DiegoSilva.png" alt="Diego Silva" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Diego Silva</div>
+                  <div class="comment-text">Hacía tres años que no podía izar la bandera. Probé de todo: gel, masajes y nada funcionaba. Solo este método logró salvarme, pero no lo uses demasiado porque luego no hay quien lo haga bajar.</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">17 min</span>
+                  <span class="reactions">18</span>
+                </div>
+                <div class="comment-reply">
+                  <img src="Joaopaulo.png" alt="João paulo" class="comment-avatar">
+                  <div class="comment-content">
+                    <div class="comment-bubble">
+                      <div class="comment-author">João paulo</div>
+                      <div class="comment-text">¡Gracias, yo también voy a probarlo!</div>
+                    </div>
+                    <div class="comment-actions">
+                      <span>Me gusta</span>
+                      <span>Responder</span>
+                      <span class="timestamp">9 min</span>
+                      <span class="reactions">14</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 10 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="OtavioNeto.png" alt="Otavio Neto" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Otavio Neto</div>
+                  <div class="comment-text">Hacía tiempo que andaba buscando esto, qué suerte que lo encontré de nuevo</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">8 min</span>
+                  <span class="reactions">5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 11 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="EduardoMachado.png" alt="Eduardo Machado" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Eduardo Machado</div>
+                  <div class="comment-text">Quiero agradecer a Rogério, que me mostró este método y me dejó duro de un modo que nunca había estado en mi vida, ¡me siento como un adolescente otra vez!</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">3 min</span>
+                  <span class="reactions">1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 12 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="JoseCarvalho.png" alt="José Carvalho" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">José Carvalho</div>
+                  <div class="comment-text">Yo sufría lo mismo que ustedes. Mi esposa ya estaba a punto de dejarme. Este truco del bicarbonato fue mi único intento que funcionó, vas a ver cómo funciona.</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">59 min</span>
+                  <span class="reactions">152</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 13 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="JoseAntonio.png" alt="José Antônio" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">José Antônio</div>
+                  <div class="comment-text">Al principio no lo creí, pero los resultados hablan por sí solos. Luchando con la disfunción y noches sin éxito, el tratamiento fue el único que me dio alivio</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">14 min</span>
+                  <span class="reactions">2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 14 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="FernandoLuizAlmeida.png" alt="Fernando Luiz Almeida" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Fernando Luiz Almeida</div>
+                  <div class="comment-text">Pagaría hasta un millón por este tratamiento si hubiera sabido que me haría sentir tan bien</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">4 min</span>
+                  <span class="reactions">1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario 15 -->
+          <div class="comment-item">
+            <div class="comment-main">
+              <img src="BentoSilva.png" alt="Bento Silva" class="comment-avatar">
+              <div class="comment-content">
+                <div class="comment-bubble">
+                  <div class="comment-author">Bento Silva</div>
+                  <div class="comment-text">Hoy finalmente dejé de sufrir con esa erección a medias y ahora ya no me despierto avergonzado, sino con mi mujer pidiendo acción.</div>
+                </div>
+                <div class="comment-actions">
+                  <span>Me gusta</span>
+                  <span>Responder</span>
+                  <span class="timestamp">8 min</span>
+                  <span class="reactions">56</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
-  <footer class="footer">
-    <nav aria-label="Información y políticas">
-      <a href="/index.html">Detalles del producto</a>
-      <a href="/terminos.html">Términos de compra</a>
-      <a href="/privacidad.html">Privacidad</a>
-      <a href="/reembolsos.html">Reembolsos</a>
-      <a href="/entrega.html">Entrega y acceso</a>
-      <a href="/contacto.html">Soporte</a>
-    </nav>
-    <p>Producto digital en español · Pago único · Sin suscripción.</p>
-    <p><strong>Dropix Editora e Marketing Ltda.</strong> · CNPJ: 65.255.590/0001-49<br>
-    Rua Antonio Basil Schroeder, 37, Barreiros, São José, Santa Catarina, CEP 88110-400, Brasil.</p>
-    <p><a href="mailto:guiasuporteoficial@gmail.com">guiasuporteoficial@gmail.com</a> · <a href="https://wa.me/5519999962986" target="_blank" rel="noopener noreferrer">WhatsApp de soporte</a></p>
-  </footer>
-  <noscript><p class="footer">Activa JavaScript para ver el video. También puedes consultar los <a href="/index.html">detalles del producto</a>.</p></noscript>
+
+  <noscript><p style="text-align:center;padding:20px;">Activa JavaScript para ver el video. También puedes consultar los <a href="/index.html">detalles del producto</a>.</p></noscript>
+
+  <!-- ===== CONTADOR + DATA DINÂMICA ===== -->
+  <script>
+    function actualizarFecha() {
+      const hoy = new Date();
+      const dia = String(hoy.getDate()).padStart(2, '0');
+      const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+      const ano = hoy.getFullYear();
+      document.getElementById('data-limite').innerText = dia + '/' + mes + '/' + ano;
+    }
+    function randomizarPersonas() {
+      const min = 727;
+      const max = 1000;
+      const numero = Math.floor(Math.random() * (max - min + 1)) + min;
+      document.getElementById('contador-pessoas').innerText = numero;
+    }
+    window.addEventListener('load', function() {
+      actualizarFecha();
+      randomizarPersonas();
+    });
+  </script>
+
   <script id="alfa-video-navigation">
   (function(){
     'use strict';
     const button=document.getElementById('cta-button');
     if(!button)return;
-    // Única origem do destino: o href acima. Sem criar sessão ou disparar IC no clique.
     const configuredHref=button.getAttribute('href');
     const keys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaign_id','adset_id','ad_id','placement','site_source_name'];
     const entry=new URLSearchParams(location.search);
@@ -236,16 +640,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     function updateLink(){
       try{
         const target=new URL(configuredHref,location.href);
-        // As integrações existentes pressupõem checkout no MESMO domínio.
         if(target.origin!==location.origin)return;
         const fresh=keys.some(key=>valid(entry.get(key),200));
         const saved=fresh?{}:(window.AlfaMeta?.tracking?.()||{});
         for(const key of keys){const value=fresh?entry.get(key):saved[key];if(valid(value,200))target.searchParams.set(key,value);}
         const click=entry.get('fbclid');
         if(click&&/^[A-Za-z0-9_.-]{1,450}$/.test(click))target.searchParams.set('fbclid',click);
-        // Não colocar _fbp, _fbc, auth_validado, dados pessoais ou tokens na URL.
         button.href=target.href;
-      }catch{ /* A navegação normal permanece disponível se o rastreamento falhar. */ }
+      }catch{}
     }
     updateLink();
     for(const event of ['click','auxclick','contextmenu','focus'])button.addEventListener(event,updateLink);
