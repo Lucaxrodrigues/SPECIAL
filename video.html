@@ -124,6 +124,8 @@ function pixel(item){
 async function flush(){
  if(flushing||!allowed())return;flushing=true;
  try{
+  // O Pixel não precisa aguardar o token usado somente pela CAPI.
+  for(const item of pending.values())pixel(item);
   if(!visitToken)await boot();
   if(!scriptReady&&Date.now()<pixelGraceUntil){schedule();return;}
   for(const [id,item]of pending){
@@ -153,10 +155,11 @@ async function boot(){
   const previous=read(VISITOR);visitor=previous&&uuid.test(previous.id)&&previous.until>Date.now()?previous:{id:crypto.randomUUID(),until:Date.now()+180*86400000};save(VISITOR,visitor);
   rememberAttribution();
   startPixel().catch(()=>{});
-  let r;try{r=await post('meta-init',{visitorId:visitor.id,meta:context()});}catch{}
-  if(r?.visitToken)visitToken=r.visitToken;
+
   for(const item of read(QUEUE,true)||[])if(item.eventTime>Date.now()/1000-86400&&!pending.has(item.eventId))pending.set(item.eventId,item);
-  enqueue({name:'PageView',eventId:'pv_'+pageId,eventTime:pageTime,pageId,custom:{integration_test:true,...attribution}});
+  enqueue({name:'PageView',eventId:'pv_'+pageId,eventTime:pageTime,pageId,custom:{integration_test:false,...attribution}});
+  let r;try{r=await post('meta-init',{visitorId:visitor.id,meta:context()});}catch{console.warn('[AlfaMeta] meta-init indisponível; envio CAPI será tentado novamente.');}
+  if(r?.visitToken)visitToken=r.visitToken;
   if(auth?.isCheckout)queueIC();for(const r of receiptsSeen.values())queueReceipt(r);if(contactWaiting)contact(contactWaiting);sync();
  })();try{await booting;}finally{booting=null;}
 }
@@ -170,7 +173,7 @@ function currentCheckout(){
  checkoutId=old&&old.until>Date.now()&&uuid.test(old.id)?old.id:crypto.randomUUID();
  save('alfa-meta-checkout-v2',{id:checkoutId,until:Date.now()+30*60000},true);return checkoutId;
 }
-function queueIC(){if(!allowed()||!auth?.isCheckout)return;const id=currentCheckout();enqueue({name:'InitiateCheckout',eventId:'checkout_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});}
+function queueIC(){if(!allowed()||!auth?.isCheckout)return;const id=currentCheckout();enqueue({name:'InitiateCheckout',eventId:'checkout_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:false,...attribution}});}
 function observe(data,path,request){
  if(data?.statusToken&&data.sessionId){auth={id:data.sessionId,token:data.statusToken,isCheckout:true};queueIC();sync();}
  else if(request?.token&&request?.id){auth={id:request.id,token:request.token,isCheckout:['session','status','consent'].includes(path)};}
@@ -181,14 +184,14 @@ function observe(data,path,request){
 }
 function queueReceipt(r){
  if(!r.eventId||typeof r.value!=='number')return;
- enqueue({name:'Purchase',eventId:r.eventId,eventTime:Math.floor(Date.now()/1000),custom:{currency:r.currency,value:r.value,value_basis:r.value_basis,charged_currency:r.charged_currency,charged_value:r.charged_value,content_ids:[r.offer],content_type:'product',num_items:1,order_id:r.sessionId,integration_test:true,...attribution}});
+ enqueue({name:'Purchase',eventId:r.eventId,eventTime:Math.floor(Date.now()/1000),custom:{currency:r.currency,value:r.value,value_basis:r.value_basis,charged_currency:r.charged_currency,charged_value:r.charged_value,content_ids:[r.offer],content_type:'product',num_items:1,order_id:r.sessionId,integration_test:false,...attribution}});
 }
 async function contact(buyer){
  contactWaiting={email:buyer?.email||'',phone:buyer?.phone||''};if(!allowed()||!auth?.isCheckout||!visitor)return;
  const email=contactWaiting.email.trim().toLowerCase(),phone=contactWaiting.phone.replace(/\D/g,'');
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254)return;
  const id=currentCheckout();const c={em:await hash(email)};if(phone.length>=6&&phone.length<=15)c.ph=await hash(phone);
- enqueue({name:'CheckoutContactProvided',eventId:'contact_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,contact:c,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:true,...attribution}});
+ enqueue({name:'CheckoutContactProvided',eventId:'contact_'+id,eventTime:Math.floor(Date.now()/1000),checkoutId:id,sessionId:auth.id,sessionToken:auth.token,contact:c,custom:{currency:'USD',value:27,value_basis:'offer_reference_usd',content_ids:['alfa_max'],content_type:'product',num_items:1,integration_test:false,...attribution}});
  contactWaiting=null;
 }
 function decide(value){
@@ -199,8 +202,8 @@ function decide(value){
 }
 function updatePreference(){const el=document.getElementById('alfa-meta-state');if(el)el.textContent=allowed()?'Publicidad: activada.':'Publicidad: desactivada.';}
 async function init(){
- const stored=read(KEY);choice=stored&&Date.now()-stored.at<180*86400000&&typeof stored.allowed==='boolean'?stored.allowed:null;
- try{const policy=await post('meta-policy',{});automatic=policy.autoAllowed===true;policyReady=true;}catch{automatic=false;}
+ // Inicialização direta solicitada para esta página.
+ choice=null;automatic=true;policyReady=true;
  updatePreference();if(allowed()){try{await boot();flush();}catch{setTimeout(()=>boot().then(flush).catch(()=>{}),5000);}}
 }
 window.AlfaMeta={context,observe,contact,tracking:()=>({...attribution})};
@@ -263,7 +266,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Eduardo Coelhor</div>
-                  <div class="comment-text">Qué bueno que vi el video hasta el final. Estoy muy feliz. Muchas gracias Dr. por haberlo descubierto, hice la prueba y en dos días ya volví duro, ¡nunca más la pastilla azul!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -276,7 +279,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
                   <div class="comment-content">
                     <div class="comment-bubble">
                       <div class="comment-author">Roberto Belmonte</div>
-                      <div class="comment-text">El negocio funciona, amigo</div>
+                      <div class="comment-text">teste de comentário</div>
                     </div>
                     <div class="comment-actions">
                       <span>Me gusta</span>
@@ -297,7 +300,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Pedro Paulo</div>
-                  <div class="comment-text">Al principio dudaba mucho, sobre todo porque ya había intentado de todo antes. Pero de todos modos decidí darle una oportunidad y ¡quedé impresionado!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -316,7 +319,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Lucas Almeida</div>
-                  <div class="comment-text">Quería saber si funcionaba de verdad y ahora viendo todos estos comentarios positivos, ya sé la respuesta. ¡Muchas gracias a todos!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -335,7 +338,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Marcelo Santos Lima</div>
-                  <div class="comment-text">Estoy sorprendido de cómo funciona este truco. Dudaba que realmente funcionara, llevo 30 días usándolo y volví a hacerlo 2 veces por día, imagínate cuando complete 3 meses de uso, ¡mi mujer que me espere!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -354,7 +357,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Guilherme Motta</div>
-                  <div class="comment-text">Realmente necesitaba este truco para salvar mi matrimonio, ya no sabía qué hacer. El video tarda un poco, pero después de que se revela el truco quedé sorprendido porque ¡funciona de verdad! ¡Gracias Doctor!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -373,7 +376,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Rodrigo Menezes</div>
-                  <div class="comment-text">Después de cumplir 56 años, empecé a sufrir disfunción, lo que me hacía tener siempre una erección a medias, sin mencionar que mi libido estaba por el suelo... Ahora, después de usar tu solución, ¡todo eso se acabó! Dejé de pasar vergüenza. Realmente funciona, lo recomiendo mucho.</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -392,7 +395,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Bruno Martins</div>
-                  <div class="comment-text">¡Deberías mostrarle este truco a todo el mundo! ¡Funciona de verdad!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -411,7 +414,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Emanuel Silva</div>
-                  <div class="comment-text">Yo sufría con erecciones a medias, no llegaba a fallar por completo, pero mi esposa notaba que algo andaba mal, incluso llegó a pelear conmigo pensando que la estaba engañando. Pero era solo que el amigo no subía bien. Ahora no hay quien me detenga, ¡volví a ser un adolescente!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -424,7 +427,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
                   <div class="comment-content">
                     <div class="comment-bubble">
                       <div class="comment-author">Wagner Moura</div>
-                      <div class="comment-text">Hace más de 8 años que no consigo tenerlo rígido, ¿funcionará?</div>
+                      <div class="comment-text">teste de comentário</div>
                     </div>
                     <div class="comment-actions">
                       <span>Me gusta</span>
@@ -439,7 +442,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
                   <div class="comment-content">
                     <div class="comment-bubble">
                       <div class="comment-author">Celia Ivano</div>
-                      <div class="comment-text">Wagner, eso se pone duro como concreto jaja. Este método fue el único intento que me funcionó. Pruébalo, ¡vas a ver cómo funciona!</div>
+                      <div class="comment-text">teste de comentário</div>
                     </div>
                     <div class="comment-actions">
                       <span>Me gusta</span>
@@ -460,7 +463,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Diego Silva</div>
-                  <div class="comment-text">Hacía tres años que no podía izar la bandera. Probé de todo: gel, masajes y nada funcionaba. Solo este método logró salvarme, pero no lo uses demasiado porque luego no hay quien lo haga bajar.</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -473,7 +476,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
                   <div class="comment-content">
                     <div class="comment-bubble">
                       <div class="comment-author">João paulo</div>
-                      <div class="comment-text">¡Gracias, yo también voy a probarlo!</div>
+                      <div class="comment-text">teste de comentário</div>
                     </div>
                     <div class="comment-actions">
                       <span>Me gusta</span>
@@ -494,7 +497,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Otavio Neto</div>
-                  <div class="comment-text">Hacía tiempo que andaba buscando esto, qué suerte que lo encontré de nuevo</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -513,7 +516,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Eduardo Machado</div>
-                  <div class="comment-text">Quiero agradecer a Rogério, que me mostró este método y me dejó duro de un modo que nunca había estado en mi vida, ¡me siento como un adolescente otra vez!</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -532,7 +535,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">José Carvalho</div>
-                  <div class="comment-text">Yo sufría lo mismo que ustedes. Mi esposa ya estaba a punto de dejarme. Este truco del bicarbonato fue mi único intento que funcionó, vas a ver cómo funciona.</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -551,7 +554,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">José Antônio</div>
-                  <div class="comment-text">Al principio no lo creí, pero los resultados hablan por sí solos. Luchando con la disfunción y noches sin éxito, el tratamiento fue el único que me dio alivio</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -570,7 +573,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Fernando Luiz Almeida</div>
-                  <div class="comment-text">Pagaría hasta un millón por este tratamiento si hubiera sabido que me haría sentir tan bien</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
@@ -589,7 +592,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               <div class="comment-content">
                 <div class="comment-bubble">
                   <div class="comment-author">Bento Silva</div>
-                  <div class="comment-text">Hoy finalmente dejé de sufrir con esa erección a medias y ahora ya no me despierto avergonzado, sino con mi mujer pidiendo acción.</div>
+                  <div class="comment-text">teste de comentário</div>
                 </div>
                 <div class="comment-actions">
                   <span>Me gusta</span>
