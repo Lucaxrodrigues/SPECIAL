@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-MKF9HT6T');</script>
-  <!-- End Google Tag Manager -->
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,29 +28,23 @@
     body{font-family:system-ui,-apple-system,sans-serif;background:#fff;color:#333;min-height:100vh;padding-top:60px}
     main{width:100%}
 
-    /* ===== BARRA VERMELHA DE URGÊNCIA ===== */
     .barra-topo{position:fixed;top:0;left:0;right:0;background:#cc0000;color:#fff;text-align:center;padding:12px 15px;font-size:14px;font-weight:500;line-height:1.4;z-index:999}
     .barra-topo b{font-weight:700}
 
-    /* ===== HEADLINE IMAGE ===== */
     .headline-image{width:100%;max-width:600px;height:auto;display:block;margin:20px auto 20px auto;padding:0 15px}
 
     .video-wrapper{width:100%;max-width:420px;margin:10px auto 10px;padding:0 15px;position:relative;z-index:1}
 
-    /* ===== AVISO DE SOM ===== */
     .aviso-som{background:#f1f1f1;color:#555;padding:10px 20px;border-radius:4px;font-size:14px;margin:10px auto 30px;text-align:center;max-width:420px;display:block}
 
     .cta-section{text-align:center;width:100%;max-width:650px;margin:20px auto 40px;padding:0 20px;position:relative;z-index:2}
 
-    /* ===== BOTÃO OCULTO — VTurb revela no pitch ===== */
-    /* O VTurb vai remover essa classe quando o vídeo chegar no pitch */
     .cta-oculto{display:none !important}
 
     .cta-button{display:inline-block;background:#197d44;color:#fff;font-size:20px;font-weight:800;padding:22px 38px;border-radius:12px;text-decoration:none;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 8px 24px #27af6033;animation:ctaPulse 2.2s ease-in-out infinite;max-width:100%;line-height:1.3;overflow-wrap:anywhere}
     .cta-button:hover{background:#146739}
     a:focus-visible{outline:3px solid #174b91;outline-offset:5px}
 
-    /* ===== COMENTÁRIOS / DEPOIMENTOS ===== */
     .comments-section{margin-top:48px;background-color:#f0f2f5;padding:20px 0}
     .comments-container{max-width:800px;margin:0 auto;background-color:white;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.1)}
     .comments-header{padding:16px 16px 12px 16px;border-bottom:1px solid #e4e6eb}
@@ -81,7 +73,7 @@
     @media(prefers-reduced-motion:reduce){.cta-button{animation:none}}
   </style>
   <style id="alfa-meta-style"></style>
-  <script id="alfa-meta-script">/* M2: own visitor/action IDs are separate from the real Meta cookie identifiers. */
+  <script id="alfa-meta-script">
 (()=>{'use strict';
 const PIXEL='25604776625865776',API='https://alfa-max-stripe.lucaszrodx.workers.dev';
 const KEY='alfa-marketing-v1',VISITOR='alfa-meta-visitor-v2',ATTR='alfa-meta-attribution-v2',QUEUE='alfa-meta-queue-v2';
@@ -132,7 +124,6 @@ function pixel(item){
 async function flush(){
  if(flushing||!allowed())return;flushing=true;
  try{
-  // O Pixel não precisa aguardar o token usado somente pela CAPI.
   for(const item of pending.values())pixel(item);
   if(!visitToken)await boot();
   if(!scriptReady&&Date.now()<pixelGraceUntil){schedule();return;}
@@ -210,7 +201,6 @@ function decide(value){
 }
 function updatePreference(){const el=document.getElementById('alfa-meta-state');if(el)el.textContent=allowed()?'Publicidad: activada.':'Publicidad: desactivada.';}
 async function init(){
- // Inicialização direta solicitada para esta página.
  choice=null;automatic=true;policyReady=true;
  updatePreference();if(allowed()){try{await boot();flush();}catch{setTimeout(()=>boot().then(flush).catch(()=>{}),5000);}}
 }
@@ -222,12 +212,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKF9HT6T"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
 
-  <!-- ===== BARRA VERMELHA DE URGÊNCIA ===== -->
   <div class="barra-topo">
     <span id="contador-pessoas">...</span> Personas están viendo este video.<br>
     Debido a la alta demanda de accesos, garantizamos la presentación solo hasta: <b><span id="data-limite"></span></b>
@@ -235,9 +222,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
   <main>
     <h1 class="sr-only">Alfa Max · Presentación del kit digital</h1>
-
-    <!-- ===== HEADLINE ===== -->
-    <img src="headline.png" alt="Alfa Max" class="headline-image">
 
     <div class="video-wrapper">
       <vturb-smartplayer id="vid-6aa45b9c6d7a1359e682f7e6" style="display:block;margin:0 auto;width:100%;max-width:400px;">
@@ -252,17 +236,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       </script>
     </div>
 
-    <!-- ===== AVISO DE SOM ===== -->
     <div class="aviso-som">🔊 Por favor, verifique que el sonido esté encendido.</div>
 
-    <!-- ===== BOTÃO CTA — OCULTO — VTurb revela no pitch ===== -->
-    <!-- ID: cta-section | Classe: cta-oculto -->
-    <!-- No painel VTurb, use ID "cta-section" OU classe "cta-oculto" -->
     <section class="cta-section cta-oculto" id="cta-section" aria-label="Acceder al kit">
       <a href="/go-checkout" class="cta-button" id="cta-button">QUIERO ACCEDER A ALFA MAX</a>
     </section>
 
-    <!-- ===== COMENTARIOS / DEPOIMENTOS ===== -->
     <section class="comments-section">
       <div class="comments-container">
         <div class="comments-header">
@@ -272,7 +251,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         </div>
 
         <div class="comments-list">
-          <!-- Comentario 1 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="EduardoCoelhor.png" alt="Eduardo Coelhor" class="comment-avatar">
@@ -306,7 +284,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 2 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="PedroPaulo.png" alt="Pedro Paulo" class="comment-avatar">
@@ -325,7 +302,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 3 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="LucasAlmeida.png" alt="Lucas Almeida" class="comment-avatar">
@@ -344,7 +320,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 4 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="MarceloSantosLima.png" alt="Marcelo Santos Lima" class="comment-avatar">
@@ -363,7 +338,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 5 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="GuilhermeMotta.png" alt="Guilherme Motta" class="comment-avatar">
@@ -382,7 +356,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 6 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="RodrigoMenezes.png" alt="Rodrigo Menezes" class="comment-avatar">
@@ -401,7 +374,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 7 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="BrunoMartins.png" alt="Bruno Martins" class="comment-avatar">
@@ -420,7 +392,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 8 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="EmanuelSilva.png" alt="Emanuel Silva" class="comment-avatar">
@@ -469,7 +440,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 9 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="DiegoSilva.png" alt="Diego Silva" class="comment-avatar">
@@ -503,7 +473,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 10 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="OtavioNeto.png" alt="Otavio Neto" class="comment-avatar">
@@ -522,7 +491,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 11 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="EduardoMachado.png" alt="Eduardo Machado" class="comment-avatar">
@@ -541,7 +509,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 12 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="JoseCarvalho.png" alt="José Carvalho" class="comment-avatar">
@@ -560,7 +527,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 13 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="JoseAntonio.png" alt="José Antônio" class="comment-avatar">
@@ -579,7 +545,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 14 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="FernandoLuizAlmeida.png" alt="Fernando Luiz Almeida" class="comment-avatar">
@@ -598,7 +563,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
             </div>
           </div>
 
-          <!-- Comentario 15 -->
           <div class="comment-item">
             <div class="comment-main">
               <img src="BentoSilva.png" alt="Bento Silva" class="comment-avatar">
@@ -623,7 +587,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
   <noscript><p style="text-align:center;padding:20px;">Activa JavaScript para ver el video. También puedes consultar los <a href="/index.html">detalles del producto</a>.</p></noscript>
 
-  <!-- ===== CONTADOR + DATA DINÂMICA ===== -->
   <script>
     function actualizarFecha() {
       const hoy = new Date();
