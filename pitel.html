@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101023">
+  <title>Ver la presentación gratuita</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      background: radial-gradient(ellipse at 50% 45%, #191b36, #101023 65%);
+      color: #f6f7ff;
+      font-family: "Inter", system-ui, sans-serif;
+      text-align: center;
+    }
+
+    main { width: min(100%, 720px); }
+
+    h1 {
+      margin: 0 auto;
+      font-size: clamp(1.85rem, 5.4vw, 3rem);
+      font-weight: 750;
+      letter-spacing: -0.035em;
+      line-height: 1.22;
+      text-wrap: balance;
+    }
+
+    strong {
+      color: #58d6f5;
+      font-weight: inherit;
+      text-decoration: underline;
+      text-decoration-color: #296783;
+      text-underline-offset: 0.13em;
+      text-decoration-thickness: 0.08em;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: clamp(28px, 5vw, 42px);
+      width: min(100%, 270px);
+      min-height: 58px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: linear-gradient(110deg, #589bff, #54d3ee);
+      color: #091b36;
+      box-shadow: 0 8px 32px #37aafa26;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover { filter: brightness(1.08); }
+    a:focus-visible { outline: 3px solid white; outline-offset: 5px; }
+  </style>
+  <script>
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;
+      n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;
+      n.push=n; n.loaded=true; n.version='2.0'; n.queue=[];
+      t=b.createElement(e); t.async=true; t.src=v;
+      s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '25604776625865776');
+    fbq('track', 'PageView');
+  </script>
+</head>
+<body>
+  <noscript>
+    <img height="1" width="1" style="display:none" alt=""
+         src="https://www.facebook.com/tr?id=25604776625865776&amp;ev=PageView&amp;noscript=1">
+  </noscript>
+  <main>
+    <h1>¡Haz clic en el botón de abajo para ver la presentación <strong>GRATIS!</strong></h1>
+    <a id="ver-video" href="video7.html">VER AHORA <span aria-hidden="true">→</span></a>
+  </main>
+  <script>
+    const enlace = document.getElementById('ver-video');
+    enlace.href = enlace.getAttribute('href') + window.location.search + window.location.hash;
+  </script>
+</body>
+</html>
